@@ -36,9 +36,29 @@ final class KanaTests: XCTestCase {
         XCTAssertEqual(Kana.hiragana(fromRomaji: "hon")?.pending, "n")
     }
 
+    func testTextAnIMEIsStillComposing() throws {
+        // Japanese romaji keyboard: kana so far plus the consonant just typed.
+        let composing = try XCTUnwrap(Kana.hiragana(fromRomaji: "たb"))
+        XCTAssertEqual(composing.kana, "た")
+        XCTAssertEqual(composing.pending, "b")
+        XCTAssertEqual(Kana.hiragana(fromRomaji: "タベr")?.kana, "たべ")
+        // Full-width letters, and the apostrophe a pinyin IME puts between syllables.
+        XCTAssertEqual(Kana.hiragana(fromRomaji: "ｔａｂｅ")?.kana, "たべ")
+        XCTAssertEqual(Kana.hiragana(fromRomaji: "ta'be")?.kana, "たべ")
+    }
+
+    func testPendingRomajiCompletions() {
+        XCTAssertEqual(Set(Kana.completions(ofPending: "b")).isSuperset(of: ["ば", "び", "ぶ", "べ", "ぼ", "びゃ"]), true)
+        XCTAssertTrue(Kana.completions(ofPending: "sh").allSatisfy { $0.hasPrefix("し") })
+        XCTAssertEqual(Kana.completions(ofPending: "n").first, "ん")
+        XCTAssertTrue(Kana.completions(ofPending: "q").isEmpty)
+    }
+
     func testNonRomajiIsRejected() {
         XCTAssertNil(Kana.hiragana(fromRomaji: "食べる"))
         XCTAssertNil(Kana.hiragana(fromRomaji: ""))
         XCTAssertNil(Kana.hiragana(fromRomaji: "abc1"))
+        XCTAssertNil(Kana.hiragana(fromRomaji: "食べr"))
+        XCTAssertNil(Kana.hiragana(fromRomaji: "qqqq"))
     }
 }

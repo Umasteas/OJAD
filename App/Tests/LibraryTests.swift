@@ -16,8 +16,8 @@ final class LibraryTests: XCTestCase {
         clock = Date(timeIntervalSince1970: 1_800_000_000)
     }
 
-    /// Online-only unless given the bundled dictionary (`OfflineDictionary.bundled`).
-    private func makeLibrary(dictionary: OfflineDictionary? = nil) -> Library {
+    /// Online-only unless given the bundled dictionary (`BundledDictionary.shared`).
+    private func makeLibrary(dictionary: BundledDictionary = .onlineOnly) -> Library {
         let transport = transport!
         return Library(
             context: container.mainContext,
@@ -105,7 +105,8 @@ final class LibraryTests: XCTestCase {
     // MARK: Offline
 
     private func offlineLibrary() throws -> Library {
-        makeLibrary(dictionary: try XCTUnwrap(OfflineDictionary.bundled, "Dictionary.sqlite missing from the app bundle"))
+        XCTAssertEqual(BundledDictionary.shared.diagnostics.state, .loaded, "Dictionary.sqlite missing from the app bundle")
+        return makeLibrary(dictionary: .shared)
     }
 
     func testOfflineSearchNeedsNoNetworkAndIsRecorded() async throws {
@@ -119,12 +120,62 @@ final class LibraryTests: XCTestCase {
         XCTAssertEqual(transport.count, 0)
     }
 
-    func testSuggestionsAcceptRomaji() throws {
+    func testSuggestionsAcceptRomaji() async throws {
         let library = try offlineLibrary()
-        let suggestions = library.suggestions(for: "tabe")
+        let suggestions = await library.suggestions(for: "tabe")
         XCTAssertEqual(suggestions.first?.written, "食べる")
         XCTAssertLessThanOrEqual(suggestions.count, 10)
-        XCTAssertTrue(library.suggestions(for: "").isEmpty)
+        XCTAssertEqual(library.diagnostics.lastSuggestion?.query, "tabe")
+        XCTAssertEqual(library.diagnostics.lastSuggestion?.results, suggestions.count)
+        let empty = await library.suggestions(for: "")
+        XCTAssertTrue(empty.isEmpty)
+    }
+
+    func testTheBundledDictionaryIsInTheAppAndOpens() {
+        let bundled = BundledDictionary.shared
+        XCTAssertNotNil(Bundle.main.url(forResource: "Dictionary", withExtension: "sqlite"))
+        XCTAssertNotNil(bundled.dictionary)
+        XCTAssertEqual(bundled.diagnostics.state, .loaded)
+        XCTAssertGreaterThan(bundled.diagnostics.words, 100_000)
+        XCTAssertGreaterThan(bundled.diagnostics.fileSize, 10_000_000)
+        XCTAssertEqual(bundled.dictionary?.metadata["schema"], "2")
+    }
+
+    func testAMissingOrBrokenDictionaryIsReportedAndSearchGoesOnline() async throws {
+        XCTAssertEqual(BundledDictionary.open(nil).diagnostics.state, .missing)
+        let broken = FileManager.default.temporaryDirectory.appendingPathComponent("broken-\(UUID()).sqlite")
+        try Data(repeating: 1, count: 4096).write(to: broken)
+        defer { try? FileManager.default.removeItem(at: broken) }
+        guard case .failed = BundledDictionary.open(broken).diagnostics.state else {
+            return XCTFail("A broken file should report failed")
+        }
+
+        let library = makeLibrary(dictionary: .onlineOnly)
+        let suggestions = await library.suggestions(for: "tabe")
+        XCTAssertTrue(suggestions.isEmpty)
+        _ = try await library.search("学校")
+        XCTAssertEqual(transport.count, 1)
+    }
+
+    /// Perceived latency budget: typing and opening a word should feel instant.
+    func testLookupsStayFastOnTheFullDictionary() async throws {
+        let library = try offlineLibrary()
+        BundledDictionary.shared.dictionary?.warmUp()
+        let clock = ContinuousClock()
+        for typed in ["あ", "か", "し", "s", "tabe", "たb", "食", "ta be"] {
+            let start = clock.now
+            let words = await library.suggestions(for: typed)
+            let elapsed = start.duration(to: clock.now)
+            XCTAssertFalse(words.isEmpty, typed)
+            XCTAssertLessThan(elapsed, .milliseconds(50), "\(typed): \(elapsed)")
+        }
+        let start = clock.now
+        let entries = try await library.search("食べる")
+        let details = await library.offlineDetails(for: try XCTUnwrap(entries.first))
+        let elapsed = start.duration(to: clock.now)
+        XCTAssertFalse(details.examples.isEmpty)
+        XCTAssertEqual(details.word?.gloss, "to eat")
+        XCTAssertLessThan(elapsed, .milliseconds(50), "search + details: \(elapsed)")
     }
 
     func testFavoritesSavedFromOJADStayFavoritesOffline() async throws {
@@ -146,10 +197,12 @@ final class LibraryTests: XCTestCase {
         let library = try offlineLibrary()
         let results = try await library.search("食べる")
         let offline = try XCTUnwrap(results.first)
-        XCTAssertFalse(library.offlineExamples(for: offline).isEmpty)
+        let examples = await library.offlineDetails(for: offline).examples
+        XCTAssertFalse(examples.isEmpty)
 
         let fromOJAD = WordEntry(id: 1238, headword: offline.headword, category: .verb, forms: offline.forms)
-        XCTAssertEqual(library.offlineExamples(for: fromOJAD), library.offlineExamples(for: offline))
+        let fromOJADExamples = await library.offlineDetails(for: fromOJAD).examples
+        XCTAssertEqual(fromOJADExamples, examples)
         XCTAssertEqual(transport.count, 0)
     }
 }

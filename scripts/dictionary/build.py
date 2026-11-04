@@ -23,8 +23,13 @@ import urllib.request
 import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 MAX_EXAMPLES = 6
+# Suggestions for prefixes matching more than PREFIX_MIN_KEYS keys are precomputed
+# (top PREFIX_TOP words), so no query on the phone scans more than that many keys.
+PREFIX_TOP = 20
+PREFIX_MIN_KEYS = 32
+PREFIX_MAX_LENGTH = 4
 
 CONJUGATING = {
     'v1', 'v1-s', 'v5aru', 'v5b', 'v5g', 'v5k', 'v5k-s', 'v5m', 'v5n', 'v5r', 'v5r-i', 'v5s', 'v5t',
@@ -304,6 +309,13 @@ def write_database(words, out, meta):
             gloss TEXT
         );
         CREATE TABLE keys (key TEXT NOT NULL, word_id INTEGER NOT NULL, PRIMARY KEY (key, word_id)) WITHOUT ROWID;
+        CREATE TABLE prefixes (
+            prefix TEXT NOT NULL,
+            position INTEGER NOT NULL,
+            word_id INTEGER NOT NULL,
+            exact INTEGER NOT NULL,
+            PRIMARY KEY (prefix, position)
+        ) WITHOUT ROWID;
         CREATE TABLE examples (
             word_id INTEGER NOT NULL,
             position INTEGER NOT NULL,
@@ -323,11 +335,33 @@ def write_database(words, out, meta):
         for position, (sentence_id, japanese, english, form) in enumerate(word['examples']):
             db.execute('INSERT INTO examples VALUES (?, ?, ?, ?, ?, ?)',
                        (word_id, position, sentence_id, japanese, english, form))
-    meta = dict(meta, schema=str(SCHEMA_VERSION), words=str(len(words)))
+    ranks = {word_id: word['rank'] for word_id, word in enumerate(words, start=1)}
+    for prefix, rows in top_prefixes(db.execute('SELECT key, word_id FROM keys'), ranks):
+        db.executemany('INSERT INTO prefixes VALUES (?, ?, ?, ?)',
+                       [(prefix, position, word_id, exact) for position, (word_id, exact) in enumerate(rows)])
+    meta = dict(meta, schema=str(SCHEMA_VERSION), words=str(len(words)), prefix_top=str(PREFIX_TOP))
     db.executemany('INSERT INTO meta VALUES (?, ?)', sorted(meta.items()))
     db.commit()
     db.execute('VACUUM')
     db.close()
+
+
+def top_prefixes(keys, ranks):
+    """(prefix, [(word_id, exact)]) for every busy prefix, ordered like the app's own
+    prefix query: exact matches first, then rank descending, then id."""
+    matches = {}
+    key_counts = {}
+    for key, word_id in keys:
+        for length in range(1, min(len(key), PREFIX_MAX_LENGTH) + 1):
+            prefix = key[:length]
+            key_counts[prefix] = key_counts.get(prefix, 0) + 1
+            words = matches.setdefault(prefix, {})
+            words[word_id] = words.get(word_id, False) or key == prefix
+    for prefix in sorted(matches):
+        if key_counts[prefix] <= PREFIX_MIN_KEYS:
+            continue
+        ordered = sorted(matches[prefix].items(), key=lambda item: (not item[1], -ranks[item[0]], item[0]))
+        yield prefix, [(word_id, int(exact)) for word_id, exact in ordered[:PREFIX_TOP]]
 
 
 def build_from(inputs, out):

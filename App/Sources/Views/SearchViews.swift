@@ -52,7 +52,9 @@ struct SearchView: View {
         }
         try? await Task.sleep(for: .milliseconds(120))
         guard !Task.isCancelled else { return }
-        suggestions = library.suggestions(for: typed)
+        let words = await library.suggestions(for: typed)
+        guard !Task.isCancelled else { return }
+        suggestions = words
     }
 
     private func submit(_ query: String) {
@@ -155,12 +157,20 @@ struct SearchResultsView: View {
                             }
                         }
                     }
-                    Section {
-                        NavigationLink(value: OnlineQuery(text: query)) {
-                            Label("在线查询 OJAD", systemImage: "globe")
+                    if library.dictionary == nil {
+                        Section {
+                            Label("离线词典没有加载，以上是 OJAD 的在线结果。详情见「关于 → 词典状态」。", systemImage: "exclamationmark.triangle")
+                                .font(.footnote)
+                                .foregroundStyle(.orange)
                         }
-                    } footer: {
-                        Text("离线结果由词典数据推导。想和 OJAD 原站核对时再在线查询（需联网）。")
+                    } else {
+                        Section {
+                            NavigationLink(value: OnlineQuery(text: query)) {
+                                Label("在线查询 OJAD", systemImage: "globe")
+                            }
+                        } footer: {
+                            Text("离线结果由词典数据推导。想和 OJAD 原站核对时再在线查询（需联网）。")
+                        }
                     }
                 }
             }

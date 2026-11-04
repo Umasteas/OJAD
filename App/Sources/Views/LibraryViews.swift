@@ -78,12 +78,58 @@ struct HistoryView: View {
     }
 }
 
-extension OfflineDictionary {
-    /// `115893 词 · JMdict 3.6.2 2026-11-02`
-    var summary: String {
-        var parts = [metadata["words"].map { "\($0) 词" } ?? ""]
-        if let jmdict = metadata["jmdict"] { parts.append("JMdict \(jmdict)") }
-        return parts.filter { !$0.isEmpty }.joined(separator: " · ")
+/// What the user can read out when search misbehaves on the phone: whether the
+/// bundled dictionary opened, and how long the last lookups took.
+struct DictionaryStatusSection: View {
+    @Environment(Library.self) private var library
+    @State private var testing = false
+
+    var body: some View {
+        let diagnostics = library.diagnostics
+        Section {
+            LabeledContent("状态", value: diagnostics.stateText)
+            if diagnostics.state == .loaded {
+                LabeledContent("词数", value: "\(diagnostics.words)")
+                if let version = diagnostics.version {
+                    LabeledContent("JMdict", value: version)
+                }
+                LabeledContent("文件", value: ByteCountFormatter.string(fromByteCount: Int64(diagnostics.fileSize), countStyle: .file))
+                LabeledContent("打开耗时", value: diagnostics.openDuration.millisecondsText)
+            }
+            if let timing = diagnostics.lastSuggestion {
+                LabeledContent("上次候选「\(timing.query)」", value: "\(timing.results) 个 · \(timing.milliseconds)")
+            }
+            if let timing = diagnostics.lastSearch {
+                LabeledContent("上次查询「\(timing.query)」", value: "\(timing.results) 条 · \(timing.milliseconds)")
+            }
+            ForEach(Array(diagnostics.selfTest.enumerated()), id: \.offset) { _, timing in
+                LabeledContent("自检「\(timing.query)」", value: "\(timing.results) · \(timing.milliseconds)")
+            }
+            if diagnostics.state == .loaded {
+                Button(testing ? "正在自检…" : "运行自检") {
+                    testing = true
+                    Task {
+                        await library.runSelfTest()
+                        testing = false
+                    }
+                }
+                .disabled(testing)
+            }
+        } header: {
+            Text("词典状态")
+        } footer: {
+            Text("遇到问题时，请截图这一节。耗时是从输入到拿到结果的时间，正常应在几毫秒以内。")
+        }
+    }
+}
+
+extension DictionaryDiagnostics {
+    var stateText: String {
+        switch state {
+        case .loaded: "已加载（离线）"
+        case .missing: "未找到词典文件，查询改用在线 OJAD"
+        case .failed(let message): "打开失败：\(message)"
+        }
     }
 }
 
@@ -120,14 +166,13 @@ struct AboutView: View {
                     Text("例句及其翻译来自 Tatoeba，作者见各例句页面。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
-                    if let dictionary = library.dictionary {
-                        LabeledContent("离线词典", value: dictionary.summary)
-                    }
                 } header: {
                     Text("离线数据")
                 } footer: {
                     Text("活用形的重音由本 App 按规则从辞書形重音推导，不是 OJAD 的原始数据。")
                 }
+
+                DictionaryStatusSection()
 
                 Section("在线功能（可选）") {
                     Link(destination: URL(string: "https://www.gavo.t.u-tokyo.ac.jp/ojad/")!) {
