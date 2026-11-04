@@ -26,7 +26,8 @@ CI 的分工如下：
 
 - `OJADKit` workflow：在 Linux 和 macOS 上跑包的测试。
 - `iOS` workflow：每个 PR 都在 iPhone 模拟器上 build 并跑测试，不签名。
-- `TestFlight` workflow：push 到 `main` 时签名并上传到 TestFlight。配置方法见 [docs/testflight-setup.md](docs/testflight-setup.md)。
+- `iOS screenshots` workflow：改动 `App/` 的 PR 会额外跑一遍 UI 流程截图（会真实请求 OJAD、Tatoeba、スズキクン 各一次，失败也不阻塞合并）。
+- `TestFlight` workflow：`main` 上的 `iOS` workflow 通过后，签名并上传到 TestFlight。配置方法见 [docs/testflight-setup.md](docs/testflight-setup.md)。
 
 ## 数据来源
 

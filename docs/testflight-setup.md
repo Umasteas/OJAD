@@ -1,6 +1,6 @@
 # TestFlight 配置（只需做一次，全程可以用手机完成）
 
-完成下面 5 步后，每次 push 到 `main`，GitHub Actions 都会自动构建、签名，并上传到 TestFlight。4 个 secret 还没配齐时，`TestFlight` workflow 会直接跳过，不会报错。
+完成下面 5 步后，每次 push 到 `main`，只要 `iOS` workflow（模拟器 build 和测试）通过，GitHub Actions 就会自动构建、签名，并上传到 TestFlight。4 个 secret 还没配齐时，`TestFlight` workflow 会直接跳过，不会报错。
 
 > 提示：Apple 开发者网站和 App Store Connect 在手机 Safari 上偶尔会排版错乱。遇到这种情况，点地址栏左侧的「大小」按钮，选「请求桌面网站」即可。
 
@@ -55,7 +55,7 @@
 
 ## 触发构建并安装
 
-1. 打开 <https://github.com/Umasteas/OJAD/actions/workflows/testflight.yml>，点 **Run workflow**；或者 push 一次到 `main`，也会触发。整个过程大约 10–15 分钟。
+1. 打开 <https://github.com/Umasteas/OJAD/actions/workflows/testflight.yml>，分支选 `main`，点 **Run workflow**；或者 push 一次到 `main`，等 `iOS` workflow 通过后会自动触发。整个过程大约 10–15 分钟。
 2. 上传成功后，Apple 还要处理 5–30 分钟。处理完会出现在 App Store Connect → 你的 App → **TestFlight**。
 3. 在 TestFlight 页面的「内部测试」里新建一个群组，把自己加进去，并打开「自动分发」。之后每个新 build 都会自动推送给你。
 4. iPhone 上安装 Apple 的 **TestFlight** App，用同一个 Apple ID 登录，就能安装「OJAD 重音」。

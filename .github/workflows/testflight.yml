@@ -1,14 +1,13 @@
 name: TestFlight
 
-# Builds, signs and uploads to TestFlight on every push to main.
-# Skips cleanly until the four secrets below exist (see docs/testflight-setup.md).
+# Builds, signs and uploads to TestFlight after the iOS workflow passes on a push
+# to main (or on a manual run from main). Skips cleanly until the four secrets
+# below exist (see docs/testflight-setup.md).
 on:
-  push:
+  workflow_run:
+    workflows: [iOS]
+    types: [completed]
     branches: [main]
-    paths-ignore:
-      - "**.md"
-      - docs/**
-      - .agents/**
   workflow_dispatch:
 
 concurrency:
@@ -18,6 +17,10 @@ concurrency:
 jobs:
   check-secrets:
     name: Check signing secrets
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     outputs:
       ready: ${{ steps.check.outputs.ready }}
@@ -53,6 +56,8 @@ jobs:
       BUNDLE_ID: ${{ vars.BUNDLE_ID || 'io.github.umasteas.ojad' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Show toolchain
         run: xcodebuild -version
@@ -69,7 +74,6 @@ jobs:
           key_dir="$RUNNER_TEMP/private_keys"
           mkdir -p "$key_dir"
           key_path="$key_dir/AuthKey_${ASC_KEY_ID}.p8"
-          # Accept the .p8 file contents as-is, or base64 of it.
           if printf '%s' "$ASC_KEY_P8" | grep -q "BEGIN PRIVATE KEY"; then
             printf '%s\n' "$ASC_KEY_P8" > "$key_path"
           else
@@ -84,7 +88,9 @@ jobs:
 
       # Unsigned on purpose: signing at archive time would mint a new Apple
       # Development certificate on every ephemeral runner (and needs a registered
-      # device). Export below signs with the cloud-managed distribution certificate.
+      # device). Export below signs with the cloud-managed distribution certificate,
+      # which only works while the app has no entitlements; adding a capability
+      # (iCloud, push, App Groups…) means signing the archive instead.
       - name: Archive (unsigned)
         run: |
           set -o pipefail
@@ -135,15 +141,19 @@ jobs:
             | xcbeautify --renderer github-actions
           echo "::notice title=Uploaded to TestFlight::$BUNDLE_ID build $BUILD_NUMBER. Apple processes it for ~5–30 minutes before it appears in TestFlight."
 
+      - name: Collect export logs
+        if: failure()
+        run: |
+          mkdir -p build/export-logs
+          find "${TMPDIR:-/tmp}" -maxdepth 3 -name '*.xcdistributionlogs' -exec cp -R {} build/export-logs/ \; 2>/dev/null || true
+          cp build/export/*.log build/export/*.plist build/export-logs/ 2>/dev/null || true
+
       - name: Upload export logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: export-logs
-          path: |
-            build/export/*.log
-            build/export/*.plist
-            ${{ runner.temp }}/*.xcdistributionlogs
+          path: build/export-logs
           if-no-files-found: ignore
 
       - name: Remove API key
