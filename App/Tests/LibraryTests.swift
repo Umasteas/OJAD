@@ -1,0 +1,138 @@
+import Foundation
+import OJADKit
+import SwiftData
+import XCTest
+@testable import OJAD
+
+@MainActor
+final class LibraryTests: XCTestCase {
+    private var container: ModelContainer!
+    private var transport: CountingTransport!
+    private var clock: Date!
+
+    override func setUp() async throws {
+        container = try AppSchema.container(inMemory: true)
+        transport = CountingTransport()
+        clock = Date(timeIntervalSince1970: 1_800_000_000)
+    }
+
+    private func makeLibrary() -> Library {
+        let transport = transport!
+        return Library(
+            context: container.mainContext,
+            ojad: OJADClient(transport: { try await transport.respond(to: $0) }),
+            tatoeba: TatoebaClient(transport: { try await transport.respond(to: $0) }),
+            now: { [unowned self] in self.clock }
+        )
+    }
+
+    private func history() throws -> [HistoryEntry] {
+        try container.mainContext.fetch(FetchDescriptor<HistoryEntry>(sortBy: [SortDescriptor(\.lastSearchedAt, order: .reverse)]))
+    }
+
+    func testRepeatedSearchIsServedFromCacheAndHistoryKeepsOneEntryPerQuery() async throws {
+        let library = makeLibrary()
+
+        let first = try await library.search("学校")
+        clock = clock.addingTimeInterval(60)
+        let second = try await library.search(" 学校 ")
+
+        XCTAssertEqual(first, second)
+        XCTAssertEqual(first.first?.headword, "学校")
+        XCTAssertEqual(transport.count, 1)
+        let entries = try history()
+        XCTAssertEqual(entries.map(\.query), ["学校"])
+        XCTAssertEqual(entries.first?.lastSearchedAt, clock)
+        XCTAssertEqual(entries.first?.summary, "学校　がっこう")
+    }
+
+    func testRefreshBypassesTheCache() async throws {
+        let library = makeLibrary()
+        _ = try await library.search("学校")
+        _ = try await library.search("学校", refresh: true)
+        XCTAssertEqual(transport.count, 2)
+    }
+
+    func testEmptyResultsAreNotCachedButStillRecorded() async throws {
+        transport.html = OJADPage.noResult
+        let library = makeLibrary()
+
+        _ = try await library.search("がっこ")
+        _ = try await library.search("がっこ")
+
+        XCTAssertEqual(transport.count, 2)
+        XCTAssertEqual(try history().map(\.summary), [""])
+    }
+
+    func testFavoriteToggleSurvivesANewLibraryOnTheSameStore() async throws {
+        let results = try await makeLibrary().search("学校")
+        let entry = try XCTUnwrap(results.first)
+
+        try makeLibrary().toggleFavorite(entry)
+        XCTAssertTrue(makeLibrary().isFavorite(entry))
+        let stored = try container.mainContext.fetch(FetchDescriptor<FavoriteWord>())
+        XCTAssertEqual(stored.map(\.reading), ["がっこう"])
+        XCTAssertEqual(stored.first?.entry, entry)
+
+        try makeLibrary().toggleFavorite(entry)
+        XCTAssertFalse(makeLibrary().isFavorite(entry))
+    }
+
+    func testClearHistoryRemovesEveryEntry() async throws {
+        let library = makeLibrary()
+        _ = try await library.search("学校")
+        try library.clearHistory()
+        XCTAssertEqual(try history().count, 0)
+    }
+
+    func testExampleSentencesSearchTheLemmaWithoutOJADNotation() async throws {
+        let library = makeLibrary()
+        let entry = WordEntry(id: 1, headword: "静か[な]・静かです", category: .naAdjective, forms: [])
+        transport.json = #"{"data":[{"id":7,"text":"静かな部屋ですね。","owner":"x","license":"CC BY 2.0 FR","translations":[]}],"paging":{}}"#
+
+        let sentences = try await library.exampleSentences(for: entry)
+        _ = try await library.exampleSentences(for: entry)
+
+        XCTAssertEqual(sentences.map(\.text), ["静かな部屋ですね。"])
+        XCTAssertEqual(transport.count, 1)
+        let q = transport.lastURL.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }?
+            .queryItems?.first { $0.name == "q" }?.value
+        XCTAssertEqual(q, "\"静か\"")
+    }
+}
+
+/// Answers OJAD requests with `html` and Tatoeba requests with `json`.
+private final class CountingTransport: @unchecked Sendable {
+    var html = OJADPage.gakkou
+    var json = #"{"data":[],"paging":{}}"#
+    private(set) var count = 0
+    private(set) var lastURL: URL?
+
+    func respond(to request: URLRequest) async throws -> (Data, URLResponse) {
+        count += 1
+        lastURL = request.url
+        let body = request.url?.host == "api.tatoeba.org" ? json : html
+        let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        return (Data(body.utf8), response)
+    }
+}
+
+private enum OJADPage {
+    static let gakkou = """
+    <div id="search_result"><table id="word_table">
+    <thead><tr><th class="midashi"><p>名詞</p></th><th class="jisho katsuyo_jisho_js"><p>辞書形</p></th></tr></thead>
+    <tbody><tr id="word_4867">
+    <td class="midashi"><p class="midashi_word">学校</p></td>
+    <td class="katsuyo katsuyo_jisho_js"><div class="katsuyo_proc">
+    <script type="text/javascript">set_accent_curve_word('katsuyo_48785',4,[0,1,1,1],1);</script>
+    <p><span class="katsuyo_accent"><span class="accented_word">\
+    <span class="mola_-4"><span class="inner"><span class="char">が</span></span></span>\
+    <span class=" accent_plain mola_-3"><span class="inner"><span class="char">っ</span></span></span>\
+    <span class=" accent_plain mola_-2"><span class="inner"><span class="char">こ</span></span></span>\
+    <span class=" accent_plain mola_-1"><span class="inner"><span class="char">う</span></span></span>\
+    </span></span></p></div></td>
+    </tr></tbody></table></div>
+    """
+
+    static let noResult = #"<div id="search_result"><div id="search_result_message"></div></div>"#
+}
