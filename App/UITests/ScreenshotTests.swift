@@ -26,6 +26,7 @@ final class ScreenshotTests: XCTestCase {
 
         suggestion.tap()
         XCTAssertTrue(app.navigationBars["食べる"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["to eat"].waitForExistence(timeout: 5), "JMdict gloss missing")
         snapshot("3-conjugations")
 
         let example = app.staticTexts
