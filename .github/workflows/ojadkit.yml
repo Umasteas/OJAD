@@ -1,0 +1,39 @@
+name: OJADKit
+
+on:
+  pull_request:
+    paths:
+      - Packages/OJADKit/**
+      - .github/workflows/ojadkit.yml
+  push:
+    branches: [main]
+    paths:
+      - Packages/OJADKit/**
+      - .github/workflows/ojadkit.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    container: swift:6.0-noble
+    defaults:
+      run:
+        working-directory: Packages/OJADKit
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift test
+
+  macos:
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: Packages/OJADKit
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift test
