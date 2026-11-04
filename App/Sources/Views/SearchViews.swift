@@ -90,7 +90,10 @@ struct SearchResultsView: View {
                 } description: {
                     Text(message)
                 } actions: {
-                    Button("重试") { Task { await load(refresh: true) } }
+                    Button("重试") {
+                        state = .loading
+                        Task { await load(refresh: true) }
+                    }
                 }
             case .loaded(let entries) where entries.isEmpty:
                 ContentUnavailableView(
@@ -167,9 +170,17 @@ extension Error {
     }
 }
 
+struct SearchQuery: Hashable {
+    let text: String
+}
+
 extension View {
     func appDestinations() -> some View {
         navigationDestination(for: WordEntry.self) { WordDetailView(entry: $0) }
             .navigationDestination(for: ExampleSentence.self) { SentenceDetailView(sentence: $0) }
+            .navigationDestination(for: SearchQuery.self) { query in
+                SearchResultsView(query: query.text)
+                    .navigationTitle(query.text)
+            }
     }
 }
