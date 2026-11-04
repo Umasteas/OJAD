@@ -59,7 +59,8 @@ enum PhrasingParser {
 
         let script = try wrapper.select("script").array().map { $0.data() }.joined()
         let call = PhraseCurveCall(script: script)
-        let commands = call?.commands.count == morae.count ? call!.commands : morae.map { $0.isHigh ? 1 : 0 }
+        let commands = call.map(\.commands).flatMap { $0.count == morae.count ? $0 : nil }
+            ?? morae.map { $0.isHigh ? 1 : 0 }
         return AccentPhrase(
             text: try wrapper.select("div.phrasing_subscript").text().filter { !$0.isWhitespace },
             reading: AccentedReading(morae: morae, accentCommands: commands),

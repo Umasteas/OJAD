@@ -6,7 +6,7 @@ A personal iOS app that looks up Japanese pitch accent on OJAD (Online Japanese 
 
 **Word entry**:
 One row of OJAD's 単語検索 result: a headword with its conjugated forms.
-_Avoid_: Result, row, word
+_Avoid_: Word (ambiguous with the typed query), item
 
 **Headword**:
 OJAD's 見出し語 for a word entry, e.g. `食べる・食べます`; its first part is the **lemma**.
@@ -38,8 +38,8 @@ _Avoid_: Graph, intonation line
 
 **Example sentence**:
 A Japanese sentence from Tatoeba containing the looked-up word, shown with its translation.
-_Avoid_: Sample, example
+_Avoid_: Sample
 
 **Sentence analysis**:
-スズキクン's split of a sentence into accent phrases with their accent commands, requested only when the user opens an example sentence.
-_Avoid_: Phrasing, prosody
+スズキクン's split of a sentence into accent phrases with their accent commands, requested only when the user opens an example sentence. `phrasing` appears only where it names OJAD's own endpoint (`/ojad/phrasing/index`).
+_Avoid_: Prosody

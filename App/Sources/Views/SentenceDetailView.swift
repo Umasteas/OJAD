@@ -64,6 +64,10 @@ struct SentenceDetailView: View {
         var parts = ["Tatoeba #\(sentence.id)"]
         if let owner = sentence.owner { parts.append(owner) }
         parts.append(sentence.license ?? "CC BY 2.0 FR")
+        let translators = translations.compactMap(\.owner)
+        if !translators.isEmpty {
+            parts.append("翻译：" + translators.joined(separator: "、"))
+        }
         return parts.joined(separator: " · ")
     }
 

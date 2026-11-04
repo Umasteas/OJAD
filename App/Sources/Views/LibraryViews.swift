@@ -51,10 +51,9 @@ struct HistoryView: View {
                 } else {
                     List {
                         ForEach(history) { item in
-                            NavigationLink {
-                                SearchResultsView(query: item.query)
-                                    .navigationTitle(item.query)
-                            } label: {
+                            // Value-based so the list re-sorting (opening a query bumps
+                            // its timestamp) doesn't disturb the pushed screen.
+                            NavigationLink(value: SearchQuery(text: item.query)) {
                                 HistoryRow(item: item)
                             }
                         }

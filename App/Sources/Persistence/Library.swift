@@ -3,8 +3,9 @@ import Observation
 import OJADKit
 import SwiftData
 
-/// Everything the UI asks for goes through here: cached lookups, search history
-/// and favorites. Network requests happen only on a cache miss or explicit refresh.
+/// Lookups (cached), history recording and favorite toggling. List screens read
+/// history and favorites straight from the store with `@Query`.
+/// Network requests happen only on a cache miss or an explicit refresh.
 @MainActor
 @Observable
 final class Library {

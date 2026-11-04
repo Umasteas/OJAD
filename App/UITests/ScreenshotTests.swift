@@ -40,11 +40,8 @@ final class ScreenshotTests: XCTestCase {
 
         example.tap()
         XCTAssertTrue(app.navigationBars["例句"].waitForExistence(timeout: 10))
-        let analyzing = app.staticTexts["正在请求スズキクン分析…"]
-        let deadline = Date().addingTimeInterval(30)
-        while analyzing.exists, Date() < deadline {
-            RunLoop.current.run(until: Date().addingTimeInterval(0.5))
-        }
+        XCTAssertTrue(app.staticTexts["正在请求スズキクン分析…"].waitForNonExistence(timeout: 30))
+        XCTAssertFalse(app.buttons["重试"].exists, "スズキクン analysis failed")
         snapshot("5-sentence-intonation")
     }
 
