@@ -48,7 +48,9 @@ targets:
     settings:
       base:
         PRODUCT_NAME: OJAD
-        PRODUCT_BUNDLE_IDENTIFIER: io.github.umasteas.ojad
+        # Indirection so CI can override only the app's ID (repo variable BUNDLE_ID).
+        OJAD_BUNDLE_ID: io.github.umasteas.ojad
+        PRODUCT_BUNDLE_IDENTIFIER: $(OJAD_BUNDLE_ID)
         TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
