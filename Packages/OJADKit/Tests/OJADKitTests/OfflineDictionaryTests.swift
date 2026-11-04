@@ -39,7 +39,7 @@ final class OfflineDictionaryTests: XCTestCase {
     }
 
     func testRomajiLookupTreatsAFinalNAsN() {
-        XCTAssertEqual(OfflineDictionary.keys(for: "hon"), ["hon", "ほん", "ほ"])
+        XCTAssertEqual(OfflineDictionary.keys(for: "hon"), ["hon", "ほん"])
         XCTAssertTrue(dictionary.lookup("gakkou").contains { $0.written == "学校" })
     }
 
@@ -49,6 +49,47 @@ final class OfflineDictionaryTests: XCTestCase {
         }
         XCTAssertTrue(dictionary.suggestions(for: "kire").contains { $0.written == "綺麗" })
         XCTAssertTrue(dictionary.suggestions(for: "奇麗").contains { $0.written == "綺麗" })
+    }
+
+    func testSuggestionsWhileAnIMEIsComposing() {
+        // Pinyin keyboards separate syllables with spaces; Japanese ones show kana plus
+        // the consonant being typed; full-width letters come from the Japanese keyboard.
+        for typed in ["ta be", "ta'be", "ｔａｂｅ", "タベr"] {
+            XCTAssertEqual(dictionary.suggestions(for: typed).first?.written, "食べる", typed)
+        }
+        for typed in ["たb", "tab"] {
+            let composing = dictionary.suggestions(for: typed)
+            XCTAssertTrue(composing.prefix(3).contains { $0.written == "食べる" }, typed)
+            XCTAssertTrue(composing.allSatisfy { "ばびぶべぼ".contains(Array(Kana.searchKey($0.reading))[1]) }, "\(composing.map(\.reading))")
+        }
+    }
+
+    func testPrecomputedPrefixesMatchAFullScan() {
+        XCTAssertEqual(dictionary.metadata["prefix_top"], "20")
+        for typed in ["あ", "い", "う", "お", "か", "た", "たべ", "き", "tabe", "s", "ka"] {
+            for limit in [1, 10, 20] {
+                XCTAssertEqual(dictionary.suggestions(for: typed, limit: limit), dictionary.suggestions(for: typed, limit: limit, precomputed: false), "\(typed) \(limit)")
+            }
+        }
+    }
+
+    func testOpeningAMissingOrBrokenFileThrows() throws {
+        let missing = FileManager.default.temporaryDirectory.appendingPathComponent("missing-\(UUID()).sqlite")
+        XCTAssertThrowsError(try OfflineDictionary(url: missing))
+        let broken = FileManager.default.temporaryDirectory.appendingPathComponent("broken-\(UUID()).sqlite")
+        try Data(repeating: 7, count: 4096).write(to: broken)
+        defer { try? FileManager.default.removeItem(at: broken) }
+        XCTAssertThrowsError(try OfflineDictionary(url: broken))
+    }
+
+    func testOpensFromAPathWithSpacesAndNonASCII() throws {
+        let source = try XCTUnwrap(Bundle.module.url(forResource: "sample-dictionary", withExtension: "sqlite", subdirectory: "Fixtures"))
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OJAD 重音 \(UUID()).app")
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let copy = directory.appendingPathComponent("Dictionary.sqlite")
+        try FileManager.default.copyItem(at: source, to: copy)
+        XCTAssertEqual(try OfflineDictionary(url: copy).suggestions(for: "tabe").first?.written, "食べる")
     }
 
     func testSuggestionsPutExactMatchesFirstThenFrequentWords() {
@@ -82,7 +123,8 @@ final class OfflineDictionaryTests: XCTestCase {
     }
 
     func testMetadataNamesTheSources() {
-        XCTAssertEqual(dictionary.metadata["schema"], "1")
+        XCTAssertEqual(dictionary.metadata["schema"], "2")
+        XCTAssertEqual(dictionary.wordCount, 630)
         XCTAssertNotNil(dictionary.metadata["jmdict"])
         XCTAssertEqual(dictionary.metadata["words"].flatMap(Int.init), 630)
     }

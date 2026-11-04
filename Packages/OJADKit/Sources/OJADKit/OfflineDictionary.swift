@@ -52,6 +52,8 @@ public final class OfflineDictionary: @unchecked Sendable {
     private let database: SQLiteDatabase
     private let lock = NSLock()
     public let metadata: [String: String]
+    /// Busy prefixes have their top words precomputed (schema 2+); 0 when absent.
+    private let precomputedTop: Int
 
     public init(url: URL) throws {
         database = try SQLiteDatabase(readOnly: url)
@@ -59,20 +61,34 @@ public final class OfflineDictionary: @unchecked Sendable {
             try database.query("SELECT key, value FROM meta") { ($0.text(0) ?? "", $0.text(1) ?? "") },
             uniquingKeysWith: { first, _ in first }
         )
+        precomputedTop = metadata["prefix_top"].flatMap(Int.init) ?? 0
     }
 
-    /// Words starting with what the user typed (kanji, kana or romaji), exact matches
-    /// first, then by frequency.
+    public var wordCount: Int { metadata["words"].flatMap(Int.init) ?? 0 }
+
+    /// Words starting with what the user typed (kanji, kana, romaji, or text an IME is
+    /// still composing), exact matches first, then by frequency.
     public func suggestions(for text: String, limit: Int = 10) -> [DictionaryWord] {
-        search(keys: Self.keys(for: text), prefix: true, limit: limit)
+        suggestions(for: text, limit: limit, precomputed: true)
+    }
+
+    /// `precomputed: false` runs the same query without the precomputed table, to check the two agree.
+    func suggestions(for text: String, limit: Int, precomputed: Bool) -> [DictionaryWord] {
+        // Only the typed text itself ranks exact matches first; `たb` shouldn't put 度 (たび) above 食べる.
+        let typed = Set(Self.keys(for: text))
+        var found: [DictionaryWord] = []
+        for keys in Self.suggestionKeys(for: text) where found.isEmpty {
+            found = search(keys: keys, prefix: true, limit: limit, exactKeys: typed, precomputed: precomputed)
+        }
+        return found
     }
 
     /// Words whose spelling or reading is exactly `text`; if there are none, words
     /// starting with it.
     public func lookup(_ text: String, limit: Int = 30) -> [DictionaryWord] {
         let keys = Self.keys(for: text)
-        let exact = search(keys: keys, prefix: false, limit: limit)
-        return exact.isEmpty ? search(keys: keys, prefix: true, limit: limit) : exact
+        let exact = search(keys: keys, prefix: false, limit: limit, exactKeys: Set(keys))
+        return exact.isEmpty ? suggestions(for: text, limit: limit) : exact
     }
 
     public func word(id: Int) -> DictionaryWord? {
@@ -101,42 +117,94 @@ public final class OfflineDictionary: @unchecked Sendable {
         return rows ?? []
     }
 
+    /// Reads the whole key index and the busiest prefixes once, so the first real
+    /// query doesn't wait for storage. Safe to call from any thread.
+    public func warmUp() {
+        locked {
+            _ = try? database.query("SELECT count(*) FROM keys") { $0.int(0) }
+            _ = try? database.query("SELECT count(*) FROM words") { $0.int(0) }
+        }
+        _ = suggestions(for: "あ")
+    }
+
     // MARK: Query
 
     private static let columns = "w.id, w.written, w.reading, w.accents, w.class, w.rank, w.gloss"
 
-    /// The typed text as a dictionary key, plus its hiragana when typed as romaji.
+    /// Spellings the typed text may stand for: the text itself (also without the
+    /// spaces a pinyin IME puts between syllables) and its hiragana if it's romaji.
     static func keys(for text: String) -> [String] {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return [] }
-        var keys = [Kana.searchKey(trimmed)]
-        if let romaji = Kana.hiragana(fromRomaji: trimmed) {
+        let compact = trimmed.filter { !$0.isWhitespace }
+        var keys = [Kana.searchKey(trimmed), Kana.searchKey(compact)]
+        if let romaji = Kana.hiragana(fromRomaji: compact) {
             // A final `n` is usually ん (`shinbun`), but may start the next syllable.
             if romaji.pending == "n" { keys.append(romaji.kana + "ん") }
-            if !romaji.kana.isEmpty { keys.append(romaji.kana) }
+            if romaji.pending.isEmpty, !romaji.kana.isEmpty { keys.append(romaji.kana) }
         }
+        return unique(keys)
+    }
+
+    /// Key groups to try in order until one has matches. An unfinished romaji syllable
+    /// expands to the kana it can still become (`tab` → たば, たび, たぶ, たべ, たぼ…),
+    /// and only if none of those match falls back to the finished part (`た`).
+    static func suggestionKeys(for text: String) -> [[String]] {
+        var groups = [keys(for: text)]
+        let compact = text.filter { !$0.isWhitespace }
+        if let romaji = Kana.hiragana(fromRomaji: compact), !romaji.pending.isEmpty {
+            groups[0] += Kana.completions(ofPending: romaji.pending).map { romaji.kana + $0 }
+            if !romaji.kana.isEmpty { groups.append([romaji.kana]) }
+        }
+        return groups.map(unique).filter { !$0.isEmpty }
+    }
+
+    private static func unique(_ keys: [String]) -> [String] {
         var seen = Set<String>()
         return keys.filter { seen.insert($0).inserted }
     }
 
-    private func search(keys: [String], prefix: Bool, limit: Int) -> [DictionaryWord] {
+    private static let exactSQL = """
+        SELECT \(columns), 1 FROM keys k JOIN words w ON w.id = k.word_id
+        WHERE k.key = ?1 ORDER BY w.rank DESC, w.id LIMIT ?3
+        """
+
+    private static let prefixSQL = """
+        SELECT \(columns), MAX(k.key = ?1) AS exact
+        FROM keys k JOIN words w ON w.id = k.word_id
+        WHERE k.key >= ?1 AND k.key < ?2
+        GROUP BY w.id
+        ORDER BY exact DESC, w.rank DESC, w.id
+        LIMIT ?3
+        """
+
+    private static let precomputedSQL = """
+        SELECT \(columns), p.exact FROM prefixes p JOIN words w ON w.id = p.word_id
+        WHERE p.prefix = ?1 ORDER BY p.position LIMIT ?3
+        """
+
+    private func search(
+        keys: [String], prefix: Bool, limit: Int, exactKeys: Set<String>, precomputed: Bool = true
+    ) -> [DictionaryWord] {
         guard !keys.isEmpty, limit > 0 else { return [] }
-        let sql = """
-            SELECT \(Self.columns), MAX(k.key = ?1) AS exact
-            FROM keys k JOIN words w ON w.id = k.word_id
-            WHERE \(prefix ? "k.key >= ?1 AND k.key < ?2" : "k.key = ?1")
-            GROUP BY w.id
-            ORDER BY exact DESC, w.rank DESC, w.id
-            LIMIT ?3
-            """
         var found: [(word: DictionaryWord, exact: Bool)] = []
         locked {
             for key in keys {
-                let rows = (try? database.query(sql, [.text(key), .text(key + "\u{10FFFF}"), .int(limit)]) { row in
-                    (Self.word(row), row.int(7) == 1)
-                }) ?? []
-                for row in rows where !found.contains(where: { $0.word.id == row.0.id }) {
-                    found.append(row)
+                let values: [SQLiteDatabase.Value] = [.text(key), .text(key + "\u{10FFFF}"), .int(limit)]
+                func rows(_ sql: String) -> [(DictionaryWord, Bool)] {
+                    (try? database.query(sql, values) { row in (Self.word(row), row.int(7) == 1) }) ?? []
+                }
+                var matches: [(DictionaryWord, Bool)] = []
+                if !prefix {
+                    matches = rows(Self.exactSQL)
+                } else {
+                    // Prefixes without precomputed rows match few keys, so scanning them is cheap.
+                    if precomputed, limit <= precomputedTop { matches = rows(Self.precomputedSQL) }
+                    if matches.isEmpty { matches = rows(Self.prefixSQL) }
+                }
+                let countsExact = exactKeys.contains(key)
+                for (word, exact) in matches where !found.contains(where: { $0.word.id == word.id }) {
+                    found.append((word, exact && countsExact))
                 }
             }
         }

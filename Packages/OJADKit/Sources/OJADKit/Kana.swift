@@ -35,26 +35,30 @@ public enum Kana {
     /// Converts romaji typed on a Latin keyboard (`tabe`, `gakkou`, `kyou`, `shi`/`si`)
     /// to hiragana. A trailing incomplete syllable (`tab` → `た` + `b`) is returned
     /// separately so callers can still search by the complete part.
-    /// Returns nil when the text isn't romaji at all.
+    ///
+    /// Kana pass through, so text a Japanese IME is still composing (`たb`) works too.
+    /// Returns nil when the text has no romaji in it, or isn't romaji.
     public static func hiragana(fromRomaji text: String) -> (kana: String, pending: String)? {
-        let input = text.lowercased()
-        guard !input.isEmpty, input.allSatisfy({ ("a"..."z").contains($0) || $0 == "-" || $0 == "'" }) else {
-            return nil
-        }
+        let input = searchKey(text)
+        guard input.contains(where: isLatin) else { return nil }
         var output = ""
         var rest = Substring(input)
-        while !rest.isEmpty {
-            if rest.hasPrefix("-") {
+        while let first = rest.first {
+            if !isLatin(first) && first != "-" && first != "'" {
+                guard isKana(String(first)) || first == "ー" else { return nil }
+                output.append(first); rest = rest.dropFirst(); continue
+            }
+            if first == "-" {
                 output += "ー"; rest = rest.dropFirst(); continue
             }
-            if rest.hasPrefix("'") {
+            if first == "'" {
                 rest = rest.dropFirst(); continue
             }
-            if rest.count >= 2, let first = rest.first, let second = rest.dropFirst().first,
+            if rest.count >= 2, let second = rest.dropFirst().first,
                first == second, first != "n", !"aiueo".contains(first) {
                 output += "っ"; rest = rest.dropFirst(); continue
             }
-            if rest.hasPrefix("n") {
+            if first == "n" {
                 let next = rest.dropFirst().first
                 if next == "n" { output += "ん"; rest = rest.dropFirst(2); continue }
                 if let next, !"aiueoy".contains(next) { output += "ん"; rest = rest.dropFirst(); continue }
@@ -70,10 +74,30 @@ public enum Kana {
                 }
             }
             if !matched {
-                return rest.count <= 3 ? (output, String(rest)) : nil
+                let pending = String(rest)
+                guard pending.count <= 3, pending.allSatisfy(isLatin), !completions(ofPending: pending).isEmpty else {
+                    return nil
+                }
+                return (output, pending)
             }
         }
         return (output, "")
+    }
+
+    /// Kana an incomplete romaji syllable can still become: `b` → ば, び, ぶ, べ, ぼ, びゃ…
+    public static func completions(ofPending pending: String) -> [String] {
+        guard !pending.isEmpty else { return [] }
+        var seen = Set<String>()
+        var result = romajiTable.keys.sorted()
+            .filter { $0.hasPrefix(pending) }
+            .compactMap { romajiTable[$0] }
+            .filter { seen.insert($0).inserted }
+        if pending == "n", seen.insert("ん").inserted { result.insert("ん", at: 0) }
+        return result
+    }
+
+    private static func isLatin(_ character: Character) -> Bool {
+        ("a"..."z").contains(character)
     }
 
     private static let romajiTable: [String: String] = {

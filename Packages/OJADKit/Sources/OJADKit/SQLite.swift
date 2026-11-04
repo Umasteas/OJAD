@@ -17,18 +17,29 @@ final class SQLiteDatabase {
 
     init(readOnly url: URL) throws {
         // `immutable=1` skips locking and journal checks: the bundled file never changes.
+        // If a URI open is refused, fall back to a plain read-only open of the path.
         var components = URLComponents()
         components.scheme = "file"
         components.path = url.path
         components.queryItems = [URLQueryItem(name: "immutable", value: "1")]
-        let uri = components.string ?? url.path
-        let flags = SQLITE_OPEN_READONLY | SQLITE_OPEN_URI | SQLITE_OPEN_NOMUTEX
-        guard sqlite3_open_v2(uri, &handle, flags, nil) == SQLITE_OK else {
-            let message = handle.map { String(cString: sqlite3_errmsg($0)) } ?? "cannot open \(url.path)"
+        var failures: [String] = []
+        for (path, flags) in [
+            (components.string, SQLITE_OPEN_READONLY | SQLITE_OPEN_URI | SQLITE_OPEN_NOMUTEX),
+            (url.path, SQLITE_OPEN_READONLY | SQLITE_OPEN_NOMUTEX),
+        ] {
+            guard let path else { continue }
+            if sqlite3_open_v2(path, &handle, flags, nil) == SQLITE_OK {
+                break
+            }
+            failures.append(handle.map { String(cString: sqlite3_errmsg($0)) } ?? "cannot open")
             sqlite3_close(handle)
             handle = nil
-            throw SQLiteError.open(message)
         }
+        guard handle != nil else {
+            throw SQLiteError.open(failures.joined(separator: "; "))
+        }
+        // Map the file instead of copying pages through SQLite's cache.
+        _ = try? query("PRAGMA mmap_size = 268435456") { _ in () }
     }
 
     deinit {

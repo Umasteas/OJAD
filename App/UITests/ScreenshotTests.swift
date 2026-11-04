@@ -53,6 +53,18 @@ final class ScreenshotTests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.staticTexts["食べる・食べます"].waitForExistence(timeout: 10))
         snapshot("6-search-results")
+
+        app.tabBars.buttons["关于"].tap()
+        let selfTest = app.buttons["运行自检"]
+        for _ in 0..<6 where !(selfTest.exists && selfTest.isHittable) {
+            app.swipeUp()
+        }
+        let state = app.descendants(matching: .any)["dictionary-state"]
+        XCTAssertTrue(state.exists, "No dictionary status row")
+        XCTAssertTrue(state.label.contains("已加载") || "\(state.value ?? "")".contains("已加载"), "Dictionary status: \(state.label)")
+        selfTest.tap()
+        XCTAssertTrue(selfTest.waitForExistence(timeout: 10))
+        snapshot("7-dictionary-status")
     }
 
     private func snapshot(_ name: String) {

@@ -62,6 +62,21 @@ class SampleDictionaryTests(unittest.TestCase):
             "SELECT key FROM keys JOIN words ON words.id = word_id WHERE written = '綺麗'")}
         self.assertTrue({'綺麗', '奇麗', 'きれい'} <= keys, keys)
 
+    def test_busy_prefixes_store_the_same_top_words_a_scan_finds(self):
+        prefixes = [p for (p,) in self.db.execute('SELECT DISTINCT prefix FROM prefixes')]
+        self.assertIn('か', prefixes)
+        for prefix in prefixes:
+            stored = [w for (w,) in self.db.execute(
+                'SELECT word_id FROM prefixes WHERE prefix = ? ORDER BY position', (prefix,))]
+            scanned = [w for (w, _) in self.db.execute(
+                """SELECT w.id, MAX(k.key = ?) AS exact FROM keys k JOIN words w ON w.id = k.word_id
+                   WHERE k.key >= ? AND k.key < ? GROUP BY w.id ORDER BY exact DESC, w.rank DESC, w.id LIMIT ?""",
+                (prefix, prefix, prefix + '\U0010ffff', build.PREFIX_TOP))]
+            self.assertEqual(stored, scanned, prefix)
+            key_count = self.db.execute(
+                'SELECT count(*) FROM keys WHERE key >= ? AND key < ?', (prefix, prefix + '\U0010ffff')).fetchone()[0]
+            self.assertGreater(key_count, build.PREFIX_MIN_KEYS, prefix)
+
 
 class SearchKeyTests(unittest.TestCase):
     def test_folds_katakana_and_width(self):

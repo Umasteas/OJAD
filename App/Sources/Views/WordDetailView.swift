@@ -7,7 +7,8 @@ struct WordDetailView: View {
     @Environment(Library.self) private var library
     @Query private var favorites: [FavoriteWord]
     @State private var word: DictionaryWord?
-    @State private var offlineExamples: [ExampleSentence] = []
+    /// nil until read from the dictionary (off the main thread, a few ms).
+    @State private var offlineExamples: [ExampleSentence]?
     /// nil until the user asks Tatoeba for more.
     @State private var onlineExamples: LoadState<[ExampleSentence]>?
 
@@ -71,22 +72,23 @@ struct WordDetailView: View {
             }
         }
         .task {
-            word = library.dictionaryWord(for: entry)
-            offlineExamples = library.offlineExamples(for: entry)
+            let details = await library.offlineDetails(for: entry)
+            word = details.word
+            offlineExamples = details.examples
         }
     }
 
     @ViewBuilder
     private var examplesSection: some View {
         Section {
-            ForEach(offlineExamples) { sentence in
+            ForEach(offlineExamples ?? []) { sentence in
                 NavigationLink(value: sentence) {
                     ExampleSentenceRow(sentence: sentence)
                 }
             }
             switch onlineExamples {
             case nil:
-                if offlineExamples.isEmpty {
+                if offlineExamples?.isEmpty == true {
                     Text("离线词典中没有「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
                 }
                 Button {
@@ -105,7 +107,7 @@ struct WordDetailView: View {
                     Button("重试") { Task { await loadOnlineExamples(refresh: true) } }
                 }
             case .loaded(let sentences)?:
-                let known = Set(offlineExamples.map(\.id))
+                let known = Set((offlineExamples ?? []).map(\.id))
                 let more = sentences.filter { !known.contains($0.id) }
                 if more.isEmpty {
                     Text("Tatoeba 中没有更多包含「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
