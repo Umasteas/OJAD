@@ -26,6 +26,9 @@ targets:
     sources:
       - Sources
       - Resources
+      # Built by scripts/dictionary/build.py before `xcodegen generate` (see .github/actions/build-dictionary).
+      - path: Generated/Dictionary.sqlite
+        buildPhase: resources
     dependencies:
       - package: OJADKit
     info:

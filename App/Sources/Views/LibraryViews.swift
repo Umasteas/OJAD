@@ -78,6 +78,15 @@ struct HistoryView: View {
     }
 }
 
+extension OfflineDictionary {
+    /// `115893 词 · JMdict 3.6.2 2026-11-02`
+    var summary: String {
+        var parts = [metadata["words"].map { "\($0) 词" } ?? ""]
+        if let jmdict = metadata["jmdict"] { parts.append("JMdict \(jmdict)") }
+        return parts.filter { !$0.isEmpty }.joined(separator: " · ")
+    }
+}
+
 struct AboutView: View {
     @Environment(Library.self) private var library
     @State private var cacheCleared = false
@@ -92,17 +101,39 @@ struct AboutView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("数据来源") {
-                    Link(destination: URL(string: "https://www.gavo.t.u-tokyo.ac.jp/ojad/")!) {
-                        LabeledContent("OJAD", value: "東京大学 峯松研究室・齋藤研究室")
+                Section {
+                    Link(destination: URL(string: "https://github.com/mifunetoshiro/kanjium")!) {
+                        LabeledContent("Kanjium", value: "CC BY-SA 4.0")
                     }
-                    Text("单词重音与スズキクン分析来自 OJAD（オンライン日本語アクセント辞書）。依照其使用条款，本 App 仅供个人学习，不使用任何音频或合成语音。")
+                    Text("辞書形重音与词频来自 Kanjium。The pitch accent notation, verb particle data, phonetics, homonyms and other additions or modifications to EDICT, KANJIDIC or KRADFILE were provided by Uros O. through his free database.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    Link(destination: URL(string: "https://www.edrdg.org/edrdg/licence.html")!) {
+                        LabeledContent("JMdict", value: "CC BY-SA 4.0")
+                    }
+                    Text("词条、词性与英文释义来自 Electronic Dictionary Research and Development Group 的 JMdict（经 jmdict-simplified 转换）。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     Link(destination: URL(string: "https://tatoeba.org")!) {
                         LabeledContent("Tatoeba", value: "CC BY 2.0 FR")
                     }
-                    Text("例句及其翻译来自 Tatoeba，作者见各例句页脚。")
+                    Text("例句及其翻译来自 Tatoeba，作者见各例句页面。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    if let dictionary = library.dictionary {
+                        LabeledContent("离线词典", value: dictionary.summary)
+                    }
+                } header: {
+                    Text("离线数据")
+                } footer: {
+                    Text("活用形的重音由本 App 按规则从辞書形重音推导，不是 OJAD 的原始数据。")
+                }
+
+                Section("在线功能（可选）") {
+                    Link(destination: URL(string: "https://www.gavo.t.u-tokyo.ac.jp/ojad/")!) {
+                        LabeledContent("OJAD", value: "東京大学 峯松研究室・齋藤研究室")
+                    }
+                    Text("「在线查询 OJAD」和スズキクン语调分析会请求 OJAD（オンライン日本語アクセント辞書）。依照其使用条款，本 App 仅供个人学习，不使用任何音频或合成语音。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     Link(destination: URL(string: "https://github.com/scinfu/SwiftSoup")!) {
@@ -117,7 +148,7 @@ struct AboutView: View {
                     }
                     .disabled(cacheCleared)
                 } footer: {
-                    Text("查过的结果会保存在本机，以减少对 OJAD 和 Tatoeba 的请求。收藏不受影响。")
+                    Text("在线查过的结果会保存在本机，以减少对 OJAD 和 Tatoeba 的请求。收藏、历史和离线词典不受影响。")
                 }
 
                 Section {

@@ -9,3 +9,5 @@ xcuserdata/
 *.p12
 *.mobileprovision
 App/Generated/
+scripts/dictionary/.cache/
+__pycache__/

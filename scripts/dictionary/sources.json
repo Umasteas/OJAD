@@ -1,0 +1,30 @@
+{
+  "kanjium": {
+    "license": "CC BY-SA 4.0",
+    "homepage": "https://github.com/mifunetoshiro/kanjium",
+    "files": {
+      "accents.txt": {
+        "url": "https://raw.githubusercontent.com/mifunetoshiro/kanjium/9ebca4589565c696e7c39e089e2e928ad65f678c/data/source_files/raw/accents.txt",
+        "sha256": "8bd0dd127dab32ceec94cb03ab1ba6b68858ea73421dfa1731af2f373deb4f20"
+      },
+      "novels_freq.txt": {
+        "url": "https://raw.githubusercontent.com/mifunetoshiro/kanjium/9ebca4589565c696e7c39e089e2e928ad65f678c/data/source_files/raw/novels_freq.txt",
+        "sha256": "adbcadbbd6402844b09709f3058f139ccabee221f32fe16b52664ca159cca97f"
+      },
+      "wikipedia_freq.txt": {
+        "url": "https://raw.githubusercontent.com/mifunetoshiro/kanjium/9ebca4589565c696e7c39e089e2e928ad65f678c/data/source_files/raw/wikipedia_freq.txt",
+        "sha256": "d84be5bf6981c22c946458662874ce15b07583bd8ce3437f159d9007dec91de5"
+      }
+    }
+  },
+  "jmdict": {
+    "license": "CC BY-SA 4.0 (JMdict, EDRDG); example sentences CC BY 2.0 FR (Tatoeba)",
+    "homepage": "https://github.com/scriptin/jmdict-simplified",
+    "files": {
+      "jmdict-examples-eng.json.zip": {
+        "url": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261102210542/jmdict-examples-eng-3.6.2%2B20261102210542.json.zip",
+        "sha256": "8e27ad5d5c175b534758b2a1fe52d8c25a62cfc2ff60b4f4c44f5229aa3ff77a"
+      }
+    }
+  }
+}

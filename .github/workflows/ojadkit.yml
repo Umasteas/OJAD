@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - Packages/OJADKit/**
+      - scripts/dictionary/**
       - .github/workflows/ojadkit.yml
   push:
     branches: [main]
     paths:
       - Packages/OJADKit/**
+      - scripts/dictionary/**
       - .github/workflows/ojadkit.yml
   workflow_dispatch:
 
@@ -25,8 +27,17 @@ jobs:
         working-directory: Packages/OJADKit
     steps:
       - uses: actions/checkout@v4
+      - run: apt-get update && apt-get install -y --no-install-recommends libsqlite3-dev
       - run: swift --version
       - run: swift test
+
+  # The dictionary builder and the committed sample it generates (Fixtures/sample-dictionary.sqlite).
+  dictionary-builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 --version
+      - run: python3 -m unittest discover -v -s scripts/dictionary -p 'test_*.py'
 
   macos:
     runs-on: macos-26

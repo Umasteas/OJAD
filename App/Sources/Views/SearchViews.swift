@@ -1,14 +1,18 @@
 import OJADKit
 import SwiftData
 import SwiftUI
+import UIKit
 
 struct SearchView: View {
+    @Environment(Library.self) private var library
     @Query(sort: \HistoryEntry.lastSearchedAt, order: .reverse) private var history: [HistoryEntry]
     @State private var text = ""
     @State private var submitted: String?
+    @State private var suggestions: [DictionaryWord] = []
+    @State private var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             Group {
                 if let submitted {
                     SearchResultsView(query: submitted)
@@ -19,21 +23,50 @@ struct SearchView: View {
             }
             .navigationTitle("查询")
             .appDestinations()
-            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always), prompt: "单词（漢字・かな）")
+            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always), prompt: "漢字・かな・romaji")
+            .searchSuggestions {
+                ForEach(suggestions) { word in
+                    Button { open(word) } label: {
+                        SuggestionRow(word: word)
+                    }
+                    .tint(.primary)
+                    .accessibilityIdentifier("suggestion")
+                }
+            }
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
             .onSubmit(of: .search) { submit(text) }
             .onChange(of: text) { _, newValue in
                 if newValue.isEmpty { submitted = nil }
             }
+            .task(id: text) { await updateSuggestions() }
         }
+    }
+
+    /// Waits for a pause in typing; each keystroke cancels the previous task.
+    private func updateSuggestions() async {
+        let typed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !typed.isEmpty, typed != submitted else {
+            suggestions = []
+            return
+        }
+        try? await Task.sleep(for: .milliseconds(120))
+        guard !Task.isCancelled else { return }
+        suggestions = library.suggestions(for: typed)
     }
 
     private func submit(_ query: String) {
         let query = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else { return }
+        suggestions = []
         text = query
         submitted = query
+    }
+
+    private func open(_ word: DictionaryWord) {
+        submit(word.written)
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        path.append(word.entry)
     }
 
     @ViewBuilder
@@ -42,7 +75,7 @@ struct SearchView: View {
             ContentUnavailableView(
                 "查一个单词",
                 systemImage: "waveform.path",
-                description: Text("输入辞書形，例如「食べる」「高い」「学校」，查看各活用形的重音和音高曲线。")
+                description: Text("输入漢字、かな或罗马字（例如 tabe），从候选词中选一个，查看各活用形的重音和音高曲线。无需联网。")
             )
         } else {
             List {
@@ -54,6 +87,25 @@ struct SearchView: View {
                         .tint(.primary)
                     }
                 }
+            }
+        }
+    }
+}
+
+/// One autocomplete candidate: spelling, accented reading and a short gloss.
+struct SuggestionRow: View {
+    let word: DictionaryWord
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(word.written).font(.body.weight(.semibold))
+                Text(word.notation).font(.subheadline).foregroundStyle(.secondary)
+                Spacer(minLength: 4)
+                Text(word.wordClass.category.displayName).font(.caption2).foregroundStyle(.tertiary)
+            }
+            if let gloss = word.gloss {
+                Text(gloss).font(.caption).foregroundStyle(.secondary).lineLimit(1)
             }
         }
     }
@@ -72,8 +124,62 @@ struct HistoryRow: View {
     }
 }
 
-/// Loads and lists the OJAD entries for one query.
+/// Lists the offline dictionary's entries for one query, with OJAD itself one tap away.
 struct SearchResultsView: View {
+    let query: String
+    @Environment(Library.self) private var library
+    @State private var state: LoadState<[WordEntry]> = .loading
+
+    var body: some View {
+        Group {
+            switch state {
+            case .loading:
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            case .failed(let message):
+                ContentUnavailableView("查询失败", systemImage: "exclamationmark.triangle", description: Text(message))
+            case .loaded(let entries) where entries.isEmpty:
+                ContentUnavailableView {
+                    Label("离线词典中没有「\(query)」", systemImage: "magnifyingglass")
+                } description: {
+                    Text("试试辞書形或其他写法（漢字／かな），或者在线查询 OJAD。")
+                } actions: {
+                    NavigationLink("在线查询 OJAD", value: OnlineQuery(text: query))
+                }
+            case .loaded(let entries):
+                List {
+                    Section {
+                        ForEach(entries) { entry in
+                            NavigationLink(value: entry) {
+                                WordRow(entry: entry)
+                            }
+                        }
+                    }
+                    Section {
+                        NavigationLink(value: OnlineQuery(text: query)) {
+                            Label("在线查询 OJAD", systemImage: "globe")
+                        }
+                    } footer: {
+                        Text("离线结果由词典数据推导。想和 OJAD 原站核对时再在线查询（需联网）。")
+                    }
+                }
+            }
+        }
+        .task { await load() }
+    }
+
+    private func load() async {
+        if case .loaded = state { return }
+        do {
+            state = .loaded(try await library.search(query))
+        } catch {
+            state = .failed(error.userMessage)
+        }
+    }
+}
+
+/// OJAD's own result page for a query, fetched live and cached.
+struct OnlineResultsView: View {
     let query: String
     @Environment(Library.self) private var library
     @State private var state: LoadState<[WordEntry]> = .loading
@@ -97,7 +203,7 @@ struct SearchResultsView: View {
                 }
             case .loaded(let entries) where entries.isEmpty:
                 ContentUnavailableView(
-                    "没有找到「\(query)」",
+                    "OJAD 中没有找到「\(query)」",
                     systemImage: "magnifyingglass",
                     description: Text("OJAD 主要收录教材词汇。试试辞書形或其他写法（漢字／かな）。")
                 )
@@ -110,13 +216,15 @@ struct SearchResultsView: View {
                 .refreshable { await load(refresh: true) }
             }
         }
+        .navigationTitle("OJAD：\(query)")
+        .navigationBarTitleDisplayMode(.inline)
         .task { await load(refresh: false) }
     }
 
     private func load(refresh: Bool) async {
         if case .loaded = state, !refresh { return }
         do {
-            state = .loaded(try await library.search(query, refresh: refresh))
+            state = .loaded(try await library.searchOnline(query, refresh: refresh))
         } catch {
             state = .failed(error.userMessage)
         }
@@ -174,6 +282,10 @@ struct SearchQuery: Hashable {
     let text: String
 }
 
+struct OnlineQuery: Hashable {
+    let text: String
+}
+
 extension View {
     func appDestinations() -> some View {
         navigationDestination(for: WordEntry.self) { WordDetailView(entry: $0) }
@@ -182,5 +294,6 @@ extension View {
                 SearchResultsView(query: query.text)
                     .navigationTitle(query.text)
             }
+            .navigationDestination(for: OnlineQuery.self) { OnlineResultsView(query: $0.text) }
     }
 }

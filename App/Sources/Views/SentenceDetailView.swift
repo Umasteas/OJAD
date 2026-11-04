@@ -1,11 +1,12 @@
 import OJADKit
 import SwiftUI
 
-/// An example sentence with スズキクン's accent phrases redrawn as pitch curves.
+/// An example sentence; on request, スズキクン's accent phrases redrawn as pitch curves.
 struct SentenceDetailView: View {
     let sentence: ExampleSentence
     @Environment(Library.self) private var library
-    @State private var analysis: LoadState<SentenceAnalysis> = .loading
+    /// nil until requested: スズキクン is OJAD's online analyzer.
+    @State private var analysis: LoadState<SentenceAnalysis>?
 
     var body: some View {
         List {
@@ -24,17 +25,23 @@ struct SentenceDetailView: View {
 
             Section {
                 switch analysis {
-                case .loading:
+                case nil:
+                    Button {
+                        Task { await load(refresh: false) }
+                    } label: {
+                        Label("在线请求スズキクン语调分析", systemImage: "waveform.path")
+                    }
+                case .loading?:
                     HStack {
                         ProgressView()
                         Text("正在请求スズキクン分析…").foregroundStyle(.secondary)
                     }
-                case .failed(let message):
+                case .failed(let message)?:
                     VStack(alignment: .leading, spacing: 6) {
                         Text(message).foregroundStyle(.secondary)
                         Button("重试") { Task { await load(refresh: true) } }
                     }
-                case .loaded(let result):
+                case .loaded(let result)?:
                     ForEach(Array(result.sentences.joined().enumerated()), id: \.offset) { _, phrase in
                         VStack(alignment: .leading, spacing: 4) {
                             Text(phrase.text).font(.caption).foregroundStyle(.secondary)
@@ -52,12 +59,16 @@ struct SentenceDetailView: View {
             } header: {
                 Text("语调（スズキクン）")
             } footer: {
-                Text("アクセント句和曲线由 OJAD スズキクン 的分析结果在本机重绘，不使用任何合成语音。机器分析可能有误。")
+                Text("需联网：句子会发送给 OJAD スズキクン 分析，结果在本机重绘并缓存，不使用任何合成语音。机器分析可能有误。")
             }
         }
         .navigationTitle("例句")
         .navigationBarTitleDisplayMode(.inline)
-        .task { await load(refresh: false) }
+        .task {
+            if analysis == nil, let cached = library.cachedAnalysis(of: sentence.text) {
+                analysis = .loaded(cached)
+            }
+        }
     }
 
     private var attribution: String {
@@ -79,8 +90,7 @@ struct SentenceDetailView: View {
     }
 
     private func load(refresh: Bool) async {
-        if case .loaded = analysis, !refresh { return }
-        if refresh { analysis = .loading }
+        analysis = .loading
         do {
             analysis = .loaded(try await library.analysis(of: sentence.text, refresh: refresh))
         } catch {
