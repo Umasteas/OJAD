@@ -1,8 +1,8 @@
 import XCTest
 
-/// Walks the main flow against the live services and keeps a screenshot of each
-/// screen as an xcresult attachment. Makes one OJAD search, one Tatoeba query and
-/// one スズキクン analysis per run.
+/// Walks the main flow and keeps a screenshot of each screen as an xcresult
+/// attachment. Search, conjugations and examples are offline; the run makes one
+/// スズキクン analysis request against the live service.
 final class ScreenshotTests: XCTestCase {
     private let app = XCUIApplication()
 
@@ -17,32 +17,41 @@ final class ScreenshotTests: XCTestCase {
         let field = app.searchFields.firstMatch
         XCTAssertTrue(field.waitForExistence(timeout: 10))
         field.tap()
-        field.typeText("食べる\n")
+        field.typeText("tabe")
 
-        let row = app.staticTexts["食べる・食べます"]
-        XCTAssertTrue(row.waitForExistence(timeout: 30), "OJAD search result did not appear")
-        snapshot("2-search-results")
+        let suggestion = app.buttons.matching(identifier: "suggestion").firstMatch
+        XCTAssertTrue(suggestion.waitForExistence(timeout: 10), "No suggestions appeared")
+        XCTAssertTrue(suggestion.label.contains("食べる"), "First suggestion is \(suggestion.label)")
+        snapshot("2-suggestions")
 
-        row.tap()
+        suggestion.tap()
         XCTAssertTrue(app.navigationBars["食べる"].waitForExistence(timeout: 10))
         snapshot("3-conjugations")
 
         let example = app.staticTexts
-            .matching(NSPredicate(format: "label CONTAINS '食べる' AND (label ENDSWITH '。' OR label ENDSWITH '？' OR label ENDSWITH '！')"))
+            .matching(NSPredicate(format: "label CONTAINS '食べ' AND (label ENDSWITH '。' OR label ENDSWITH '？' OR label ENDSWITH '！')"))
             .firstMatch
         // List rows below the fold aren't in the accessibility tree until scrolled to.
         for _ in 0..<15 where !(example.exists && example.isHittable) {
             app.swipeUp()
-            RunLoop.current.run(until: Date().addingTimeInterval(1.5))
+            RunLoop.current.run(until: Date().addingTimeInterval(1))
         }
-        XCTAssertTrue(example.exists, "No Tatoeba example appeared")
+        XCTAssertTrue(example.exists, "No offline example appeared")
         snapshot("4-examples")
 
         example.tap()
         XCTAssertTrue(app.navigationBars["例句"].waitForExistence(timeout: 10))
+        let analyze = app.buttons["在线请求スズキクン语调分析"]
+        XCTAssertTrue(analyze.waitForExistence(timeout: 5))
+        analyze.tap()
         XCTAssertTrue(app.staticTexts["正在请求スズキクン分析…"].waitForNonExistence(timeout: 30))
         XCTAssertFalse(app.buttons["重试"].exists, "スズキクン analysis failed")
         snapshot("5-sentence-intonation")
+
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        XCTAssertTrue(app.staticTexts["食べる・食べます"].waitForExistence(timeout: 10))
+        snapshot("6-search-results")
     }
 
     private func snapshot(_ name: String) {

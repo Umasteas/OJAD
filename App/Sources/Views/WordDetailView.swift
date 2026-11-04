@@ -6,12 +6,14 @@ struct WordDetailView: View {
     let entry: WordEntry
     @Environment(Library.self) private var library
     @Query private var favorites: [FavoriteWord]
-    @State private var examples: LoadState<[ExampleSentence]> = .loading
+    @State private var word: DictionaryWord?
+    @State private var offlineExamples: [ExampleSentence] = []
+    /// nil until the user asks Tatoeba for more.
+    @State private var onlineExamples: LoadState<[ExampleSentence]>?
 
     init(entry: WordEntry) {
         self.entry = entry
-        let id = entry.id
-        _favorites = Query(filter: #Predicate<FavoriteWord> { $0.wordID == id })
+        _favorites = Query(filter: FavoriteWord.matching(entry))
     }
 
     private var isFavorite: Bool { !favorites.isEmpty }
@@ -22,11 +24,14 @@ struct WordDetailView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(entry.headword).font(.title2.bold())
                     Text(entry.category.displayName).font(.subheadline).foregroundStyle(.secondary)
+                    if let gloss = word?.gloss {
+                        Text(gloss).font(.subheadline).foregroundStyle(.secondary).textSelection(.enabled)
+                    }
                 }
                 .padding(.vertical, 4)
             }
 
-            Section("活用形") {
+            Section {
                 ForEach(entry.forms, id: \.kind) { form in
                     VStack(alignment: .leading, spacing: 6) {
                         Text(form.label)
@@ -37,6 +42,17 @@ struct WordDetailView: View {
                         }
                     }
                     .padding(.vertical, 2)
+                }
+                if entry.isOffline {
+                    NavigationLink(value: OnlineQuery(text: entry.exampleSearchTerm)) {
+                        Label("在线核对 OJAD", systemImage: "globe")
+                    }
+                }
+            } header: {
+                Text("活用形")
+            } footer: {
+                if entry.isOffline {
+                    Text("重音由离线词典（辞書形重音 + 活用规则）推导，个别词可能与 OJAD 略有不同。")
                 }
             }
 
@@ -54,28 +70,47 @@ struct WordDetailView: View {
                 .tint(isFavorite ? Color.yellow : nil)
             }
         }
-        .task { await loadExamples(refresh: false) }
+        .task {
+            word = library.dictionaryWord(for: entry)
+            offlineExamples = library.offlineExamples(for: entry)
+        }
     }
 
     @ViewBuilder
     private var examplesSection: some View {
         Section {
-            switch examples {
-            case .loading:
+            ForEach(offlineExamples) { sentence in
+                NavigationLink(value: sentence) {
+                    ExampleSentenceRow(sentence: sentence)
+                }
+            }
+            switch onlineExamples {
+            case nil:
+                if offlineExamples.isEmpty {
+                    Text("离线词典中没有「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
+                }
+                Button {
+                    Task { await loadOnlineExamples(refresh: false) }
+                } label: {
+                    Label("在线加载更多例句（含中文翻译）", systemImage: "globe")
+                }
+            case .loading?:
                 HStack {
                     ProgressView()
                     Text("正在加载例句…").foregroundStyle(.secondary)
                 }
-            case .failed(let message):
+            case .failed(let message)?:
                 VStack(alignment: .leading, spacing: 6) {
                     Text(message).foregroundStyle(.secondary)
-                    Button("重试") { Task { await loadExamples(refresh: true) } }
+                    Button("重试") { Task { await loadOnlineExamples(refresh: true) } }
                 }
-            case .loaded(let sentences) where sentences.isEmpty:
-                Text("Tatoeba 中没有找到包含「\(entry.exampleSearchTerm)」的例句。")
-                    .foregroundStyle(.secondary)
-            case .loaded(let sentences):
-                ForEach(sentences) { sentence in
+            case .loaded(let sentences)?:
+                let known = Set(offlineExamples.map(\.id))
+                let more = sentences.filter { !known.contains($0.id) }
+                if more.isEmpty {
+                    Text("Tatoeba 中没有更多包含「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
+                }
+                ForEach(more) { sentence in
                     NavigationLink(value: sentence) {
                         ExampleSentenceRow(sentence: sentence)
                     }
@@ -84,17 +119,16 @@ struct WordDetailView: View {
         } header: {
             Text("例句")
         } footer: {
-            Text("例句来自 Tatoeba（CC BY 2.0 FR）。点开一句可查看スズキクン分析的语调曲线。")
+            Text("例句来自 Tatoeba（CC BY 2.0 FR），离线例句经 JMdict 收录、附英文翻译。点开一句可在线请求スズキクン语调分析。")
         }
     }
 
-    private func loadExamples(refresh: Bool) async {
-        if case .loaded = examples, !refresh { return }
-        if refresh { examples = .loading }
+    private func loadOnlineExamples(refresh: Bool) async {
+        onlineExamples = .loading
         do {
-            examples = .loaded(try await library.exampleSentences(for: entry, refresh: refresh))
+            onlineExamples = .loaded(try await library.onlineExamples(for: entry, refresh: refresh))
         } catch {
-            examples = .failed(error.userMessage)
+            onlineExamples = .failed(error.userMessage)
         }
     }
 }

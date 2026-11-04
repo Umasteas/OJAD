@@ -32,6 +32,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: ./.github/actions/build-dictionary
+
       - name: Generate Xcode project
         run: |
           brew install xcodegen

@@ -23,6 +23,8 @@ jobs:
           xcodebuild -version
           swift --version
 
+      - uses: ./.github/actions/build-dictionary
+
       - name: Generate Xcode project
         run: |
           brew install xcodegen

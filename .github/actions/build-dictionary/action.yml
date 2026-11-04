@@ -1,0 +1,18 @@
+name: Build offline dictionary
+description: >
+  Downloads the pinned sources in scripts/dictionary/sources.json (checksums verified)
+  and builds App/Generated/Dictionary.sqlite, which project.yml bundles into the app.
+runs:
+  using: composite
+  steps:
+    - uses: actions/cache@v4
+      with:
+        path: scripts/dictionary/.cache
+        key: dictionary-sources-${{ hashFiles('scripts/dictionary/sources.json') }}
+
+    - name: Build Dictionary.sqlite
+      shell: bash
+      run: |
+        python3 --version
+        python3 scripts/dictionary/build.py --out App/Generated/Dictionary.sqlite
+        ls -lh App/Generated/Dictionary.sqlite

@@ -16,10 +16,12 @@ final class LibraryTests: XCTestCase {
         clock = Date(timeIntervalSince1970: 1_800_000_000)
     }
 
-    private func makeLibrary() -> Library {
+    /// Online-only unless given the bundled dictionary (`OfflineDictionary.bundled`).
+    private func makeLibrary(dictionary: OfflineDictionary? = nil) -> Library {
         let transport = transport!
         return Library(
             context: container.mainContext,
+            dictionary: dictionary,
             ojad: OJADClient(transport: { try await transport.respond(to: $0) }),
             tatoeba: TatoebaClient(transport: { try await transport.respond(to: $0) }),
             now: { [unowned self] in self.clock }
@@ -48,8 +50,8 @@ final class LibraryTests: XCTestCase {
 
     func testRefreshBypassesTheCache() async throws {
         let library = makeLibrary()
-        _ = try await library.search("学校")
-        _ = try await library.search("学校", refresh: true)
+        _ = try await library.searchOnline("学校")
+        _ = try await library.searchOnline("学校", refresh: true)
         XCTAssertEqual(transport.count, 2)
     }
 
@@ -90,14 +92,63 @@ final class LibraryTests: XCTestCase {
         let entry = WordEntry(id: 1, headword: "静か[な]・静かです", category: .naAdjective, forms: [])
         transport.json = #"{"data":[{"id":7,"text":"静かな部屋ですね。","owner":"x","license":"CC BY 2.0 FR","translations":[]}],"paging":{}}"#
 
-        let sentences = try await library.exampleSentences(for: entry)
-        _ = try await library.exampleSentences(for: entry)
+        let sentences = try await library.onlineExamples(for: entry)
+        _ = try await library.onlineExamples(for: entry)
 
         XCTAssertEqual(sentences.map(\.text), ["静かな部屋ですね。"])
         XCTAssertEqual(transport.count, 1)
         let q = transport.lastURL.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }?
             .queryItems?.first { $0.name == "q" }?.value
         XCTAssertEqual(q, "\"静か\"")
+    }
+
+    // MARK: Offline
+
+    private func offlineLibrary() throws -> Library {
+        makeLibrary(dictionary: try XCTUnwrap(OfflineDictionary.bundled, "Dictionary.sqlite missing from the app bundle"))
+    }
+
+    func testOfflineSearchNeedsNoNetworkAndIsRecorded() async throws {
+        let library = try offlineLibrary()
+        let entries = try await library.search("食べる")
+
+        XCTAssertEqual(entries.first?.headword, "食べる・食べます")
+        XCTAssertEqual(entries.first?.forms.first { $0.kind == "te" }?.readings.map(\.notation), ["たꜜべて"])
+        XCTAssertTrue(entries.first?.isOffline ?? false)
+        XCTAssertEqual(try history().first?.summary, "食べる・食べます　たべꜜる")
+        XCTAssertEqual(transport.count, 0)
+    }
+
+    func testSuggestionsAcceptRomaji() throws {
+        let library = try offlineLibrary()
+        let suggestions = library.suggestions(for: "tabe")
+        XCTAssertEqual(suggestions.first?.written, "食べる")
+        XCTAssertLessThanOrEqual(suggestions.count, 10)
+        XCTAssertTrue(library.suggestions(for: "").isEmpty)
+    }
+
+    func testFavoritesSavedFromOJADStayFavoritesOffline() async throws {
+        let online = try await makeLibrary().searchOnline("学校")
+        let saved = try XCTUnwrap(online.first)
+        try makeLibrary().toggleFavorite(saved)
+
+        let library = try offlineLibrary()
+        let offline = try XCTUnwrap(try await library.search("学校").first { $0.headword == "学校" })
+        XCTAssertNotEqual(offline.id, saved.id)
+        XCTAssertTrue(library.isFavorite(offline))
+
+        try library.toggleFavorite(offline)
+        XCTAssertEqual(try container.mainContext.fetch(FetchDescriptor<FavoriteWord>()).count, 0)
+    }
+
+    func testOfflineExamplesForOfflineAndSavedOJADEntries() async throws {
+        let library = try offlineLibrary()
+        let offline = try XCTUnwrap(try await library.search("食べる").first)
+        XCTAssertFalse(library.offlineExamples(for: offline).isEmpty)
+
+        let fromOJAD = WordEntry(id: 1238, headword: offline.headword, category: .verb, forms: offline.forms)
+        XCTAssertEqual(library.offlineExamples(for: fromOJAD), library.offlineExamples(for: offline))
+        XCTAssertEqual(transport.count, 0)
     }
 }
 

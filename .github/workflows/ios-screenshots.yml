@@ -1,11 +1,13 @@
 name: iOS screenshots
 
-# Live UI walkthrough: one OJAD search, one Tatoeba query and one スズキクン analysis
-# per run, so it only runs when the app changes and never blocks a PR.
+# UI walkthrough. Search is offline; it makes one live スズキクン analysis per run,
+# so it only runs when the app changes and never blocks a PR.
 on:
   pull_request:
     paths:
       - App/**
+      - Packages/OJADKit/Sources/**
+      - scripts/dictionary/**
       - .github/workflows/ios-screenshots.yml
 
 concurrency:
@@ -14,12 +16,14 @@ concurrency:
 
 jobs:
   screenshots:
-    name: UI walkthrough screenshots (live, non-blocking)
+    name: UI walkthrough screenshots (non-blocking)
     continue-on-error: true
     runs-on: macos-26
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/build-dictionary
 
       - name: Generate Xcode project
         run: |
