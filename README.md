@@ -7,6 +7,10 @@
 - **历史 / 收藏**：保存在本机（SwiftData）。查过的结果也会缓存，以减少对 OJAD 的请求。
 - **不使用任何音频或合成语音**，遵守 OJAD 的使用条款（仅限教育和学术研究用途）。
 
+## 安装
+
+下载最新的未签名 ipa：<https://github.com/Umasteas/OJAD/releases/latest/download/OJAD.ipa>。然后在 iPhone 上用 Feather 或 ESign，配合自己的 `.p12` 和 `.mobileprovision` 签名并安装，详见 [docs/install.md](docs/install.md)。
+
 ## 结构
 
 ```text
@@ -27,7 +31,7 @@ CI 的分工如下：
 - `OJADKit` workflow：在 Linux 和 macOS 上跑包的测试。
 - `iOS` workflow：每个 PR 都在 iPhone 模拟器上 build 并跑测试，不签名。
 - `iOS screenshots` workflow：改动 `App/` 的 PR 会额外跑一遍 UI 流程截图（会真实请求 OJAD、Tatoeba、スズキクン 各一次，失败也不阻塞合并）。
-- `TestFlight` workflow：`main` 上的 `iOS` workflow 通过后，签名并上传到 TestFlight。配置方法见 [docs/testflight-setup.md](docs/testflight-setup.md)。
+- `IPA` workflow：每个 PR 都会构建一个未签名的 Release 版 `.ipa`，只检查能否构建；`main` 上还会把它发布到 GitHub Releases。
 
 ## 数据来源
 

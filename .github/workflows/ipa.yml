@@ -1,0 +1,137 @@
+name: IPA
+
+# Builds an unsigned Release .ipa for re-signing on the phone (Feather / ESign).
+# Pull requests only build it; pushes to main (or a manual run from main) also
+# publish it as a GitHub Release, so the newest build is always at
+# https://github.com/<owner>/<repo>/releases/latest/download/OJAD.ipa
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  EXPECTED_BUNDLE_ID: io.github.umasteas.ojad
+  EXPECTED_DISPLAY_NAME: OJAD 重音
+
+jobs:
+  build:
+    name: Unsigned IPA (Release)
+    runs-on: macos-26
+    timeout-minutes: 40
+    outputs:
+      version: ${{ steps.package.outputs.version }}
+      build: ${{ steps.package.outputs.build }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+
+      # On-device signers replace the signature wholesale and apply the
+      # entitlements of the user's provisioning profile, so the app must not
+      # depend on any capability (App Groups, iCloud, push…) that a third-party
+      # profile may lack.
+      - name: Check the app declares no entitlements
+        run: |
+          if find App -name '*.entitlements' | grep -q . || grep -q CODE_SIGN_ENTITLEMENTS App/project.yml; then
+            echo "::error::The app must not declare entitlements; they break re-signing with third-party profiles."
+            exit 1
+          fi
+
+      - name: Archive (unsigned)
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -project App/OJAD.xcodeproj \
+            -scheme OJAD \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/OJAD.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
+            | xcbeautify --renderer github-actions
+
+      - name: Package IPA
+        id: package
+        run: |
+          app=build/OJAD.xcarchive/Products/Applications/OJAD.app
+          plist="$app/Info.plist"
+          bundle_id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist")
+          display_name=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleDisplayName' "$plist")
+          version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$plist")
+          build=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$plist")
+          echo "bundle id: $bundle_id, name: $display_name, version: $version ($build)"
+          lipo -info "$app/OJAD"
+          [ "$bundle_id" = "$EXPECTED_BUNDLE_ID" ] || { echo "::error::Unexpected bundle id $bundle_id"; exit 1; }
+          [ "$display_name" = "$EXPECTED_DISPLAY_NAME" ] || { echo "::error::Unexpected display name $display_name"; exit 1; }
+          if [ -e "$app/embedded.mobileprovision" ] || [ -d "$app/_CodeSignature" ]; then
+            echo "::error::The archived app is signed; expected an unsigned build."
+            exit 1
+          fi
+
+          mkdir -p build/ipa/Payload
+          cp -R "$app" build/ipa/Payload/
+          (cd build/ipa && zip -qry ../OJAD.ipa Payload)
+          ls -lh build/OJAD.ipa
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "build=$build" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OJAD-ipa
+          path: build/OJAD.ipa
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish GitHub Release
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      VERSION: ${{ needs.build.outputs.version }}
+      BUILD: ${{ needs.build.outputs.build }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: OJAD-ipa
+
+      - name: Create release
+        run: |
+          tag="v${VERSION}-build.${BUILD}"
+          notes=$(printf '%s\n' \
+            "未签名的 Release 版 .ipa，构建自 ${GITHUB_SHA::7}。" \
+            "" \
+            "下载后在 Feather / ESign 里用自己的 .p12 + .mobileprovision 重新签名安装，步骤见 [docs/install.md](https://github.com/${GH_REPO}/blob/main/docs/install.md)。" \
+            "" \
+            "固定下载地址（永远指向最新版）：https://github.com/${GH_REPO}/releases/latest/download/OJAD.ipa")
+          gh release create "$tag" OJAD.ipa \
+            --target "$GITHUB_SHA" \
+            --title "OJAD 重音 ${VERSION} (build ${BUILD})" \
+            --notes "$notes" \
+            --latest
+
+      # Keep the ten newest builds; the "latest" download URL always follows the newest.
+      - name: Prune old releases
+        run: |
+          gh release list --limit 200 --json tagName,createdAt \
+            -q '[.[] | select(.tagName | test("^v.+-build\\.[0-9]+$"))] | sort_by(.createdAt) | reverse | .[10:] | .[].tagName' \
+            | while read -r old; do
+                gh release delete "$old" --cleanup-tag --yes
+              done
