@@ -5,7 +5,8 @@ public enum Kana {
     /// The form every dictionary key is stored in: NFKC, lowercased, katakana folded
     /// to hiragana. Must match `search_key` in `scripts/dictionary/build.py`.
     public static func searchKey(_ text: String) -> String {
-        let folded = text.precomposedStringWithCompatibilityMapping.lowercased()
+        // Composing again: some Foundation versions leave ﾍﾞ as ヘ + U+3099 after NFKC.
+        let folded = text.precomposedStringWithCompatibilityMapping.precomposedStringWithCanonicalMapping.lowercased()
         return String(String.UnicodeScalarView(folded.unicodeScalars.map { scalar in
             (0x30A1...0x30F6).contains(scalar.value) ? Unicode.Scalar(scalar.value - 0x60)! : scalar
         }))
