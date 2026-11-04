@@ -55,7 +55,11 @@ enum AppSchema {
     static let models: [any PersistentModel.Type] = [HistoryEntry.self, FavoriteWord.self, CachedResponse.self]
 
     static func container(inMemory: Bool = false) throws -> ModelContainer {
-        try ModelContainer(
+        if !inMemory {
+            // SwiftData's default store lives here, but a fresh install has no such directory.
+            try FileManager.default.createDirectory(at: .applicationSupportDirectory, withIntermediateDirectories: true)
+        }
+        return try ModelContainer(
             for: Schema(models),
             configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory)
         )

@@ -30,21 +30,7 @@ jobs:
 
       - name: Pick an iPhone simulator
         id: simulator
-        run: |
-          udid=$(xcrun simctl list devices available --json | python3 -c '
-          import json, re, sys
-          devices = json.load(sys.stdin)["devices"]
-          def version(runtime):
-              m = re.search(r"iOS-(\d+)-(\d+)", runtime)
-              return (int(m.group(1)), int(m.group(2))) if m else (0, 0)
-          for runtime in sorted(devices, key=version, reverse=True):
-              phones = [d for d in devices[runtime] if d["name"].startswith("iPhone") and "iOS" in runtime]
-              if phones:
-                  print(phones[0]["udid"]); break
-          ')
-          test -n "$udid"
-          xcrun simctl list devices | grep "$udid"
-          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+        run: echo "udid=$(python3 scripts/pick-simulator.py)" >> "$GITHUB_OUTPUT"
 
       - name: Build and test
         run: |
@@ -64,4 +50,52 @@ jobs:
         with:
           name: OJADTests.xcresult
           path: build/OJADTests.xcresult
+          if-no-files-found: ignore
+
+  # Talks to the live OJAD / Tatoeba services (three requests per run), so it never
+  # blocks a PR; a site hiccup should not turn CI red.
+  screenshots:
+    name: UI walkthrough screenshots (live, non-blocking)
+    if: github.event_name == 'pull_request'
+    needs: build-and-test
+    continue-on-error: true
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+
+      - name: Pick an iPhone simulator
+        id: simulator
+        run: echo "udid=$(python3 scripts/pick-simulator.py)" >> "$GITHUB_OUTPUT"
+
+      - name: Run UI walkthrough
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project App/OJAD.xcodeproj \
+            -scheme OJADScreenshots \
+            -destination "id=${{ steps.simulator.outputs.udid }}" \
+            -derivedDataPath build/DerivedData \
+            -resultBundlePath build/Screenshots.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify --renderer github-actions
+
+      - name: Extract screenshots
+        if: always()
+        run: |
+          mkdir -p build/screenshots
+          xcrun xcresulttool export attachments --path build/Screenshots.xcresult --output-path build/screenshots
+          ls -la build/screenshots
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: build/screenshots
           if-no-files-found: ignore

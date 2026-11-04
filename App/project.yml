@@ -66,7 +66,29 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: io.github.umasteas.ojad.tests
         GENERATE_INFOPLIST_FILE: YES
 
+  OJADUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - UITests
+    dependencies:
+      - target: OJAD
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.umasteas.ojad.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: OJAD
+
 schemes:
+  # Live-network UI walkthrough, kept out of the default test action.
+  OJADScreenshots:
+    build:
+      targets:
+        OJAD: all
+        OJADUITests: [test]
+    test:
+      targets:
+        - OJADUITests
   OJAD:
     build:
       targets:
