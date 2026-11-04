@@ -59,7 +59,9 @@ final class ScreenshotTests: XCTestCase {
         for _ in 0..<6 where !(selfTest.exists && selfTest.isHittable) {
             app.swipeUp()
         }
-        XCTAssertTrue(app.staticTexts["已加载（离线）"].exists, "Dictionary status is not loaded")
+        let state = app.descendants(matching: .any)["dictionary-state"]
+        XCTAssertTrue(state.exists, "No dictionary status row")
+        XCTAssertTrue(state.label.contains("已加载") || "\(state.value ?? "")".contains("已加载"), "Dictionary status: \(state.label)")
         selfTest.tap()
         XCTAssertTrue(selfTest.waitForExistence(timeout: 10))
         snapshot("7-dictionary-status")

@@ -88,6 +88,8 @@ struct DictionaryStatusSection: View {
         let diagnostics = library.diagnostics
         Section {
             LabeledContent("状态", value: diagnostics.stateText)
+                .accessibilityElement(children: .combine)
+                .accessibilityIdentifier("dictionary-state")
             if diagnostics.state == .loaded {
                 LabeledContent("词数", value: "\(diagnostics.words)")
                 if let version = diagnostics.version {
