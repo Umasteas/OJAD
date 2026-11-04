@@ -1,0 +1,59 @@
+name: iOS screenshots
+
+# Live UI walkthrough: one OJAD search, one Tatoeba query and one スズキクン analysis
+# per run, so it only runs when the app changes and never blocks a PR.
+on:
+  pull_request:
+    paths:
+      - App/**
+      - .github/workflows/ios-screenshots.yml
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    name: UI walkthrough screenshots (live, non-blocking)
+    continue-on-error: true
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+
+      - name: Pick an iPhone simulator
+        id: simulator
+        run: echo "udid=$(python3 scripts/pick-simulator.py)" >> "$GITHUB_OUTPUT"
+
+      - name: Run UI walkthrough
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project App/OJAD.xcodeproj \
+            -scheme OJADScreenshots \
+            -destination "id=${{ steps.simulator.outputs.udid }}" \
+            -derivedDataPath build/DerivedData \
+            -resultBundlePath build/Screenshots.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify --renderer github-actions
+
+      - name: Extract screenshots
+        if: always()
+        run: |
+          [ -d build/Screenshots.xcresult ] || exit 0
+          mkdir -p build/screenshots
+          xcrun xcresulttool export attachments --path build/Screenshots.xcresult --output-path build/screenshots
+          ls -la build/screenshots
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: build/screenshots
+          if-no-files-found: ignore

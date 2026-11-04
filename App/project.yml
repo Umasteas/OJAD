@@ -1,0 +1,104 @@
+# XcodeGen spec. CI runs `xcodegen generate` here; the .xcodeproj is not committed.
+name: OJAD
+options:
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+  developmentLanguage: zh-Hans
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    # Overridden on the xcodebuild command line in CI (secrets / repo variables).
+    DEVELOPMENT_TEAM: ""
+
+packages:
+  OJADKit:
+    path: ../Packages/OJADKit
+
+targets:
+  OJAD:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+      - Resources
+    dependencies:
+      - package: OJADKit
+    info:
+      path: Generated/Info.plist
+      properties:
+        CFBundleDisplayName: OJAD 重音
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: zh-Hans
+        LSApplicationCategoryType: public.app-category.education
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    settings:
+      base:
+        PRODUCT_NAME: OJAD
+        # Indirection so CI can override only the app's ID (repo variable BUNDLE_ID).
+        OJAD_BUNDLE_ID: io.github.umasteas.ojad
+        PRODUCT_BUNDLE_IDENTIFIER: $(OJAD_BUNDLE_ID)
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+
+  OJADTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests
+    dependencies:
+      - target: OJAD
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.umasteas.ojad.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  OJADUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - UITests
+    dependencies:
+      - target: OJAD
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.umasteas.ojad.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: OJAD
+
+schemes:
+  # Live-network UI walkthrough, kept out of the default test action.
+  OJADScreenshots:
+    build:
+      targets:
+        OJAD: all
+        OJADUITests: [test]
+    test:
+      targets:
+        - OJADUITests
+  OJAD:
+    build:
+      targets:
+        OJAD: all
+        OJADTests: [test]
+    test:
+      targets:
+        - OJADTests
+      gatherCoverageData: false
+    archive:
+      config: Release

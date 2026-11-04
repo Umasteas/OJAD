@@ -1,0 +1,53 @@
+name: iOS
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Simulator build and tests (unsigned)
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+
+      - name: Pick an iPhone simulator
+        id: simulator
+        run: echo "udid=$(python3 scripts/pick-simulator.py)" >> "$GITHUB_OUTPUT"
+
+      - name: Build and test
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project App/OJAD.xcodeproj \
+            -scheme OJAD \
+            -destination "id=${{ steps.simulator.outputs.udid }}" \
+            -derivedDataPath build/DerivedData \
+            -resultBundlePath build/OJADTests.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify --renderer github-actions
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: OJADTests.xcresult
+          path: build/OJADTests.xcresult
+          if-no-files-found: ignore
