@@ -133,7 +133,8 @@ final class LibraryTests: XCTestCase {
         try makeLibrary().toggleFavorite(saved)
 
         let library = try offlineLibrary()
-        let offline = try XCTUnwrap(try await library.search("学校").first { $0.headword == "学校" })
+        let results = try await library.search("学校")
+        let offline = try XCTUnwrap(results.first { $0.headword == "学校" })
         XCTAssertNotEqual(offline.id, saved.id)
         XCTAssertTrue(library.isFavorite(offline))
 
@@ -143,7 +144,8 @@ final class LibraryTests: XCTestCase {
 
     func testOfflineExamplesForOfflineAndSavedOJADEntries() async throws {
         let library = try offlineLibrary()
-        let offline = try XCTUnwrap(try await library.search("食べる").first)
+        let results = try await library.search("食べる")
+        let offline = try XCTUnwrap(results.first)
         XCTAssertFalse(library.offlineExamples(for: offline).isEmpty)
 
         let fromOJAD = WordEntry(id: 1238, headword: offline.headword, category: .verb, forms: offline.forms)
