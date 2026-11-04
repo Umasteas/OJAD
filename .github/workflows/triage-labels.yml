@@ -1,0 +1,27 @@
+name: Triage labels
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/triage-labels.yml
+      - docs/agents/triage-labels.md
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # `wontfix` already exists in GitHub's default label set and is left untouched.
+      - name: Create or update triage labels
+        run: |
+          gh label create needs-triage    --force --color fbca04 --description "Maintainer needs to evaluate this issue"
+          gh label create needs-info      --force --color d876e3 --description "Waiting on reporter for more information"
+          gh label create ready-for-agent --force --color 0e8a16 --description "Fully specified, ready for an AFK agent"
+          gh label create ready-for-human --force --color 1d76db --description "Requires human implementation"
