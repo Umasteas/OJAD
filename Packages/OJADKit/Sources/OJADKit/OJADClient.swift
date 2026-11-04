@@ -43,6 +43,50 @@ public struct OJADClient: Sendable {
         return try WordSearchParser.parse(html: html)
     }
 
+    /// Asks スズキクン how a text is read: accent phrases with their pitch.
+    /// Sends the text only; the synthesized-speech endpoints are never called.
+    public func analyzeSentence(_ text: String) async throws -> SentenceAnalysis {
+        let request = try Self.phrasingRequest(for: text)
+        let (data, response) = try await transport(request)
+        if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
+            throw OJADError.httpStatus(http.statusCode)
+        }
+        guard let html = String(data: data, encoding: .utf8) else { throw OJADError.unexpectedPage }
+        return try PhrasingParser.parse(html: html)
+    }
+
+    /// Longer texts make スズキクン slow; example sentences are far shorter.
+    static let maxSentenceLength = 300
+
+    static func phrasingRequest(for text: String) throws -> URLRequest {
+        let sentence = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !sentence.isEmpty, sentence.count <= maxSentenceLength else { throw OJADError.invalidQuery }
+
+        let fields: [(String, String)] = [
+            ("data[Phrasing][text]", sentence),
+            ("data[Phrasing][curve]", "advanced"),
+            ("data[Phrasing][accent]", "advanced"),
+            ("data[Phrasing][accent_mark]", "all"),
+            ("data[Phrasing][estimation]", "crf"),
+            ("data[Phrasing][analyze]", "true"),
+            ("data[Phrasing][phrase_component]", "invisible"),
+            ("data[Phrasing][param]", "invisible"),
+            ("data[Phrasing][subscript]", "visible"),
+            ("data[Phrasing][jeita]", "invisible"),
+        ]
+        let unreserved = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-._~"))
+        let body = fields
+            .map { "\($0.addingPercentEncoding(withAllowedCharacters: unreserved)!)=\($1.addingPercentEncoding(withAllowedCharacters: unreserved)!)" }
+            .joined(separator: "&")
+
+        var request = URLRequest(url: URL(string: "phrasing/index", relativeTo: baseURL)!.absoluteURL, timeoutInterval: 30)
+        request.httpMethod = "POST"
+        request.httpBody = Data(body.utf8)
+        request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        return request
+    }
+
     /// OJAD takes CakePHP named params in the path (`/word:食べる`), so `/` would end
     /// the param, `,` would turn it into a batch query, and `:` would start a new key.
     static func searchRequest(for query: String) throws -> URLRequest {

@@ -20,8 +20,8 @@ final class FixtureTransport: @unchecked Sendable {
     private let body: Data
     private let status: Int
 
-    init(fixture: String, status: Int = 200) throws {
-        self.body = try Fixture.data(fixture)
+    init(fixture: String, ext: String = "html", status: Int = 200) throws {
+        self.body = try Fixture.data(fixture, ext: ext)
         self.status = status
     }
 
