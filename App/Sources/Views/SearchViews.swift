@@ -8,7 +8,7 @@ struct SearchView: View {
     @Query(sort: \HistoryEntry.lastSearchedAt, order: .reverse) private var history: [HistoryEntry]
     @State private var text = ""
     @State private var submitted: String?
-    @State private var suggestions: [DictionaryWord] = []
+    @State private var suggestions: [SearchSuggestion] = []
     @State private var path = NavigationPath()
 
     var body: some View {
@@ -23,11 +23,11 @@ struct SearchView: View {
             }
             .navigationTitle("查询")
             .appDestinations()
-            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always), prompt: "漢字・かな・romaji")
+            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always), prompt: "漢字・かな・romaji・中文・English")
             .searchSuggestions {
-                ForEach(suggestions) { word in
-                    Button { open(word) } label: {
-                        SuggestionRow(word: word)
+                ForEach(suggestions) { suggestion in
+                    Button { open(suggestion.word) } label: {
+                        SuggestionRow(suggestion: suggestion)
                     }
                     .tint(.primary)
                     .accessibilityIdentifier("suggestion")
@@ -77,7 +77,7 @@ struct SearchView: View {
             ContentUnavailableView(
                 "查一个单词",
                 systemImage: "waveform.path",
-                description: Text("输入漢字、かな或罗马字（例如 tabe），从候选词中选一个，查看各活用形的重音和音高曲线。无需联网。")
+                description: Text("输入漢字、かな或罗马字（例如 tabe），也可以输入中文或英文意思（例如「吃」或 eat），从候选词中选一个，查看各活用形的重音和音高曲线。无需联网。")
             )
         } else {
             List {
@@ -91,9 +91,12 @@ struct SearchView: View {
     }
 }
 
-/// One autocomplete candidate: spelling, accented reading and a short gloss.
+/// One autocomplete candidate: spelling, accented reading and a short gloss; for a word
+/// found by meaning, the gloss that matched and which language it is in.
 struct SuggestionRow: View {
-    let word: DictionaryWord
+    let suggestion: SearchSuggestion
+
+    private var word: DictionaryWord { suggestion.word }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -103,10 +106,41 @@ struct SuggestionRow: View {
                 Spacer(minLength: 4)
                 Text(word.wordClass.category.displayName).font(.caption2).foregroundStyle(.tertiary)
             }
-            if let gloss = word.gloss {
-                Text(gloss).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+            switch suggestion {
+            case .word(let word):
+                if let gloss = word.gloss {
+                    Text(gloss).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                }
+            case .meaning(let match):
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    GlossTag(text: match.tag)
+                    Text(match.gloss).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                }
             }
         }
+    }
+}
+
+/// A small grey label saying where a gloss comes from (`中文释义`, `经英文`).
+struct GlossTag: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .font(.caption2)
+            .foregroundStyle(.secondary)
+            .padding(.horizontal, 4)
+            .padding(.vertical, 1)
+            .background(.quaternary, in: RoundedRectangle(cornerRadius: 3))
+    }
+}
+
+extension GlossMatch {
+    /// Which gloss matched: the word's Chinese, its English, or English that CC-CEDICT
+    /// translates as the typed Chinese (search only; the row shows the English).
+    var tag: String {
+        if viaEnglish { return "经英文" }
+        return language == .chinese ? "中文释义" : "英文释义"
     }
 }
 

@@ -121,7 +121,19 @@ struct AboutView: View {
                     Link(destination: URL(string: "https://tatoeba.org")!) {
                         LabeledContent("Tatoeba", value: "CC BY 2.0 FR")
                     }
-                    Text("大部分例句及其英文、中文翻译来自 Tatoeba（2026-10-31 的数据），作者见 tatoeba.org 上的各例句页面。")
+                    Text("大部分例句及其英文、中文翻译来自 Tatoeba（2026-10-31 的数据），作者见 tatoeba.org 上的各例句页面。标「中文译自英译」的中文是 Tatoeba 上英译句的中文翻译。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    Link(destination: URL(string: "https://zh.wiktionary.org")!) {
+                        LabeledContent("中文维基词典", value: "CC BY-SA 4.0")
+                    }
+                    Text("日语词条的中文释义来自中文维基词典（经 kaikki.org 的 wiktextract 导出，2026-11 的数据），作者见各词条页面的历史记录。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    Link(destination: URL(string: "https://cc-cedict.org/wiki/")!) {
+                        LabeledContent("CC-CEDICT", value: "CC BY-SA 4.0")
+                    }
+                    Text("写法相同、英文释义一致的中文词（标「同形词」），以及按中文搜索时的英文对照，来自 CC-CEDICT（MDBG 2026-11-04 版）。繁简转换使用 OpenCC（Apache 2.0）的字表。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     Link(destination: URL(string: "https://www.phontron.com/kftt/")!) {

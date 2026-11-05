@@ -29,13 +29,13 @@ final class Library {
 
     // MARK: Lookups
 
-    /// Runs off the main thread; callers debounce.
-    func suggestions(for text: String, limit: Int = 10) async -> [DictionaryWord] {
+    /// Words by spelling, reading or meaning (Chinese, English). Runs off the main thread; callers debounce.
+    func suggestions(for text: String, limit: Int = 12) async -> [SearchSuggestion] {
         guard let dictionary else { return [] }
         let clock = ContinuousClock()
         let start = clock.now
         let words = await Task.detached(priority: .userInitiated) {
-            dictionary.suggestions(for: text, limit: limit)
+            dictionary.searchSuggestions(for: text, limit: limit)
         }.value
         diagnostics.lastSuggestion = .init(query: text, duration: start.duration(to: clock.now), results: words.count)
         return words
@@ -65,7 +65,9 @@ final class Library {
                 let results = run()
                 return .init(query: query, duration: start.duration(to: clock.now), results: results)
             }
-            return ["あ", "tabe", "たb", "食"].map { query in time(query) { dictionary.suggestions(for: query).count } }
+            return ["あ", "tabe", "たb", "食", "吃", "eat"].map { query in
+                time(query) { dictionary.searchSuggestions(for: query).count }
+            }
                 + [time("食べる") { dictionary.lookup("食べる").map(\.entry).count }]
         }.value
     }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds the offline dictionary (SQLite) from pinned Kanjium + JMdict sources.
+"""Builds the offline dictionary (SQLite) from pinned Kanjium, JMdict, corpus and Chinese sources.
 
     python3 scripts/dictionary/build.py --out App/Generated/Dictionary.sqlite
     python3 scripts/dictionary/build.py --inputs scripts/dictionary/sample --out sample.sqlite
@@ -10,6 +10,7 @@ Packages/OJADKit/Sources/OJADKit/OfflineDictionary.swift and Kana.swift.
 """
 
 import argparse
+import gzip
 import hashlib
 import io
 import json
@@ -23,10 +24,11 @@ import unicodedata
 import urllib.request
 import zipfile
 
+import chinese
 import examples as corpus_examples
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 # Suggestions for prefixes matching more than PREFIX_MIN_KEYS keys are precomputed
 # (top PREFIX_TOP words), so no query on the phone scans more than that many keys.
 PREFIX_TOP = 20
@@ -37,8 +39,13 @@ TATOEBA_VERSION = '2026-10-31'
 TATOEBA_FILES = {
     'japanese': 'jpn_sentences.tsv.bz2', 'indices': 'jpn_indices.tar.bz2',
     'eng_links': 'jpn-eng_links.tsv.bz2', 'english': 'eng_sentences.tsv.bz2',
-    'cmn_links': 'jpn-cmn_links.tsv.bz2', 'chinese': 'cmn_sentences.tsv.bz2',
+    'cmn_links': 'jpn-cmn_links.tsv.bz2', 'chinese': 'cmn_sentences.tsv.bz2', 'cmn_eng_links': 'cmn-eng_links.tsv.bz2',
 }
+WIKTIONARY_VERSION = 'zhwiktionary 2026-11-01 (kaikki.org, wiktextract 19f9a30)'
+WIKTIONARY_FILES = ('zhwiktionary-ja-hans.jsonl', 'zhwiktionary-ja-hant.jsonl')
+CEDICT_FILE = 'cedict_1_0_ts_utf-8_mdbg.txt.gz'
+CEDICT_VERSION = '2026-11-04'
+OPENCC_FILES = {'ts_characters': 'TSCharacters.txt', 'ts_phrases': 'TSPhrases.txt', 'jp_shinjitai': 'JPShinjitaiCharacters.txt'}
 
 CONJUGATING = {
     'v1', 'v1-s', 'v5aru', 'v5b', 'v5g', 'v5k', 'v5k-s', 'v5m', 'v5n', 'v5r', 'v5r-i', 'v5s', 'v5t',
@@ -343,9 +350,11 @@ def attach_examples(words, corpus, kftt):
     def add(word, sentence_id, sense, basis, japanese, english, form, checked):
         found = candidates.setdefault(id(word), {})
         if sentence_id not in found and len(japanese) <= corpus_examples.MAX_LENGTH:
+            via = corpus.chinese_via_english.get(sentence_id)
             found[sentence_id] = {
                 'id': sentence_id, 'sense': sense, 'basis': basis, 'japanese': japanese, 'english': english,
-                'chinese': corpus.chinese.get(sentence_id), 'form': form, 'checked': checked,
+                'chinese': corpus.chinese.get(sentence_id) or via, 'chinese_via': 'english' if via else None,
+                'form': form, 'checked': checked,
             }
 
     def resolve(token):
@@ -412,7 +421,23 @@ def attach_examples(words, corpus, kftt):
         word['examples'] = corpus_examples.choose(list(candidates.get(id(word), {}).values()), numbers)
 
 
-def write_database(words, out, meta):
+def attach_chinese(words, glosses):
+    """Sets each word's Chinese per sense and unaligned, and its search terms."""
+    homographs = {}
+    for word in words:
+        if not word['suru']:
+            homographs[word['written']] = homographs.get(word['written'], 0) + 1
+    for word in words:
+        base = word['base'] if word['suru'] else word
+        english = [(number, english_glosses(sense)) for number, sense in word['senses']]
+        shown, unaligned = glosses.for_word(base['written'], base['reading'], english, homographs.get(base['written']) == 1)
+        word['chinese_senses'] = shown
+        word['chinese'] = '；'.join(unaligned[:3]) or None
+        pivots = [(number, glosses.pivot(items)) for number, items in english if number not in shown]
+        word['search_terms'] = chinese.search_terms(shown, unaligned, english, pivots)
+
+
+def write_database(words, out, meta, convert):
     if os.path.exists(out):
         os.remove(out)
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
@@ -428,7 +453,8 @@ def write_database(words, out, meta):
             accents TEXT NOT NULL,
             class TEXT NOT NULL,
             rank INTEGER NOT NULL,
-            gloss TEXT
+            gloss TEXT,
+            chinese TEXT
         );
         CREATE TABLE keys (key TEXT NOT NULL, word_id INTEGER NOT NULL, PRIMARY KEY (key, word_id)) WITHOUT ROWID;
         CREATE TABLE prefixes (
@@ -442,13 +468,16 @@ def write_database(words, out, meta):
             word_id INTEGER NOT NULL,
             number INTEGER NOT NULL,
             gloss TEXT NOT NULL,
+            chinese TEXT,
+            chinese_source TEXT,
             PRIMARY KEY (word_id, number)
         ) WITHOUT ROWID;
         CREATE TABLE sentences (
             id INTEGER PRIMARY KEY,
             japanese TEXT NOT NULL,
             english TEXT,
-            chinese TEXT
+            chinese TEXT,
+            chinese_via TEXT
         );
         CREATE TABLE examples (
             word_id INTEGER NOT NULL,
@@ -459,23 +488,38 @@ def write_database(words, out, meta):
             form TEXT,
             PRIMARY KEY (word_id, position)
         ) WITHOUT ROWID;
+        CREATE TABLE glosses (
+            term TEXT NOT NULL,
+            word_id INTEGER NOT NULL,
+            sense INTEGER,
+            tier INTEGER NOT NULL,
+            position INTEGER NOT NULL,
+            PRIMARY KEY (term, word_id)
+        ) WITHOUT ROWID;
+        CREATE TABLE t2s (traditional TEXT PRIMARY KEY, simplified TEXT NOT NULL) WITHOUT ROWID;
     ''')
     sentences = {}
     for word_id, word in enumerate(words, start=1):
-        db.execute('INSERT INTO words VALUES (?, ?, ?, ?, ?, ?, ?)', (
+        db.execute('INSERT INTO words VALUES (?, ?, ?, ?, ?, ?, ?, ?)', (
             word_id, word['written'], word['reading'], ','.join(map(str, word['accents'])),
-            word['class'], word['rank'], word['gloss']))
+            word['class'], word['rank'], word['gloss'], word['chinese']))
         for key in sorted({search_key(k) for k in word['keys'] if k}):
             db.execute('INSERT INTO keys VALUES (?, ?)', (key, word_id))
         for number, sense in word['senses']:
             glosses = english_glosses(sense)
             if glosses:
-                db.execute('INSERT INTO senses VALUES (?, ?, ?)', (word_id, number, gloss_text(glosses)))
+                text, source = word['chinese_senses'].get(number, (None, None))
+                db.execute('INSERT INTO senses VALUES (?, ?, ?, ?, ?)', (word_id, number, gloss_text(glosses), text, source))
+        db.executemany('INSERT INTO glosses VALUES (?, ?, ?, ?, ?)',
+                       [(term, word_id, *rest) for term, *rest in word['search_terms']])
         for position, example in enumerate(word['examples']):
-            sentences[example['id']] = (example['japanese'], example['english'], example['chinese'])
+            zh = convert.simplified(example['chinese']) if example['chinese'] else None
+            sentences[example['id']] = (example['japanese'], example['english'], zh, example['chinese_via'])
             db.execute('INSERT INTO examples VALUES (?, ?, ?, ?, ?, ?)', (
                 word_id, position, example['id'], example['sense'], example['basis'], example['form']))
-    db.executemany('INSERT INTO sentences VALUES (?, ?, ?, ?)',
+    db.executemany('INSERT INTO t2s VALUES (?, ?)',
+                   sorted((t, s) for t, s in convert.characters.items() if len(t) == 1 and len(s) == 1 and t != s))
+    db.executemany('INSERT INTO sentences VALUES (?, ?, ?, ?, ?)',
                    [(sentence_id, *texts) for sentence_id, texts in sorted(sentences.items())])
     ranks = {word_id: word['rank'] for word_id, word in enumerate(words, start=1)}
     for prefix, rows in top_prefixes(db.execute('SELECT key, word_id FROM keys'), ranks):
@@ -511,10 +555,16 @@ def build_from(inputs, out):
     words = build(load_accents(inputs['accents']), load_frequencies(inputs['novels']),
                   load_frequencies(inputs['wiki']), jmdict)
     attach_examples(words, corpus_examples.Corpus(**inputs['tatoeba']), corpus_examples.kftt_sentences(inputs['kftt']))
+    convert = chinese.Converter(**inputs['opencc'])
+    chinese_sentences = (text for _, _, text in corpus_examples._tsv(inputs['tatoeba']['chinese'], 3))
+    attach_chinese(words, chinese.Glosses(
+        chinese.wiktionary_entries(inputs['wiktionary'], convert), chinese.cedict_entries(inputs['cedict']),
+        convert, chinese_sentences))
     write_database(words, out, {
         'jmdict': f'{jmdict.version} {jmdict.date}'.strip(), 'kanjium': inputs['kanjium_version'],
-        'tatoeba': inputs['tatoeba_version'], 'kftt': '1.0',
-    })
+        'tatoeba': inputs['tatoeba_version'], 'kftt': '1.0', 'wiktionary': inputs['wiktionary_version'],
+        'cedict': inputs['cedict_version'],
+    }, convert)
     print(f'{out}: {len(words)} words, {os.path.getsize(out) / 1e6:.1f} MB', file=sys.stderr)
 
 
@@ -527,6 +577,9 @@ def pinned_inputs(cache_dir):
         'jmdict': paths['jmdict-examples-eng.json.zip'], 'kanjium_version': commit,
         'tatoeba': {name: paths[file] for name, file in TATOEBA_FILES.items()}, 'tatoeba_version': TATOEBA_VERSION,
         'kftt': paths['kftt-data-1.0.tar.gz'],
+        'wiktionary': [paths[name] for name in WIKTIONARY_FILES], 'wiktionary_version': WIKTIONARY_VERSION,
+        'cedict': paths[CEDICT_FILE], 'cedict_version': CEDICT_VERSION,
+        'opencc': {name: paths[file] for name, file in OPENCC_FILES.items()},
     }
 
 
@@ -539,6 +592,10 @@ def local_inputs(directory):
                     for name, file in TATOEBA_FILES.items()},
         'tatoeba_version': 'sample',
         'kftt': os.path.join(directory, 'kftt'),
+        'wiktionary': [os.path.join(directory, 'chinese', name) for name in WIKTIONARY_FILES],
+        'wiktionary_version': 'sample',
+        'cedict': os.path.join(directory, 'chinese', CEDICT_FILE.replace('.gz', '')), 'cedict_version': 'sample',
+        'opencc': {name: os.path.join(directory, 'chinese', file) for name, file in OPENCC_FILES.items()},
     }
 
 
@@ -577,7 +634,9 @@ def make_sample(words_file, cache_dir, out_dir):
         f.write(',\n'.join(json.dumps(w, ensure_ascii=False, sort_keys=True) for w in words))
         f.write('\n]}\n')
     sentences = sample_corpora(inputs, names, entries.values(), out_dir)
-    print(f'{out_dir}: {len(rows)} accent rows, {len(entries)} JMdict entries, {sentences} sentences', file=sys.stderr)
+    lines = sample_chinese(inputs, names, entries.values(), out_dir)
+    print(f'{out_dir}: {len(rows)} accent rows, {len(entries)} JMdict entries, {sentences} sentences, '
+          f'{lines} Chinese source lines', file=sys.stderr)
 
 
 SAMPLE_PER_WORD = 8
@@ -623,12 +682,17 @@ def sample_corpora(inputs, names, entries, out_dir):
 
     write(TATOEBA_FILES['japanese'], [japanese[i] for i in sorted(keep) if i in japanese])
     write(TATOEBA_FILES['indices'], index_lines)
-    for links_name, sentences_name in (('eng_links', 'english'), ('cmn_links', 'chinese')):
+    linked = {}
+    for links_name in ('eng_links', 'cmn_links'):
         links = [l for l in corpus_examples._lines(paths[links_name]) if int(l.split('\t', 1)[0]) in keep]
-        linked = {int(l.rstrip('\n').split('\t')[1]) for l in links}
+        linked[links_name] = {int(l.rstrip('\n').split('\t')[1]) for l in links}
         write(TATOEBA_FILES[links_name], links)
+    via = [l for l in corpus_examples._lines(paths['cmn_eng_links']) if int(l.rstrip('\n').split('\t')[1]) in linked['eng_links']]
+    write(TATOEBA_FILES['cmn_eng_links'], via)
+    chinese_ids = linked['cmn_links'] | {int(l.split('\t', 1)[0]) for l in via}
+    for sentences_name, ids in (('english', linked['eng_links']), ('chinese', chinese_ids)):
         write(TATOEBA_FILES[sentences_name],
-              [l for l in corpus_examples._lines(paths[sentences_name]) if int(l.split('\t', 1)[0]) in linked])
+              [l for l in corpus_examples._lines(paths[sentences_name]) if int(l.split('\t', 1)[0]) in ids])
 
     kftt_dir = os.path.join(out_dir, 'kftt')
     os.makedirs(kftt_dir, exist_ok=True)
@@ -645,6 +709,52 @@ def sample_corpora(inputs, names, entries, out_dir):
             with open(os.path.join(kftt_dir, f'kyoto-{part}.{lang}'), 'w', encoding='utf-8') as f:
                 f.writelines(pair[column] + '\n' for pair in (pairs if part == 'train' else []))
     return len(keep) + len(pairs)
+
+
+def sample_chinese(inputs, names, entries, out_dir):
+    """Writes the Wiktionary entries, the CC-CEDICT lines and the OpenCC tables the sample words need."""
+    directory = os.path.join(out_dir, 'chinese')
+    os.makedirs(directory, exist_ok=True)
+    convert = chinese.Converter(**inputs['opencc'])
+    spellings = names | {n[:-2] for n in names if n.endswith('する')}
+    count = 0
+    for source, name in zip(inputs['wiktionary'], WIKTIONARY_FILES):
+        kept = []
+        for line in corpus_examples._lines(source):
+            data = json.loads(line)
+            alternatives = {f['form'] for f in data.get('forms', []) if {'alternative', 'kanji'} <= set(f.get('tags') or [])}
+            if data['word'] not in spellings and not alternatives & spellings:
+                continue
+            data = {key: data[key] for key in ('word', 'lang_code', 'pos', 'senses', 'sounds', 'forms') if key in data}
+            data['senses'] = [{k: v for k, v in sense.items() if k in ('glosses', 'tags')} for sense in data['senses']]
+            data['sounds'] = [{'other': s['other']} for s in data.get('sounds', []) if s.get('other')]
+            data['forms'] = [f for f in data.get('forms', []) if {'canonical', 'alternative'} & set(f.get('tags') or [])]
+            kept.append(json.dumps(data, ensure_ascii=False, sort_keys=True) + '\n')
+        with open(os.path.join(directory, name), 'w', encoding='utf-8') as f:
+            f.writelines(kept)
+        count += len(kept)
+    # Run the real lookups over the full CC-CEDICT and keep only the lines they consulted.
+    sample = local_inputs(out_dir)
+    jmdict = JMdict(load_jmdict(sample['jmdict']))
+    words = build(load_accents(sample['accents']), load_frequencies(sample['novels']), load_frequencies(sample['wiki']), jmdict)
+    for word in words:
+        word['examples'] = []
+    cmn = (text for _, _, text in corpus_examples._tsv(inputs['tatoeba']['chinese'], 3))
+    glosses = chinese.Glosses(chinese.wiktionary_entries(sample['wiktionary'], convert),
+                              chinese.cedict_entries(inputs['cedict']), convert, cmn)
+    glosses.used = set()
+    attach_chinese(words, glosses)
+    with gzip.open(inputs['cedict'], 'rt', encoding='utf-8') as f, \
+            open(os.path.join(directory, CEDICT_FILE.replace('.gz', '')), 'w', encoding='utf-8') as out:
+        for line in f:
+            m = chinese.CEDICT_LINE.match(line)
+            if m and not line.startswith('#') and m.group(2) in glosses.used:
+                out.write(line)
+                count += 1
+    for name, file in OPENCC_FILES.items():
+        with open(inputs['opencc'][name], encoding='utf-8') as f, open(os.path.join(directory, file), 'w', encoding='utf-8') as out:
+            out.write(f.read())
+    return count
 
 
 def main():

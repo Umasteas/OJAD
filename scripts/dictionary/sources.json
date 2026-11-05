@@ -30,7 +30,7 @@
   "tatoeba": {
     "license": "CC BY 2.0 FR (Tatoeba; some sentences CC0)",
     "homepage": "https://tatoeba.org/downloads",
-    "snapshot": "2026-10-31 weekly export, archived by the Wayback Machine (the live URLs are overwritten weekly)",
+    "snapshot": "2026-10-31 weekly export (cmn-eng links: 2026-11-05 capture), archived by the Wayback Machine (the live URLs are overwritten weekly)",
     "files": {
       "jpn_indices.tar.bz2": {
         "url": "https://web.archive.org/web/20261105045730id_/https://downloads.tatoeba.org/exports/jpn_indices.tar.bz2",
@@ -55,6 +55,10 @@
       "cmn_sentences.tsv.bz2": {
         "url": "https://web.archive.org/web/20261105045937id_/https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences.tsv.bz2",
         "sha256": "d603c1b9c67fb7a5a68c56fe6df5c935025ca1f36a1f9a912c33ed6dbed91743"
+      },
+      "cmn-eng_links.tsv.bz2": {
+        "url": "https://web.archive.org/web/20261105062842id_/https://downloads.tatoeba.org/exports/per_language/cmn/cmn-eng_links.tsv.bz2",
+        "sha256": "417b2697222806aaf22bf7f510dd5eed246869a1ef40d7d80c6b43f4758b54b8"
       }
     }
   },
@@ -65,6 +69,50 @@
       "kftt-data-1.0.tar.gz": {
         "url": "https://web.archive.org/web/20240613142555id_/https://www.phontron.com/kftt/download/kftt-data-1.0.tar.gz",
         "sha256": "fcfcaa670d6d59aa691b0e909c0d7c393852dd2fb1d6310fda9b3282dc6d1638"
+      }
+    }
+  },
+  "wiktionary": {
+    "license": "CC BY-SA 4.0 (Chinese Wiktionary contributors); extraction by kaikki.org / wiktextract",
+    "homepage": "https://kaikki.org/zhwiktionary/",
+    "snapshot": "zhwiktionary dump 2026-11-01, extracted 2026-11-02 (wiktextract 19f9a30); the 日语 and 日語 language pages, archived by the Wayback Machine",
+    "files": {
+      "zhwiktionary-ja-hans.jsonl": {
+        "url": "https://web.archive.org/web/20261105062837id_/https://kaikki.org/zhwiktionary/%E6%97%A5%E8%AF%AD/kaikki.org-dictionary-%E6%97%A5%E8%AF%AD.jsonl",
+        "sha256": "1243a6fae418f82f1dd8218275d2316a56bc9341e63f31ed731d74d35d75400b"
+      },
+      "zhwiktionary-ja-hant.jsonl": {
+        "url": "https://web.archive.org/web/20261105062843id_/https://kaikki.org/zhwiktionary/%E6%97%A5%E8%AA%9E/kaikki.org-dictionary-%E6%97%A5%E8%AA%9E.jsonl",
+        "sha256": "5507744e4ba0830966d58b40111a5c80d978bda59bdcce6b38ca79e9b5a9e85f"
+      }
+    }
+  },
+  "cedict": {
+    "license": "CC BY-SA 4.0 (CC-CEDICT, MDBG)",
+    "homepage": "https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "snapshot": "2026-11-04 release, archived by the Wayback Machine (the live file is replaced daily)",
+    "files": {
+      "cedict_1_0_ts_utf-8_mdbg.txt.gz": {
+        "url": "https://web.archive.org/web/20261105062842id_/https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+        "sha256": "68f54ba4159aa8234326c881482705e81277b4a84e8e67e090a1318068e5e0aa"
+      }
+    }
+  },
+  "opencc": {
+    "license": "Apache-2.0 (OpenCC)",
+    "homepage": "https://github.com/BYVoid/OpenCC",
+    "files": {
+      "TSCharacters.txt": {
+        "url": "https://raw.githubusercontent.com/BYVoid/OpenCC/fae2a0a911c30764e669a7d8b0591cd8e852934a/data/dictionary/TSCharacters.txt",
+        "sha256": "9ff46a7d30e5765375eb13d33f2b03a34d298913caf2b120380679f33ae1642d"
+      },
+      "TSPhrases.txt": {
+        "url": "https://raw.githubusercontent.com/BYVoid/OpenCC/fae2a0a911c30764e669a7d8b0591cd8e852934a/data/dictionary/TSPhrases.txt",
+        "sha256": "1b1e60a3d50492bc088bcd4372152570b5f0ccbe2ded0b66c90b6b8eeb5f849f"
+      },
+      "JPShinjitaiCharacters.txt": {
+        "url": "https://raw.githubusercontent.com/BYVoid/OpenCC/fae2a0a911c30764e669a7d8b0591cd8e852934a/data/dictionary/JPShinjitaiCharacters.txt",
+        "sha256": "12cec7250b873ef52b36d8f92218d4f92c0aaf5d8cd7c58fe42d9785bdcdc43a"
       }
     }
   }

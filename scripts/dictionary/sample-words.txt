@@ -544,3 +544,15 @@
 日本
 走る
 帰る
+# Chinese glosses: cognates, false friends (勉強, 手紙), old-style Wiktionary entries (整理, 愛好)
+映画
+衝突
+手紙
+整理
+愛好
+マウス
+治る
+見る
+水
+犬
+戌
