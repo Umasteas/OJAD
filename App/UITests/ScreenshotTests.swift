@@ -29,7 +29,6 @@ final class ScreenshotTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["to eat"].waitForExistence(timeout: 5), "JMdict gloss missing")
         // Default: everyday forms open, the rest folded.
         XCTAssertTrue(app.staticTexts["〜ます形"].exists, "常用形 should start expanded")
-        XCTAssertTrue(group("其他活用形").exists)
         snapshot("3-conjugations")
 
         app.buttons["全部展开"].tap()
@@ -38,6 +37,8 @@ final class ScreenshotTests: XCTestCase {
         app.buttons["全部收起"].tap()
         XCTAssertTrue(app.buttons["全部展开"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.staticTexts["〜ます形"].exists, "全部收起 should fold 常用形 too")
+        XCTAssertTrue(group("其他活用形").exists)
+        XCTAssertTrue(group("使役・受身・可能").exists)
         snapshot("3c-conjugations-collapsed")
         group("常用形").tap()
         XCTAssertTrue(app.staticTexts["〜ます形"].waitForExistence(timeout: 5))
