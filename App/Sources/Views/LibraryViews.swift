@@ -13,7 +13,7 @@ struct FavoritesView: View {
                     ContentUnavailableView(
                         "还没有收藏",
                         systemImage: "star",
-                        description: Text("在单词详情页点右上角的星标即可收藏，收藏后无需联网也能查看。")
+                        description: Text("在单词详情页点右上角的星标即可收藏。")
                     )
                 } else {
                     List {
@@ -129,16 +129,13 @@ extension DictionaryDiagnostics {
     var stateText: String {
         switch state {
         case .loaded: "已加载（离线）"
-        case .missing: "未找到词典文件，查询改用在线 OJAD"
+        case .missing: "未找到词典文件"
         case .failed(let message): "打开失败：\(message)"
         }
     }
 }
 
 struct AboutView: View {
-    @Environment(Library.self) private var library
-    @State private var cacheCleared = false
-
     private var version: String {
         let info = Bundle.main.infoDictionary
         let short = info?["CFBundleShortVersionString"] as? String ?? "?"
@@ -165,37 +162,31 @@ struct AboutView: View {
                     Link(destination: URL(string: "https://tatoeba.org")!) {
                         LabeledContent("Tatoeba", value: "CC BY 2.0 FR")
                     }
-                    Text("例句及其翻译来自 Tatoeba，作者见各例句页面。")
+                    Text("大部分例句及其英文、中文翻译来自 Tatoeba（2026-10-31 的数据），作者见 tatoeba.org 上的各例句页面。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    Link(destination: URL(string: "https://www.phontron.com/kftt/")!) {
+                        LabeledContent("KFTT", value: "CC BY-SA 3.0")
+                    }
+                    Text("补充例句来自 Kyoto Free Translation Task：NICT「Wikipedia 日英京都関連文書対訳コーパス」。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 } header: {
-                    Text("离线数据")
+                    Text("数据来源")
                 } footer: {
-                    Text("活用形的重音由本 App 按规则从辞書形重音推导，不是 OJAD 的原始数据。")
+                    Text("本 App 完全离线，不发出任何网络请求。活用形的重音由本 App 按规则从辞書形重音推导，不是 OJAD 的原始数据。")
                 }
 
                 DictionaryStatusSection()
 
-                Section("在线功能（可选）") {
+                Section {
                     Link(destination: URL(string: "https://www.gavo.t.u-tokyo.ac.jp/ojad/")!) {
                         LabeledContent("OJAD", value: "東京大学 峯松研究室・齋藤研究室")
                     }
-                    Text("「在线查询 OJAD」和スズキクン语调分析会请求 OJAD（オンライン日本語アクセント辞書）。依照其使用条款，本 App 仅供个人学习，不使用任何音频或合成语音。")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    Link(destination: URL(string: "https://github.com/scinfu/SwiftSoup")!) {
-                        LabeledContent("SwiftSoup", value: "MIT")
-                    }
-                }
-
-                Section {
-                    Button(cacheCleared ? "缓存已清除" : "清除缓存") {
-                        try? library.clearCache()
-                        cacheCleared = true
-                    }
-                    .disabled(cacheCleared)
+                } header: {
+                    Text("致谢")
                 } footer: {
-                    Text("在线查过的结果会保存在本机，以减少对 OJAD 和 Tatoeba 的请求。收藏、历史和离线词典不受影响。")
+                    Text("界面和音高曲线仿照 OJAD（オンライン日本語アクセント辞書）。本 App 仅供个人学习，不使用任何音频或合成语音。")
                 }
 
                 Section {

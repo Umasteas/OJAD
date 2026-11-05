@@ -13,6 +13,8 @@ struct OJADApp: App {
         } catch {
             fatalError("Could not open the local store: \(error)")
         }
+        try? container.mainContext.delete(model: CachedResponse.self)
+        try? container.mainContext.save()
         self.container = container
         _library = State(initialValue: Library(context: container.mainContext))
     }

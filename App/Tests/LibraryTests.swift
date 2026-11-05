@@ -7,32 +7,23 @@ import XCTest
 @MainActor
 final class LibraryTests: XCTestCase {
     private var container: ModelContainer!
-    private var transport: CountingTransport!
     private var clock: Date!
 
     override func setUp() async throws {
         container = try AppSchema.container(inMemory: true)
-        transport = CountingTransport()
         clock = Date(timeIntervalSince1970: 1_800_000_000)
     }
 
-    /// Online-only unless given the bundled dictionary (`BundledDictionary.shared`).
-    private func makeLibrary(dictionary: BundledDictionary = .onlineOnly) -> Library {
-        let transport = transport!
-        return Library(
-            context: container.mainContext,
-            dictionary: dictionary,
-            ojad: OJADClient(transport: { try await transport.respond(to: $0) }),
-            tatoeba: TatoebaClient(transport: { try await transport.respond(to: $0) }),
-            now: { [unowned self] in self.clock }
-        )
+    /// Uses the dictionary bundled in the app (`BundledDictionary.shared`) unless told otherwise.
+    private func makeLibrary(dictionary: BundledDictionary = .shared) -> Library {
+        Library(context: container.mainContext, dictionary: dictionary, now: { [unowned self] in self.clock })
     }
 
     private func history() throws -> [HistoryEntry] {
         try container.mainContext.fetch(FetchDescriptor<HistoryEntry>(sortBy: [SortDescriptor(\.lastSearchedAt, order: .reverse)]))
     }
 
-    func testRepeatedSearchIsServedFromCacheAndHistoryKeepsOneEntryPerQuery() async throws {
+    func testHistoryKeepsOneEntryPerQuery() async throws {
         let library = makeLibrary()
 
         let first = try await library.search("学校")
@@ -41,28 +32,16 @@ final class LibraryTests: XCTestCase {
 
         XCTAssertEqual(first, second)
         XCTAssertEqual(first.first?.headword, "学校")
-        XCTAssertEqual(transport.count, 1)
         let entries = try history()
         XCTAssertEqual(entries.map(\.query), ["学校"])
         XCTAssertEqual(entries.first?.lastSearchedAt, clock)
         XCTAssertEqual(entries.first?.summary, "学校　がっこう")
     }
 
-    func testRefreshBypassesTheCache() async throws {
+    func testSearchesWithoutResultsAreStillRecorded() async throws {
         let library = makeLibrary()
-        _ = try await library.searchOnline("学校")
-        _ = try await library.searchOnline("学校", refresh: true)
-        XCTAssertEqual(transport.count, 2)
-    }
-
-    func testEmptyResultsAreNotCachedButStillRecorded() async throws {
-        transport.html = OJADPage.noResult
-        let library = makeLibrary()
-
-        _ = try await library.search("がっこ")
-        _ = try await library.search("がっこ")
-
-        XCTAssertEqual(transport.count, 2)
+        let entries = try await library.search("zzqqxx")
+        XCTAssertTrue(entries.isEmpty)
         XCTAssertEqual(try history().map(\.summary), [""])
     }
 
@@ -87,29 +66,14 @@ final class LibraryTests: XCTestCase {
         XCTAssertEqual(try history().count, 0)
     }
 
-    func testExampleSentencesSearchTheLemmaWithoutOJADNotation() async throws {
-        let library = makeLibrary()
-        let entry = WordEntry(id: 1, headword: "静か[な]・静かです", category: .naAdjective, forms: [])
-        transport.json = #"{"data":[{"id":7,"text":"静かな部屋ですね。","owner":"x","license":"CC BY 2.0 FR","translations":[]}],"paging":{}}"#
-
-        let sentences = try await library.onlineExamples(for: entry)
-        _ = try await library.onlineExamples(for: entry)
-
-        XCTAssertEqual(sentences.map(\.text), ["静かな部屋ですね。"])
-        XCTAssertEqual(transport.count, 1)
-        let q = transport.lastURL.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }?
-            .queryItems?.first { $0.name == "q" }?.value
-        XCTAssertEqual(q, "\"静か\"")
-    }
-
     // MARK: Offline
 
     private func offlineLibrary() throws -> Library {
         XCTAssertEqual(BundledDictionary.shared.diagnostics.state, .loaded, "Dictionary.sqlite missing from the app bundle")
-        return makeLibrary(dictionary: .shared)
+        return makeLibrary()
     }
 
-    func testOfflineSearchNeedsNoNetworkAndIsRecorded() async throws {
+    func testOfflineSearchIsRecorded() async throws {
         let library = try offlineLibrary()
         let entries = try await library.search("食べる")
 
@@ -117,7 +81,6 @@ final class LibraryTests: XCTestCase {
         XCTAssertEqual(entries.first?.forms.first { $0.kind == "te" }?.readings.map(\.notation), ["たꜜべて"])
         XCTAssertTrue(entries.first?.isOffline ?? false)
         XCTAssertEqual(try history().first?.summary, "食べる・食べます　たべꜜる")
-        XCTAssertEqual(transport.count, 0)
     }
 
     func testSuggestionsAcceptRomaji() async throws {
@@ -138,10 +101,10 @@ final class LibraryTests: XCTestCase {
         XCTAssertEqual(bundled.diagnostics.state, .loaded)
         XCTAssertGreaterThan(bundled.diagnostics.words, 100_000)
         XCTAssertGreaterThan(bundled.diagnostics.fileSize, 10_000_000)
-        XCTAssertEqual(bundled.dictionary?.metadata["schema"], "2")
+        XCTAssertEqual(bundled.dictionary?.metadata["schema"], "3")
     }
 
-    func testAMissingOrBrokenDictionaryIsReportedAndSearchGoesOnline() async throws {
+    func testAMissingOrBrokenDictionaryIsReportedAndSearchSaysSo() async throws {
         XCTAssertEqual(BundledDictionary.open(nil).diagnostics.state, .missing)
         let broken = FileManager.default.temporaryDirectory.appendingPathComponent("broken-\(UUID()).sqlite")
         try Data(repeating: 1, count: 4096).write(to: broken)
@@ -150,11 +113,16 @@ final class LibraryTests: XCTestCase {
             return XCTFail("A broken file should report failed")
         }
 
-        let library = makeLibrary(dictionary: .onlineOnly)
+        let library = makeLibrary(dictionary: .missing)
         let suggestions = await library.suggestions(for: "tabe")
         XCTAssertTrue(suggestions.isEmpty)
-        _ = try await library.search("学校")
-        XCTAssertEqual(transport.count, 1)
+        do {
+            _ = try await library.search("学校")
+            XCTFail("Search without a dictionary should throw")
+        } catch {
+            XCTAssertTrue(error is DictionaryUnavailable)
+            XCTAssertTrue(error.userMessage.contains("词典状态"))
+        }
     }
 
     /// Perceived latency budget: typing and opening a word should feel instant.
@@ -171,16 +139,18 @@ final class LibraryTests: XCTestCase {
         }
         let start = clock.now
         let entries = try await library.search("食べる")
-        let details = await library.offlineDetails(for: try XCTUnwrap(entries.first))
+        let details = await library.details(for: try XCTUnwrap(entries.first))
         let elapsed = start.duration(to: clock.now)
         XCTAssertFalse(details.examples.isEmpty)
         XCTAssertEqual(details.word?.gloss, "to eat")
         XCTAssertLessThan(elapsed, .milliseconds(50), "search + details: \(elapsed)")
     }
 
-    func testFavoritesSavedFromOJADStayFavoritesOffline() async throws {
-        let online = try await makeLibrary().searchOnline("学校")
-        let saved = try XCTUnwrap(online.first)
+    /// Favorites saved by the former online version carry OJAD's word id.
+    func testFavoritesSavedFromOJADStayFavorites() async throws {
+        let found = try await makeLibrary().search("学校")
+        let recorded = try XCTUnwrap(found.first)
+        let saved = WordEntry(id: 4867, headword: recorded.headword, category: recorded.category, forms: recorded.forms)
         try makeLibrary().toggleFavorite(saved)
 
         let library = try offlineLibrary()
@@ -193,52 +163,19 @@ final class LibraryTests: XCTestCase {
         XCTAssertEqual(try container.mainContext.fetch(FetchDescriptor<FavoriteWord>()).count, 0)
     }
 
-    func testOfflineExamplesForOfflineAndSavedOJADEntries() async throws {
+    func testExamplesAreGroupedBySenseForOfflineAndSavedOJADEntries() async throws {
         let library = try offlineLibrary()
         let results = try await library.search("食べる")
         let offline = try XCTUnwrap(results.first)
-        let examples = await library.offlineDetails(for: offline).examples
-        XCTAssertFalse(examples.isEmpty)
+        let details = await library.details(for: offline)
+        XCTAssertEqual(details.senses.first?.gloss, "to eat")
+        XCTAssertGreaterThanOrEqual(details.examples.count, 2)
+        let groups = SenseExamples.group(details.examples, senses: details.senses)
+        XCTAssertFalse(groups.first?.examples.isEmpty ?? true, "sense 1 of 食べる has examples")
 
         let fromOJAD = WordEntry(id: 1238, headword: offline.headword, category: .verb, forms: offline.forms)
-        let fromOJADExamples = await library.offlineDetails(for: fromOJAD).examples
-        XCTAssertEqual(fromOJADExamples, examples)
-        XCTAssertEqual(transport.count, 0)
+        let fromOJADDetails = await library.details(for: fromOJAD)
+        XCTAssertEqual(fromOJADDetails.examples, details.examples)
+        XCTAssertEqual(fromOJADDetails.senses, details.senses)
     }
-}
-
-/// Answers OJAD requests with `html` and Tatoeba requests with `json`.
-private final class CountingTransport: @unchecked Sendable {
-    var html = OJADPage.gakkou
-    var json = #"{"data":[],"paging":{}}"#
-    private(set) var count = 0
-    private(set) var lastURL: URL?
-
-    func respond(to request: URLRequest) async throws -> (Data, URLResponse) {
-        count += 1
-        lastURL = request.url
-        let body = request.url?.host == "api.tatoeba.org" ? json : html
-        let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        return (Data(body.utf8), response)
-    }
-}
-
-private enum OJADPage {
-    static let gakkou = """
-    <div id="search_result"><table id="word_table">
-    <thead><tr><th class="midashi"><p>名詞</p></th><th class="jisho katsuyo_jisho_js"><p>辞書形</p></th></tr></thead>
-    <tbody><tr id="word_4867">
-    <td class="midashi"><p class="midashi_word">学校</p></td>
-    <td class="katsuyo katsuyo_jisho_js"><div class="katsuyo_proc">
-    <script type="text/javascript">set_accent_curve_word('katsuyo_48785',4,[0,1,1,1],1);</script>
-    <p><span class="katsuyo_accent"><span class="accented_word">\
-    <span class="mola_-4"><span class="inner"><span class="char">が</span></span></span>\
-    <span class=" accent_plain mola_-3"><span class="inner"><span class="char">っ</span></span></span>\
-    <span class=" accent_plain mola_-2"><span class="inner"><span class="char">こ</span></span></span>\
-    <span class=" accent_plain mola_-1"><span class="inner"><span class="char">う</span></span></span>\
-    </span></span></p></div></td>
-    </tr></tbody></table></div>
-    """
-
-    static let noResult = #"<div id="search_result"><div id="search_result_message"></div></div>"#
 }

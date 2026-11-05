@@ -18,18 +18,27 @@ import os
 import re
 import sqlite3
 import sys
+import time
 import unicodedata
 import urllib.request
 import zipfile
 
+import examples as corpus_examples
+
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCHEMA_VERSION = 2
-MAX_EXAMPLES = 6
+SCHEMA_VERSION = 3
 # Suggestions for prefixes matching more than PREFIX_MIN_KEYS keys are precomputed
 # (top PREFIX_TOP words), so no query on the phone scans more than that many keys.
 PREFIX_TOP = 20
 PREFIX_MIN_KEYS = 32
 PREFIX_MAX_LENGTH = 4
+
+TATOEBA_VERSION = '2026-10-31'
+TATOEBA_FILES = {
+    'japanese': 'jpn_sentences.tsv.bz2', 'indices': 'jpn_indices.tar.bz2',
+    'eng_links': 'jpn-eng_links.tsv.bz2', 'english': 'eng_sentences.tsv.bz2',
+    'cmn_links': 'jpn-cmn_links.tsv.bz2', 'chinese': 'cmn_sentences.tsv.bz2',
+}
 
 CONJUGATING = {
     'v1', 'v1-s', 'v5aru', 'v5b', 'v5g', 'v5k', 'v5k-s', 'v5m', 'v5n', 'v5r', 'v5r-i', 'v5s', 'v5t',
@@ -62,6 +71,23 @@ def sha256(path):
     return h.hexdigest()
 
 
+def download(url, path, attempts=4):
+    """The Wayback Machine, which serves the Tatoeba and KFTT snapshots, is sometimes slow to answer."""
+    for attempt in range(attempts):
+        print(f'downloading {url}', file=sys.stderr)
+        try:
+            request = urllib.request.Request(url, headers={'User-Agent': 'OJAD-dictionary-build'})
+            with urllib.request.urlopen(request, timeout=300) as response, open(path + '.part', 'wb') as out:
+                out.write(response.read())
+            os.replace(path + '.part', path)
+            return
+        except OSError as error:
+            if attempt == attempts - 1:
+                raise
+            print(f'  failed ({error}), retrying', file=sys.stderr)
+            time.sleep(4 * 2 ** attempt)
+
+
 def fetch_sources(cache_dir):
     with open(os.path.join(HERE, 'sources.json'), encoding='utf-8') as f:
         sources = json.load(f)
@@ -71,11 +97,7 @@ def fetch_sources(cache_dir):
         for name, spec in group['files'].items():
             path = os.path.join(cache_dir, name)
             if not os.path.exists(path) or sha256(path) != spec['sha256']:
-                print(f'downloading {spec["url"]}', file=sys.stderr)
-                request = urllib.request.Request(spec['url'], headers={'User-Agent': 'OJAD-dictionary-build'})
-                with urllib.request.urlopen(request) as response, open(path + '.part', 'wb') as out:
-                    out.write(response.read())
-                os.replace(path + '.part', path)
+                download(spec['url'], path)
             actual = sha256(path)
             if actual != spec['sha256']:
                 sys.exit(f'{name}: sha256 {actual} does not match the pinned {spec["sha256"]}')
@@ -213,29 +235,36 @@ def spellings(entry, kanjium_written, reading):
     return list(dict.fromkeys(out))
 
 
+def english_glosses(sense):
+    return [g['text'] for g in sense['gloss'] if g.get('lang', 'eng') == 'eng']
+
+
+def gloss_text(glosses):
+    text = '; '.join(glosses[:3])
+    return text if len(text) <= 80 else text[:79] + '…'
+
+
 def short_gloss(senses):
     for sense in senses:
-        glosses = [g['text'] for g in sense['gloss'] if g.get('lang', 'eng') == 'eng']
+        glosses = english_glosses(sense)
         if glosses:
-            text = '; '.join(glosses[:3])
-            return text if len(text) <= 80 else text[:79] + '…'
+            return gloss_text(glosses)
     return None
 
 
-def examples_of(entry):
-    out = []
-    seen = set()
-    for sense in entry['sense']:
+def numbered(entry, senses):
+    """[(1-based JMdict sense number, sense)] for the senses that apply to this spelling."""
+    return [(number, sense) for number, sense in enumerate(entry['sense'], start=1) if any(sense is s for s in senses)]
+
+
+def jmdict_examples(numbered_senses):
+    for number, sense in numbered_senses:
         for example in sense.get('examples', []):
             if example['source']['type'] != 'tatoeba':
                 continue
-            sentence_id = int(example['source']['value'])
             texts = {s['lang']: s['text'] for s in example['sentences']}
-            if sentence_id in seen or 'jpn' not in texts:
-                continue
-            seen.add(sentence_id)
-            out.append((sentence_id, texts['jpn'], texts.get('eng'), example['text']))
-    return out[:MAX_EXAMPLES]
+            if 'jpn' in texts:
+                yield int(example['source']['value']), number, texts['jpn'], texts.get('eng'), example['text']
 
 
 # ---------- build ----------
@@ -265,18 +294,19 @@ def build(accents_rows, novels, wiki, jmdict):
         freq_novels = max((novels.get(s, 0) for s in counted), default=0)
         freq_wiki = max((wiki.get(s, 0) for s in counted), default=0)
         rank = int(100 * math.log1p(freq_novels) + 150 * math.log1p(freq_wiki) + (300 if common else 0))
-        words.append({
+        base = {
             'written': written, 'reading': reading, 'accents': group['accents'], 'class': cls, 'rank': rank,
             'gloss': short_gloss(senses), 'keys': group['spellings'] + [written],
-            'examples': examples_of(entry) if entry else [],
-        })
+            'entry': entry, 'senses': numbered(entry, senses) if entry else [], 'suru': False,
+        }
+        words.append(base)
         takes_suru = any('vs' in s['partOfSpeech'] for s in senses)
         if takes_suru and cls in ('n', 'adj-na') and not reading.endswith('する'):
-            suru_glosses = [s for s in senses if 'vs' in s['partOfSpeech']]
+            suru_senses = [s for s in senses if 'vs' in s['partOfSpeech']]
             words.append({
                 'written': written + 'する', 'reading': reading + 'する', 'accents': group['accents'], 'class': 'vs-i',
-                'rank': rank - 1, 'gloss': short_gloss(suru_glosses), 'keys': [s + 'する' for s in group['spellings']],
-                'examples': [],
+                'rank': rank - 1, 'gloss': short_gloss(suru_senses), 'keys': [s + 'する' for s in group['spellings']],
+                'entry': entry, 'senses': numbered(entry, suru_senses), 'suru': True, 'base': base,
             })
 
     seen = set()
@@ -288,6 +318,98 @@ def build(accents_rows, novels, wiki, jmdict):
         seen.add(identity)
         unique.append(word)
     return unique
+
+
+def default_reading(entry, head):
+    if is_kana(head):
+        return head
+    for kana in entry['kana']:
+        if '*' in kana['appliesToKanji'] or head in kana['appliesToKanji']:
+            return kana['text']
+    return None
+
+
+def attach_examples(words, corpus, kftt):
+    """Sets word['examples'] from JMdict's own examples plus every Tatoeba sentence
+    whose index lists the word, each tied to the sense it illustrates where known."""
+    by_spelling = {}
+    for word in words:
+        if word['entry'] is not None and not word['suru']:
+            for spelling in dict.fromkeys(word['keys']):
+                by_spelling.setdefault(spelling, []).append(word)
+    suru_of = {id(w['base']): w for w in words if w['suru']}
+    candidates = {}
+
+    def add(word, sentence_id, sense, basis, japanese, english, form, checked):
+        found = candidates.setdefault(id(word), {})
+        if sentence_id not in found and len(japanese) <= corpus_examples.MAX_LENGTH:
+            found[sentence_id] = {
+                'id': sentence_id, 'sense': sense, 'basis': basis, 'japanese': japanese, 'english': english,
+                'chinese': corpus.chinese.get(sentence_id), 'form': form, 'checked': checked,
+            }
+
+    def resolve(token):
+        options = by_spelling.get(token['head'], [])
+        if token['reading']:
+            key = search_key(token['reading'])
+            options = [w for w in options if search_key(w['reading']) == key]
+        elif len(options) > 1:
+            options = [w for w in options if w['reading'] == default_reading(w['entry'], token['head'])] or options
+        return max(options, key=lambda w: (w['rank'], w['reading'])) if options else None
+
+    def assign(word, token, english):
+        numbers = [number for number, _ in word['senses']]
+        if token['sense'] is not None:
+            return (token['sense'], corpus_examples.TAGGED) if token['sense'] in numbers else (None, corpus_examples.UNASSIGNED)
+        if len(numbers) == 1:
+            return numbers[0], corpus_examples.SINGLE
+        number = corpus_examples.gloss_sense(english, [(n, english_glosses(s)) for n, s in word['senses']])
+        return (number, corpus_examples.GLOSS) if number else (None, corpus_examples.UNASSIGNED)
+
+    for word in words:
+        if word['entry'] is not None:
+            for sentence_id, number, japanese, english, form in jmdict_examples(word['senses']):
+                add(word, sentence_id, number, corpus_examples.JMDICT, japanese, english, form, True)
+
+    for sentence_id, tokens in corpus.tokens.items():
+        japanese, english = corpus.japanese[sentence_id], corpus.english.get(sentence_id)
+        for position, token in enumerate(tokens):
+            word = resolve(token)
+            if word is None:
+                continue
+            add(word, sentence_id, *assign(word, token, english), japanese, english, token['surface'], token['checked'])
+            suru = suru_of.get(id(word))
+            following = tokens[position + 1] if position + 1 < len(tokens) else None
+            if suru and following and following['head'] == '為る':
+                add(suru, sentence_id, *assign(suru, token, english), japanese, english,
+                    token['surface'] + following['surface'], token['checked'])
+
+    # Words the index never lists still get real sentences that contain them verbatim.
+    # Only a word's own display spelling, and only when no other word is written the same way.
+    homographs = {}
+    for word in words:
+        if not word['suru']:
+            homographs[word['written']] = homographs.get(word['written'], 0) + 1
+    wanted = {
+        word['written']: word for word in words
+        if word['entry'] is not None and not word['suru'] and homographs[word['written']] == 1
+        and len(candidates.get(id(word), {})) < corpus_examples.MIN_PER_WORD
+        and corpus_examples.text_matchable(word['written'])
+    }
+    # 気付 followed by kana is 気付く, not the noun 気付.
+    verb_stems = {w['written'][:-1] for w in words if w['class'] != 'n' and w['class'] != 'adj-na' and is_kana(w['written'][-1])}
+    unindexed = [(i, japanese, corpus.english.get(i)) for i, japanese in corpus.unindexed()]
+    for sentence_id, japanese, english in unindexed + list(kftt):
+        for spelling, following in corpus_examples.whole_words(japanese):
+            word = wanted.get(spelling)
+            if word is None or (spelling in verb_stems and is_kana(following)):
+                continue
+            sense = word['senses'][0][0] if len(word['senses']) == 1 else None
+            add(word, sentence_id, sense, corpus_examples.TEXT, japanese, english, spelling, False)
+
+    for word in words:
+        numbers = [number for number, _ in word['senses']]
+        word['examples'] = corpus_examples.choose(list(candidates.get(id(word), {}).values()), numbers)
 
 
 def write_database(words, out, meta):
@@ -316,25 +438,45 @@ def write_database(words, out, meta):
             exact INTEGER NOT NULL,
             PRIMARY KEY (prefix, position)
         ) WITHOUT ROWID;
+        CREATE TABLE senses (
+            word_id INTEGER NOT NULL,
+            number INTEGER NOT NULL,
+            gloss TEXT NOT NULL,
+            PRIMARY KEY (word_id, number)
+        ) WITHOUT ROWID;
+        CREATE TABLE sentences (
+            id INTEGER PRIMARY KEY,
+            japanese TEXT NOT NULL,
+            english TEXT,
+            chinese TEXT
+        );
         CREATE TABLE examples (
             word_id INTEGER NOT NULL,
             position INTEGER NOT NULL,
-            tatoeba_id INTEGER NOT NULL,
-            japanese TEXT NOT NULL,
-            english TEXT,
+            sentence_id INTEGER NOT NULL,
+            sense INTEGER,
+            basis TEXT NOT NULL,
             form TEXT,
             PRIMARY KEY (word_id, position)
         ) WITHOUT ROWID;
     ''')
+    sentences = {}
     for word_id, word in enumerate(words, start=1):
         db.execute('INSERT INTO words VALUES (?, ?, ?, ?, ?, ?, ?)', (
             word_id, word['written'], word['reading'], ','.join(map(str, word['accents'])),
             word['class'], word['rank'], word['gloss']))
         for key in sorted({search_key(k) for k in word['keys'] if k}):
             db.execute('INSERT INTO keys VALUES (?, ?)', (key, word_id))
-        for position, (sentence_id, japanese, english, form) in enumerate(word['examples']):
-            db.execute('INSERT INTO examples VALUES (?, ?, ?, ?, ?, ?)',
-                       (word_id, position, sentence_id, japanese, english, form))
+        for number, sense in word['senses']:
+            glosses = english_glosses(sense)
+            if glosses:
+                db.execute('INSERT INTO senses VALUES (?, ?, ?)', (word_id, number, gloss_text(glosses)))
+        for position, example in enumerate(word['examples']):
+            sentences[example['id']] = (example['japanese'], example['english'], example['chinese'])
+            db.execute('INSERT INTO examples VALUES (?, ?, ?, ?, ?, ?)', (
+                word_id, position, example['id'], example['sense'], example['basis'], example['form']))
+    db.executemany('INSERT INTO sentences VALUES (?, ?, ?, ?)',
+                   [(sentence_id, *texts) for sentence_id, texts in sorted(sentences.items())])
     ranks = {word_id: word['rank'] for word_id, word in enumerate(words, start=1)}
     for prefix, rows in top_prefixes(db.execute('SELECT key, word_id FROM keys'), ranks):
         db.executemany('INSERT INTO prefixes VALUES (?, ?, ?, ?)',
@@ -368,7 +510,11 @@ def build_from(inputs, out):
     jmdict = JMdict(load_jmdict(inputs['jmdict']))
     words = build(load_accents(inputs['accents']), load_frequencies(inputs['novels']),
                   load_frequencies(inputs['wiki']), jmdict)
-    write_database(words, out, {'jmdict': f'{jmdict.version} {jmdict.date}'.strip(), 'kanjium': inputs['kanjium_version']})
+    attach_examples(words, corpus_examples.Corpus(**inputs['tatoeba']), corpus_examples.kftt_sentences(inputs['kftt']))
+    write_database(words, out, {
+        'jmdict': f'{jmdict.version} {jmdict.date}'.strip(), 'kanjium': inputs['kanjium_version'],
+        'tatoeba': inputs['tatoeba_version'], 'kftt': '1.0',
+    })
     print(f'{out}: {len(words)} words, {os.path.getsize(out) / 1e6:.1f} MB', file=sys.stderr)
 
 
@@ -379,6 +525,8 @@ def pinned_inputs(cache_dir):
     return {
         'accents': paths['accents.txt'], 'novels': paths['novels_freq.txt'], 'wiki': paths['wikipedia_freq.txt'],
         'jmdict': paths['jmdict-examples-eng.json.zip'], 'kanjium_version': commit,
+        'tatoeba': {name: paths[file] for name, file in TATOEBA_FILES.items()}, 'tatoeba_version': TATOEBA_VERSION,
+        'kftt': paths['kftt-data-1.0.tar.gz'],
     }
 
 
@@ -387,6 +535,10 @@ def local_inputs(directory):
         'accents': os.path.join(directory, 'accents.txt'), 'novels': os.path.join(directory, 'novels_freq.txt'),
         'wiki': os.path.join(directory, 'wikipedia_freq.txt'), 'jmdict': os.path.join(directory, 'jmdict.json'),
         'kanjium_version': 'sample',
+        'tatoeba': {name: os.path.join(directory, 'tatoeba', file.replace('.tar.bz2', '.csv').replace('.bz2', ''))
+                    for name, file in TATOEBA_FILES.items()},
+        'tatoeba_version': 'sample',
+        'kftt': os.path.join(directory, 'kftt'),
     }
 
 
@@ -424,7 +576,75 @@ def make_sample(words_file, cache_dir, out_dir):
         f.write(', "words": [\n')
         f.write(',\n'.join(json.dumps(w, ensure_ascii=False, sort_keys=True) for w in words))
         f.write('\n]}\n')
-    print(f'{out_dir}: {len(rows)} accent rows, {len(entries)} JMdict entries', file=sys.stderr)
+    sentences = sample_corpora(inputs, names, entries.values(), out_dir)
+    print(f'{out_dir}: {len(rows)} accent rows, {len(entries)} JMdict entries, {sentences} sentences', file=sys.stderr)
+
+
+SAMPLE_PER_WORD = 8
+
+
+def sample_corpora(inputs, names, entries, out_dir):
+    """Writes the Tatoeba and KFTT lines the sample words need, capped per word."""
+    paths = inputs['tatoeba']
+    japanese = {int(i): line for i, line in ((l.split('\t', 1)[0], l) for l in corpus_examples._lines(paths['japanese']))}
+    keep, per_word = set(), {}
+    for entry in entries:
+        for sense in entry['sense']:
+            keep |= {int(e['source']['value']) for e in sense.get('examples', []) if e['source']['type'] == 'tatoeba'}
+    index_lines = []
+    for line in corpus_examples._lines(paths['indices']):
+        sentence_id, _, tokens = line.rstrip('\n').split('\t')
+        heads = {t['head'] for t in corpus_examples.parse_tokens(tokens)} & names
+        wanted = [h for h in heads if per_word.get(h, 0) < SAMPLE_PER_WORD]
+        if int(sentence_id) in keep or wanted:
+            for head in wanted:
+                per_word[head] = per_word.get(head, 0) + 1
+            keep.add(int(sentence_id))
+            index_lines.append(line)
+    indexed = {int(line.split('\t', 1)[0]) for line in index_lines}
+    matchable = {n for n in names if corpus_examples.text_matchable(n)}
+    for sentence_id, line in japanese.items():
+        if sentence_id in indexed:
+            continue
+        found = {run for run, _ in corpus_examples.whole_words(line.rstrip('\n').split('\t')[2])} & matchable
+        wanted = [n for n in found if per_word.get(('text', n), 0) < 3]
+        for n in wanted:
+            per_word[('text', n)] = per_word.get(('text', n), 0) + 1
+        if wanted:
+            keep.add(sentence_id)
+
+    directory = os.path.join(out_dir, 'tatoeba')
+    os.makedirs(directory, exist_ok=True)
+
+    def write(name, lines):
+        target = name.replace('.tar.bz2', '.csv').replace('.bz2', '')
+        with open(os.path.join(directory, target), 'w', encoding='utf-8') as f:
+            f.writelines(lines)
+
+    write(TATOEBA_FILES['japanese'], [japanese[i] for i in sorted(keep) if i in japanese])
+    write(TATOEBA_FILES['indices'], index_lines)
+    for links_name, sentences_name in (('eng_links', 'english'), ('cmn_links', 'chinese')):
+        links = [l for l in corpus_examples._lines(paths[links_name]) if int(l.split('\t', 1)[0]) in keep]
+        linked = {int(l.rstrip('\n').split('\t')[1]) for l in links}
+        write(TATOEBA_FILES[links_name], links)
+        write(TATOEBA_FILES[sentences_name],
+              [l for l in corpus_examples._lines(paths[sentences_name]) if int(l.split('\t', 1)[0]) in linked])
+
+    kftt_dir = os.path.join(out_dir, 'kftt')
+    os.makedirs(kftt_dir, exist_ok=True)
+    pairs = []
+    for _, ja, en in corpus_examples.kftt_sentences(inputs['kftt']):
+        found = {run for run, _ in corpus_examples.whole_words(ja)} & matchable
+        wanted = [n for n in found if per_word.get(('kftt', n), 0) < 3]
+        for n in wanted:
+            per_word[('kftt', n)] = per_word.get(('kftt', n), 0) + 1
+        if wanted:
+            pairs.append((ja, en))
+    for part in corpus_examples.KFTT_PARTS:
+        for lang, column in (('ja', 0), ('en', 1)):
+            with open(os.path.join(kftt_dir, f'kyoto-{part}.{lang}'), 'w', encoding='utf-8') as f:
+                f.writelines(pair[column] + '\n' for pair in (pairs if part == 'train' else []))
+    return len(keep) + len(pairs)
 
 
 def main():

@@ -46,8 +46,8 @@ extension WordEntry {
     public var isOffline: Bool { id >= Self.offlineIDBase }
 }
 
-/// The bundled, read-only pitch-accent dictionary (Kanjium accents + JMdict words,
-/// glosses and Tatoeba examples).
+/// The bundled, read-only pitch-accent dictionary (Kanjium accents, JMdict words and
+/// senses, Tatoeba and KFTT examples).
 public final class OfflineDictionary: @unchecked Sendable {
     private let database: SQLiteDatabase
     private let lock = NSLock()
@@ -101,16 +101,31 @@ public final class OfflineDictionary: @unchecked Sendable {
         entry.isOffline ? word(id: entry.id - WordEntry.offlineIDBase) : nil
     }
 
-    /// Tatoeba sentences JMdict lists for this word, with their English translation.
+    /// The word's JMdict senses that apply to its spelling and reading, in JMdict order.
+    public func senses(for word: DictionaryWord) -> [WordSense] {
+        let rows = locked {
+            try? database.query(
+                "SELECT number, gloss FROM senses WHERE word_id = ? ORDER BY number", [.int(word.id)]
+            ) { WordSense(number: $0.int(0), gloss: $0.text(1) ?? "") }
+        }
+        return rows ?? []
+    }
+
+    /// Corpus sentences for this word (Tatoeba, KFTT), at most two per sense.
     public func examples(for word: DictionaryWord) -> [ExampleSentence] {
         let rows = locked {
             try? database.query(
-                "SELECT tatoeba_id, japanese, english FROM examples WHERE word_id = ? ORDER BY position",
+                """
+                SELECT s.id, s.japanese, s.english, s.chinese, e.sense, e.basis
+                FROM examples e JOIN sentences s ON s.id = e.sentence_id
+                WHERE e.word_id = ? ORDER BY e.position
+                """,
                 [.int(word.id)]
             ) { row in
                 ExampleSentence(
-                    id: row.int(0), text: row.text(1) ?? "", owner: nil, license: "CC BY 2.0 FR",
-                    translations: row.text(2).map { [.init(id: 0, text: $0, lang: "eng", script: nil, owner: nil)] } ?? []
+                    id: row.int(0), japanese: row.text(1) ?? "", english: row.text(2), chinese: row.text(3),
+                    sense: row.isNull(4) ? nil : row.int(4),
+                    basis: ExampleSentence.Basis(rawValue: row.text(5) ?? "") ?? .unassigned
                 )
             }
         }

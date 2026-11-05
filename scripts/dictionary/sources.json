@@ -26,5 +26,46 @@
         "sha256": "8e27ad5d5c175b534758b2a1fe52d8c25a62cfc2ff60b4f4c44f5229aa3ff77a"
       }
     }
+  },
+  "tatoeba": {
+    "license": "CC BY 2.0 FR (Tatoeba; some sentences CC0)",
+    "homepage": "https://tatoeba.org/downloads",
+    "snapshot": "2026-10-31 weekly export, archived by the Wayback Machine (the live URLs are overwritten weekly)",
+    "files": {
+      "jpn_indices.tar.bz2": {
+        "url": "https://web.archive.org/web/20261105045730id_/https://downloads.tatoeba.org/exports/jpn_indices.tar.bz2",
+        "sha256": "edaef0fc732eedbae05c3a630ff7489dc750655c7cd0b3aee9dd92fe5b7dae60"
+      },
+      "jpn_sentences.tsv.bz2": {
+        "url": "https://web.archive.org/web/20261105045833id_/https://downloads.tatoeba.org/exports/per_language/jpn/jpn_sentences.tsv.bz2",
+        "sha256": "2aa65d2dc7bdf3c47716605bd184b6d55e54c362e08ead1787bc3152d18af373"
+      },
+      "jpn-eng_links.tsv.bz2": {
+        "url": "https://web.archive.org/web/20261105050140id_/https://downloads.tatoeba.org/exports/per_language/jpn/jpn-eng_links.tsv.bz2",
+        "sha256": "b1b3f69f4ff2aa18121cb1d58a3b457a6f8abdac733cb9a74bc8b9e3688ad345"
+      },
+      "eng_sentences.tsv.bz2": {
+        "url": "https://web.archive.org/web/20261105045929id_/https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2",
+        "sha256": "07f33d399f0a55b917202abbd901f23c39c54a6dd562252985ce8c7e168db6ef"
+      },
+      "jpn-cmn_links.tsv.bz2": {
+        "url": "https://web.archive.org/web/20261105050145id_/https://downloads.tatoeba.org/exports/per_language/jpn/jpn-cmn_links.tsv.bz2",
+        "sha256": "7c3f4e6ce7d4cbb243c67a50b1aa5b21df6c42b278347b271ea5366b849c3878"
+      },
+      "cmn_sentences.tsv.bz2": {
+        "url": "https://web.archive.org/web/20261105045937id_/https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences.tsv.bz2",
+        "sha256": "d603c1b9c67fb7a5a68c56fe6df5c935025ca1f36a1f9a912c33ed6dbed91743"
+      }
+    }
+  },
+  "kftt": {
+    "license": "CC BY-SA 3.0 (Kyoto Free Translation Task; NICT Japanese-English Bilingual Corpus of Wikipedia's Kyoto Articles)",
+    "homepage": "https://www.phontron.com/kftt/",
+    "files": {
+      "kftt-data-1.0.tar.gz": {
+        "url": "https://web.archive.org/web/20240613142555id_/https://www.phontron.com/kftt/download/kftt-data-1.0.tar.gz",
+        "sha256": "fcfcaa670d6d59aa691b0e909c0d7c393852dd2fb1d6310fda9b3282dc6d1638"
+      }
+    }
   }
 }

@@ -51,7 +51,7 @@ public enum Conjugator {
         return order.map { kind in
             ConjugatedForm(
                 kind: kind,
-                label: WordCategory.fallbackLabels[category]?[kind] ?? kind,
+                label: WordCategory.labels[category]?[kind] ?? kind,
                 readings: readings[kind] ?? []
             )
         }
