@@ -58,15 +58,21 @@ struct PitchCurve: View {
     }
 }
 
-private struct MoraCell: View {
+/// One kana mora with OJAD's marks: a line over it when high, red when it is the
+/// accent nucleus, followed by a red drop.
+struct MoraCell: View {
     let mora: Mora
+    var font: Font = .title3
+    /// Fill the width the parent gives (the curve's mora grid) rather than hugging the kana.
+    var fillsWidth = true
 
     var body: some View {
         Text(mora.text)
-            .font(.title3)
+            .font(font)
             .lineLimit(1)
             .minimumScaleFactor(0.5)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: fillsWidth ? .infinity : nil)
+            .padding(.horizontal, fillsWidth ? 0 : 1)
             .padding(.top, 5)
             .overlay(alignment: .top) {
                 if mora.isHigh {
