@@ -53,6 +53,10 @@ struct ConjugationGroupsView: View {
     let groups: [ConjugationGroup]
     private var expanded = ExpandedGroups()
 
+    init(groups: [ConjugationGroup]) {
+        self.groups = groups
+    }
+
     var body: some View {
         if groups.count == 1, let only = groups.first {
             ForEach(only.forms, id: \.kind) { ConjugatedFormRow(form: $0) }
@@ -93,6 +97,10 @@ struct ConjugationGroupsView: View {
 struct ConjugationHeader: View {
     let groups: [ConjugationGroup]
     private var expanded = ExpandedGroups()
+
+    init(groups: [ConjugationGroup]) {
+        self.groups = groups
+    }
 
     var body: some View {
         HStack {
