@@ -27,7 +27,21 @@ final class ScreenshotTests: XCTestCase {
         suggestion.tap()
         XCTAssertTrue(app.navigationBars["食べる"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts["to eat"].waitForExistence(timeout: 5), "JMdict gloss missing")
+        // Default: everyday forms open, the rest folded.
+        XCTAssertTrue(app.staticTexts["〜ます形"].exists, "常用形 should start expanded")
         snapshot("3-conjugations")
+
+        app.buttons["全部展开"].tap()
+        XCTAssertTrue(app.buttons["全部收起"].waitForExistence(timeout: 5))
+        snapshot("3b-conjugations-all-expanded")
+        app.buttons["全部收起"].tap()
+        XCTAssertTrue(app.buttons["全部展开"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["〜ます形"].exists, "全部收起 should fold 常用形 too")
+        XCTAssertTrue(group("其他活用形").exists)
+        XCTAssertTrue(group("使役・受身・可能").exists)
+        snapshot("3c-conjugations-collapsed")
+        group("常用形").tap()
+        XCTAssertTrue(app.staticTexts["〜ます形"].waitForExistence(timeout: 5))
 
         let example = app.staticTexts
             .matching(NSPredicate(format: "label CONTAINS '食べ' AND (label ENDSWITH '。' OR label ENDSWITH '？' OR label ENDSWITH '！')"))
@@ -65,6 +79,35 @@ final class ScreenshotTests: XCTestCase {
         selfTest.tap()
         XCTAssertTrue(selfTest.waitForExistence(timeout: 10))
         snapshot("7-dictionary-status")
+
+        // A second query, so history has a row to remove and one to clear.
+        app.tabBars.buttons["查询"].tap()
+        let searchField = app.searchFields.firstMatch
+        searchField.tap()
+        searchField.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 6) + "gakkou\n")
+        XCTAssertTrue(app.staticTexts["学校"].waitForExistence(timeout: 10))
+
+        app.tabBars.buttons["历史"].tap()
+        let removeTaberu = app.buttons["删除「食べる」"]
+        XCTAssertTrue(removeTaberu.waitForExistence(timeout: 5), "No ✕ on the history row")
+        XCTAssertGreaterThanOrEqual(removeTaberu.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(removeTaberu.frame.height, 44)
+        snapshot("8-history")
+        removeTaberu.tap()
+        XCTAssertTrue(removeTaberu.waitForNonExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["删除「gakkou」"].exists, "✕ removed more than its own row")
+
+        app.buttons["全部清除"].tap()
+        let confirm = app.buttons["清除全部记录"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5), "No confirmation before clearing")
+        snapshot("9-history-confirm-clear")
+        confirm.tap()
+        XCTAssertTrue(app.staticTexts["没有查询记录"].waitForExistence(timeout: 5))
+    }
+
+    /// A conjugation group's disclosure row (its label also lists the folded forms).
+    private func group(_ title: String) -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", title)).firstMatch
     }
 
     private func snapshot(_ name: String) {

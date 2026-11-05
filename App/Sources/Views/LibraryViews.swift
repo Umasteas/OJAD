@@ -37,47 +37,6 @@ struct FavoritesView: View {
     }
 }
 
-struct HistoryView: View {
-    @Environment(\.modelContext) private var context
-    @Environment(Library.self) private var library
-    @Query(sort: \HistoryEntry.lastSearchedAt, order: .reverse) private var history: [HistoryEntry]
-    @State private var confirmingClear = false
-
-    var body: some View {
-        NavigationStack {
-            Group {
-                if history.isEmpty {
-                    ContentUnavailableView("没有查询记录", systemImage: "clock", description: Text("查过的单词会出现在这里。"))
-                } else {
-                    List {
-                        ForEach(history) { item in
-                            // Value-based so the list re-sorting (opening a query bumps
-                            // its timestamp) doesn't disturb the pushed screen.
-                            NavigationLink(value: SearchQuery(text: item.query)) {
-                                HistoryRow(item: item)
-                            }
-                        }
-                        .onDelete { offsets in
-                            for index in offsets { context.delete(history[index]) }
-                            try? context.save()
-                        }
-                    }
-                }
-            }
-            .navigationTitle("历史")
-            .appDestinations()
-            .toolbar {
-                if !history.isEmpty {
-                    Button("清空", role: .destructive) { confirmingClear = true }
-                }
-            }
-            .confirmationDialog("清空全部查询记录？", isPresented: $confirmingClear, titleVisibility: .visible) {
-                Button("清空", role: .destructive) { try? library.clearHistory() }
-            }
-        }
-    }
-}
-
 /// What the user can read out when search misbehaves on the phone: whether the
 /// bundled dictionary opened, and how long the last lookups took.
 struct DictionaryStatusSection: View {

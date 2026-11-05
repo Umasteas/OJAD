@@ -83,10 +83,7 @@ struct SearchView: View {
             List {
                 Section("最近查询") {
                     ForEach(history.prefix(20)) { item in
-                        Button { submit(item.query) } label: {
-                            HistoryRow(item: item)
-                        }
-                        .tint(.primary)
+                        DeletableHistoryRow(item: item) { submit(item.query) }
                     }
                 }
             }

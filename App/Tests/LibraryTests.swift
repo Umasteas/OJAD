@@ -80,6 +80,30 @@ final class LibraryTests: XCTestCase {
         XCTAssertFalse(makeLibrary().isFavorite(entry))
     }
 
+    func testRemovingOneHistoryEntryKeepsTheOthersAndFavorites() async throws {
+        let library = makeLibrary()
+        let entries = try await library.search("学校")
+        try library.toggleFavorite(try XCTUnwrap(entries.first))
+        clock = clock.addingTimeInterval(60)
+        _ = try await library.search("がっこ")
+
+        let newest = try XCTUnwrap(try history().first)
+        XCTAssertEqual(newest.query, "がっこ")
+        try library.removeHistory(newest)
+
+        XCTAssertEqual(try history().map(\.query), ["学校"])
+        XCTAssertEqual(try container.mainContext.fetch(FetchDescriptor<FavoriteWord>()).count, 1)
+    }
+
+    func testClearHistoryKeepsFavorites() async throws {
+        let library = makeLibrary()
+        let entries = try await library.search("学校")
+        try library.toggleFavorite(try XCTUnwrap(entries.first))
+        try library.clearHistory()
+        XCTAssertEqual(try history().count, 0)
+        XCTAssertEqual(try container.mainContext.fetch(FetchDescriptor<FavoriteWord>()).count, 1)
+    }
+
     func testClearHistoryRemovesEveryEntry() async throws {
         let library = makeLibrary()
         _ = try await library.search("学校")
