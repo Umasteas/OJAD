@@ -21,7 +21,7 @@ final class FavoriteWord {
     @Attribute(.unique) var wordID: Int
     var headword: String
     var reading: String
-    /// The whole `WordEntry`, so a favorite opens without a network request.
+    /// The whole `WordEntry`, so a favorite opens even if the dictionary changes.
     var entryData: Data
     var addedAt: Date
 
@@ -36,8 +36,9 @@ final class FavoriteWord {
     var entry: WordEntry? { try? JSONDecoder().decode(WordEntry.self, from: entryData) }
 }
 
-/// Responses from OJAD and Tatoeba, kept indefinitely: both change rarely, and
-/// asking again for the same thing only adds load on volunteer-run services.
+/// Responses the former online version cached from OJAD and Tatoeba. Nothing writes it
+/// any more; the model stays in the schema so existing stores open without a migration,
+/// and its rows are deleted at launch.
 @Model
 final class CachedResponse {
     @Attribute(.unique) var key: String

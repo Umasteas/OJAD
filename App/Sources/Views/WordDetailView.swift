@@ -8,9 +8,7 @@ struct WordDetailView: View {
     @Query private var favorites: [FavoriteWord]
     @State private var word: DictionaryWord?
     /// nil until read from the dictionary (off the main thread, a few ms).
-    @State private var offlineExamples: [ExampleSentence]?
-    /// nil until the user asks Tatoeba for more.
-    @State private var onlineExamples: LoadState<[ExampleSentence]>?
+    @State private var examples: [SenseExamples]?
 
     init(entry: WordEntry) {
         self.entry = entry
@@ -38,8 +36,8 @@ struct WordDetailView: View {
                 ConjugationGroupsView(groups: conjugationGroups)
 
                 if entry.isOffline {
-                    NavigationLink(value: OnlineQuery(text: entry.exampleSearchTerm)) {
-                        Label("在线核对 OJAD", systemImage: "globe")
+                    NavigationLink { AccentDerivationView() } label: {
+                        Label("重音是怎样推导的", systemImage: "info.circle")
                     }
                 }
             } header: {
@@ -65,66 +63,60 @@ struct WordDetailView: View {
             }
         }
         .task {
-            let details = await library.offlineDetails(for: entry)
+            let details = await library.details(for: entry)
             word = details.word
-            offlineExamples = details.examples
+            examples = SenseExamples.group(details.examples, senses: details.senses)
         }
     }
 
     @ViewBuilder
     private var examplesSection: some View {
-        Section {
-            ForEach(offlineExamples ?? []) { sentence in
-                NavigationLink(value: sentence) {
-                    ExampleSentenceRow(sentence: sentence)
+        if let examples {
+            let senseCount = examples.filter { $0.sense != nil }.count
+            if examples.allSatisfy({ $0.examples.isEmpty }) {
+                Section("释义与例句") {
+                    ForEach(examples) { group in
+                        if let sense = group.sense { SenseHeader(sense: sense, count: senseCount) }
+                    }
+                    Text("离线语料中没有「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
                 }
-            }
-            switch onlineExamples {
-            case nil:
-                if offlineExamples?.isEmpty == true {
-                    Text("离线词典中没有「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
-                }
-                Button {
-                    Task { await loadOnlineExamples(refresh: false) }
-                } label: {
-                    Label("在线加载更多例句（含中文翻译）", systemImage: "globe")
-                }
-            case .loading?:
-                HStack {
-                    ProgressView()
-                    Text("正在加载例句…").foregroundStyle(.secondary)
-                }
-            case .failed(let message)?:
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(message).foregroundStyle(.secondary)
-                    Button("重试") { Task { await loadOnlineExamples(refresh: true) } }
-                }
-            case .loaded(let sentences)?:
-                let known = Set((offlineExamples ?? []).map(\.id))
-                let more = sentences.filter { !known.contains($0.id) }
-                if more.isEmpty {
-                    Text("Tatoeba 中没有更多包含「\(entry.exampleSearchTerm)」的例句。").foregroundStyle(.secondary)
-                }
-                ForEach(more) { sentence in
-                    NavigationLink(value: sentence) {
-                        ExampleSentenceRow(sentence: sentence)
+            } else {
+                ForEach(examples) { group in
+                    Section {
+                        ForEach(group.examples) { ExampleSentenceRow(sentence: $0) }
+                        if group.examples.isEmpty {
+                            Text("此义项暂无例句").font(.footnote).foregroundStyle(.tertiary)
+                        }
+                    } header: {
+                        if let sense = group.sense {
+                            SenseHeader(sense: sense, count: senseCount)
+                        } else {
+                            Text("未标明义项的例句")
+                        }
+                    } footer: {
+                        if group.id == examples.last?.id {
+                            Text("例句来自 Tatoeba（CC BY 2.0 FR）和 KFTT（CC BY-SA 3.0），按 JMdict 义项归类。")
+                        }
                     }
                 }
             }
-        } header: {
-            Text("例句")
-        } footer: {
-            Text("例句来自 Tatoeba（CC BY 2.0 FR），离线例句经 JMdict 收录、附英文翻译。点开一句可在线请求スズキクン语调分析。")
         }
     }
+}
 
-    private func loadOnlineExamples(refresh: Bool) async {
-        onlineExamples = .loading
-        do {
-            onlineExamples = .loaded(try await library.onlineExamples(for: entry, refresh: refresh))
-        } catch {
-            onlineExamples = .failed(error.userMessage)
-        }
+/// `① to eat` — numbered like JMdict; the number is left out for single-sense words.
+struct SenseHeader: View {
+    let sense: WordSense
+    let count: Int
+
+    var body: some View {
+        Text(count > 1 ? "\(Self.circled(sense.number)) \(sense.gloss)" : sense.gloss)
+            .textCase(nil)
+            .accessibilityIdentifier("sense-\(sense.number)")
+    }
+
+    static func circled(_ number: Int) -> String {
+        (1...20).contains(number) ? String(Character(UnicodeScalar(0x2460 + number - 1)!)) : "(\(number))"
     }
 }
 
@@ -133,11 +125,47 @@ struct ExampleSentenceRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(sentence.text).font(.body)
-            if let translation = sentence.preferredTranslation {
-                Text(translation.text).font(.subheadline).foregroundStyle(.secondary)
+            Text(sentence.japanese).font(.body).textSelection(.enabled)
+            if let english = sentence.english {
+                Text(english).font(.subheadline).foregroundStyle(.secondary)
+            }
+            if let chinese = sentence.chinese {
+                Text(chinese).font(.subheadline).foregroundStyle(.secondary)
+            }
+            if let note {
+                Text(note).font(.caption2).foregroundStyle(.tertiary)
             }
         }
         .padding(.vertical, 2)
+    }
+
+    /// Says when the sense or the sentence itself was matched by a heuristic.
+    private var note: String? {
+        let source = sentence.source == .kftt ? "KFTT" : nil
+        let basis: String? = switch sentence.basis {
+        case .gloss: "义项按英译推测"
+        case .text: "原文匹配，未经词典标注"
+        case .tagged, .jmdict, .single, .unassigned: nil
+        }
+        let parts = [basis, source].compactMap { $0 }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+}
+
+/// How the conjugation table is made, and how often it agrees with OJAD.
+struct AccentDerivationView: View {
+    var body: some View {
+        List {
+            Section {
+                Text("辞書形的重音来自 Kanjium，其余活用形由本 App 按 OJAD 的活用规则推导，完全离线，个别词可能与 OJAD 不同。")
+            }
+            Section("辞書形以外的活用形与 OJAD 原站对照（510 个词，2026-11-04 记录）") {
+                LabeledContent("动词", value: "3522 / 3556 个活用形一致")
+                LabeledContent("い形容词", value: "800 / 800 个活用形一致")
+                LabeledContent("な形容词", value: "380 / 392 个活用形一致")
+            }
+        }
+        .navigationTitle("重音推导")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

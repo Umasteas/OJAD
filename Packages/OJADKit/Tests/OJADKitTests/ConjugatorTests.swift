@@ -2,18 +2,18 @@ import XCTest
 @testable import OJADKit
 
 final class ConjugatorTests: XCTestCase {
-    func testDerivedTablesMatchOJADForTheRecordedWords() async throws {
-        // OJAD's own pages for 食べる, 高い, 静か and 学校, against the table derived
-        // offline from the same reading and dictionary-form accent.
-        let cases: [(fixture: String, query: String, reading: String, accents: [Int], wordClass: WordClass)] = [
-            ("search-taberu", "食べる", "たべる", [2], .ichidan),
-            ("search-takai", "高い", "たかい", [2], .iAdjective),
-            ("search-shizuka", "静か", "しずか", [1], .naAdjective),
-            ("search-gakkou", "学校", "がっこう", [0], .noun),
+    func testDerivedTablesMatchOJADForTheRecordedWords() throws {
+        // OJAD's own tables for 食べる, 高い, 静か and 学校 (`Fixtures/ojad-recorded.json`),
+        // against the table derived offline from the same reading and dictionary-form accent.
+        let recorded = try JSONDecoder().decode([String: WordEntry].self, from: Fixture.data("ojad-recorded"))
+        let cases: [(query: String, reading: String, accents: [Int], wordClass: WordClass)] = [
+            ("食べる", "たべる", [2], .ichidan),
+            ("高い", "たかい", [2], .iAdjective),
+            ("静か", "しずか", [1], .naAdjective),
+            ("学校", "がっこう", [0], .noun),
         ]
         for item in cases {
-            let ojad = try await OJADClient.fixture(FixtureTransport(fixture: item.fixture)).searchWord(item.query)
-            let expected = try XCTUnwrap(ojad.first)
+            let expected = try XCTUnwrap(recorded[item.query])
             let written = expected.lemma.replacingOccurrences(of: "[な]", with: "")
             XCTAssertEqual(Conjugator.headword(written: written, reading: item.reading, wordClass: item.wordClass), expected.headword)
             XCTAssertEqual(

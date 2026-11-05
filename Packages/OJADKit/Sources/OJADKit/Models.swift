@@ -80,3 +80,25 @@ public struct Mora: Sendable, Hashable, Codable {
         self.isNucleus = isNucleus
     }
 }
+
+extension WordCategory {
+    /// OJAD's column labels per category, as recorded from its table headers.
+    static let labels: [WordCategory: [String: String]] = [
+        .verb: [
+            "jisho": "辞書形", "masu": "〜ます形", "te": "〜て形", "ta": "〜た形",
+            "nai": "〜ない形", "nakatta": "〜なかった形", "ba": "〜ば形", "shieki": "使役形",
+            "ukemi": "受身形", "meirei": "命令形", "kano": "可能形", "ishi": "〜う形",
+        ],
+        .iAdjective: [
+            "jisho": "〜い + N形", "masu": "〜いです形", "te": "〜くて形", "ta": "〜かった形",
+            "nai": "〜くない形", "nakatta": "〜くなかった形", "ba": "〜ければ形",
+            "shieki": "〜い。形", "ukemi": "〜く形",
+        ],
+        .naAdjective: [
+            "jisho": "〜な + N形", "masu": "〜です形", "te": "〜で形", "ta": "〜だった形",
+            "nai": "〜じゃない形", "nakatta": "〜じゃなかった形", "ba": "〜ならば形",
+            "shieki": "〜だ形", "ukemi": "〜に形",
+        ],
+        .noun: ["jisho": "辞書形"],
+    ]
+}

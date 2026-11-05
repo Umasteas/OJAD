@@ -83,7 +83,7 @@ targets:
         TEST_TARGET_NAME: OJAD
 
 schemes:
-  # Live-network UI walkthrough, kept out of the default test action.
+  # UI walkthrough with screenshots, kept out of the default test action.
   OJADScreenshots:
     build:
       targets:

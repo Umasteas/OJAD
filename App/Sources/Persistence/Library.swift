@@ -6,8 +6,7 @@ import SwiftData
 /// Lookups, history recording and favorite toggling. List screens read history and
 /// favorites straight from the store with `@Query`.
 ///
-/// Words come from the bundled offline dictionary. OJAD, Tatoeba and スズキクン are
-/// only asked when the user taps an online action; their answers are cached.
+/// Everything comes from the bundled offline dictionary; the app makes no network requests.
 @MainActor
 @Observable
 final class Library {
@@ -15,22 +14,16 @@ final class Library {
     /// Shown on the About screen so problems on the phone can be reported without logs.
     private(set) var diagnostics: DictionaryDiagnostics
     @ObservationIgnored private let context: ModelContext
-    @ObservationIgnored private let ojad: OJADClient
-    @ObservationIgnored private let tatoeba: TatoebaClient
     @ObservationIgnored private let now: () -> Date
 
     init(
         context: ModelContext,
         dictionary: BundledDictionary = .shared,
-        ojad: OJADClient = OJADClient(),
-        tatoeba: TatoebaClient = TatoebaClient(),
         now: @escaping () -> Date = Date.init
     ) {
         self.context = context
         self.dictionary = dictionary.dictionary
         self.diagnostics = dictionary.diagnostics
-        self.ojad = ojad
-        self.tatoeba = tatoeba
         self.now = now
     }
 
@@ -48,10 +41,10 @@ final class Library {
         return words
     }
 
-    /// Looks the query up offline (OJAD if the dictionary is missing) and records it in history.
+    /// Looks the query up and records it in history.
     func search(_ query: String) async throws -> [WordEntry] {
         let query = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let dictionary else { return try await searchOnline(query) }
+        guard let dictionary else { throw DictionaryUnavailable() }
         let clock = ContinuousClock()
         let start = clock.now
         let entries = await Task.detached(priority: .userInitiated) {
@@ -77,23 +70,15 @@ final class Library {
         }.value
     }
 
-    /// Searches OJAD itself; the reference when an offline table looks wrong.
-    func searchOnline(_ query: String, refresh: Bool = false) async throws -> [WordEntry] {
-        let query = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        let entries = try await cached("word:\(query)", refresh: refresh) { [ojad] in
-            try await ojad.searchWord(query)
-        }
-        recordHistory(query: query, entries: entries)
-        return entries
-    }
-
-    /// The offline dictionary row behind an entry (also for entries saved from OJAD)
-    /// and its examples.
-    func offlineDetails(for entry: WordEntry) async -> (word: DictionaryWord?, examples: [ExampleSentence]) {
-        guard let dictionary else { return (nil, []) }
+    /// The dictionary row behind an entry (also for favorites saved by the former online
+    /// version, which have OJAD's ids), its senses and its examples.
+    func details(for entry: WordEntry) async -> WordDetails {
+        guard let dictionary else { return WordDetails(word: nil, senses: [], examples: []) }
         return await Task.detached(priority: .userInitiated) {
-            let word = Self.dictionaryWord(for: entry, in: dictionary)
-            return (word, word.map { dictionary.examples(for: $0) } ?? [])
+            guard let word = Self.dictionaryWord(for: entry, in: dictionary) else {
+                return WordDetails(word: nil, senses: [], examples: [])
+            }
+            return WordDetails(word: word, senses: dictionary.senses(for: word), examples: dictionary.examples(for: word))
         }.value
     }
 
@@ -103,29 +88,6 @@ final class Library {
         return dictionary.lookup(entry.exampleSearchTerm).first {
             $0.entry.headword == entry.headword && $0.entry.dictionaryReading?.notation == reading
         }
-    }
-
-    /// Tatoeba's live search, which also has Chinese translations.
-    func onlineExamples(for entry: WordEntry, refresh: Bool = false) async throws -> [ExampleSentence] {
-        let term = entry.exampleSearchTerm
-        return try await cached("examples:\(term)", refresh: refresh) { [tatoeba] in
-            try await tatoeba.exampleSentences(containing: term)
-        }
-    }
-
-    func cachedAnalysis(of sentence: String) -> SentenceAnalysis? {
-        cachedValue("phrasing:\(sentence)")
-    }
-
-    func analysis(of sentence: String, refresh: Bool = false) async throws -> SentenceAnalysis {
-        try await cached("phrasing:\(sentence)", refresh: refresh) { [ojad] in
-            try await ojad.analyzeSentence(sentence)
-        }
-    }
-
-    func clearCache() throws {
-        try context.delete(model: CachedResponse.self)
-        try context.save()
     }
 
     // MARK: History
@@ -180,40 +142,6 @@ final class Library {
         let descriptor = FetchDescriptor<FavoriteWord>(predicate: FavoriteWord.matching(entry))
         return try? context.fetch(descriptor).first
     }
-
-    // MARK: Cache
-
-    private func cachedValue<Value: Codable>(_ key: String) -> Value? {
-        let descriptor = FetchDescriptor<CachedResponse>(predicate: #Predicate { $0.key == key })
-        guard let existing = try? context.fetch(descriptor).first else { return nil }
-        return try? JSONDecoder().decode(Value.self, from: existing.payload)
-    }
-
-    /// Empty results are not cached, so a typo or a transient site hiccup isn't sticky.
-    private func cached<Value: Codable>(
-        _ key: String,
-        refresh: Bool,
-        fetch: () async throws -> Value
-    ) async throws -> Value {
-        if !refresh, let value: Value = cachedValue(key) {
-            return value
-        }
-
-        let value = try await fetch()
-        if let empty = value as? any Collection, empty.isEmpty {
-            return value
-        }
-        let payload = try JSONEncoder().encode(value)
-        let descriptor = FetchDescriptor<CachedResponse>(predicate: #Predicate { $0.key == key })
-        if let existing = try? context.fetch(descriptor).first {
-            existing.payload = payload
-            existing.fetchedAt = now()
-        } else {
-            context.insert(CachedResponse(key: key, payload: payload, fetchedAt: now()))
-        }
-        try? context.save()
-        return value
-    }
 }
 
 /// `Dictionary.sqlite`, generated by `scripts/dictionary/build.py` at build time and
@@ -224,11 +152,11 @@ struct BundledDictionary: Sendable {
 
     static let shared = BundledDictionary.open(Bundle.main.url(forResource: "Dictionary", withExtension: "sqlite"))
 
-    /// Online-only, as if the app shipped without a dictionary.
-    static let onlineOnly = BundledDictionary(dictionary: nil, diagnostics: DictionaryDiagnostics(state: .missing))
+    /// As if the app shipped without a dictionary.
+    static let missing = BundledDictionary(dictionary: nil, diagnostics: DictionaryDiagnostics(state: .missing))
 
     static func open(_ url: URL?) -> BundledDictionary {
-        guard let url else { return .onlineOnly }
+        guard let url else { return .missing }
         let clock = ContinuousClock()
         let start = clock.now
         do {
@@ -246,6 +174,14 @@ struct BundledDictionary: Sendable {
         }
     }
 }
+
+struct WordDetails: Sendable {
+    let word: DictionaryWord?
+    let senses: [WordSense]
+    let examples: [ExampleSentence]
+}
+
+struct DictionaryUnavailable: Error {}
 
 extension Duration {
     var millisecondsText: String {

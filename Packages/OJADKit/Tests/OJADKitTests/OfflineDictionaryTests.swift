@@ -11,18 +11,18 @@ final class OfflineDictionaryTests: XCTestCase {
         dictionary = try OfflineDictionary(url: url)
     }
 
-    func testLookupBuildsTheSameEntryOJADShows() async throws {
+    func testLookupBuildsTheSameEntryOJADShows() throws {
         let word = try XCTUnwrap(dictionary.lookup("食べる").first)
         XCTAssertEqual(word.reading, "たべる")
         XCTAssertEqual(word.accents, [2])
         XCTAssertEqual(word.wordClass, .ichidan)
         XCTAssertEqual(word.notation, "たべꜜる")
 
-        let ojad = try await OJADClient.fixture(FixtureTransport(fixture: "search-taberu")).searchWord("食べる")
+        let ojad = try JSONDecoder().decode([String: WordEntry].self, from: Fixture.data("ojad-recorded"))["食べる"]
         let entry = word.entry
         XCTAssertTrue(entry.isOffline)
-        XCTAssertEqual(entry.headword, ojad.first?.headword)
-        XCTAssertEqual(entry.forms, ojad.first?.forms)
+        XCTAssertEqual(entry.headword, ojad?.headword)
+        XCTAssertEqual(entry.forms, ojad?.forms)
         XCTAssertEqual(dictionary.word(for: entry), word)
     }
 
@@ -111,19 +111,40 @@ final class OfflineDictionaryTests: XCTestCase {
         XCTAssertEqual(word.entry.forms.first { $0.kind == "masu" }?.readings.map(\.notation), ["べんきょうしまꜜす"])
     }
 
-    func testExamplesComeWithTheirEnglishTranslation() throws {
+    func testExamplesAreGroupedUnderTheSenseTheyIllustrate() throws {
         let word = try XCTUnwrap(dictionary.lookup("食べる").first)
+        let senses = dictionary.senses(for: word)
+        XCTAssertEqual(senses.map(\.number), [1, 2])
+        XCTAssertEqual(senses.first?.gloss, "to eat")
+
         let examples = dictionary.examples(for: word)
-        XCTAssertFalse(examples.isEmpty)
-        XCTAssertLessThanOrEqual(examples.count, 6)
-        let first = try XCTUnwrap(examples.first)
-        XCTAssertEqual(first.license, "CC BY 2.0 FR")
-        XCTAssertEqual(first.preferredTranslation?.lang, "eng")
-        XCTAssertTrue(first.url.absoluteString.hasPrefix("https://tatoeba.org/sentences/show/"))
+        XCTAssertGreaterThanOrEqual(examples.count, 2)
+        XCTAssertLessThanOrEqual(examples.count, 10)
+        XCTAssertTrue(examples.allSatisfy { $0.english != nil && $0.source == .tatoeba })
+
+        let groups = SenseExamples.group(examples, senses: senses)
+        XCTAssertEqual(groups.map(\.sense?.number), [1, 2])
+        for group in groups {
+            XCTAssertFalse(group.examples.isEmpty, "sense \(group.sense?.number ?? 0)")
+            XCTAssertLessThanOrEqual(group.examples.count, 2)
+        }
+    }
+
+    func testGroupingKeepsSensesWithoutExamplesAndPutsUnknownSensesLast() {
+        let senses = [WordSense(number: 1, gloss: "a"), WordSense(number: 2, gloss: "b")]
+        let examples = [
+            ExampleSentence(id: 1, japanese: "一", english: nil, chinese: nil, sense: nil, basis: .unassigned),
+            ExampleSentence(id: 2, japanese: "二", english: nil, chinese: nil, sense: 1, basis: .tagged),
+            ExampleSentence(id: ExampleSentence.kfttIDBase, japanese: "三", english: nil, chinese: nil, sense: 1, basis: .text),
+        ]
+        let groups = SenseExamples.group(examples, senses: senses)
+        XCTAssertEqual(groups.map(\.sense?.number), [1, 2, nil])
+        XCTAssertEqual(groups.map { $0.examples.map(\.id) }, [[2, ExampleSentence.kfttIDBase], [], [1]])
+        XCTAssertEqual(examples[2].source, .kftt)
     }
 
     func testMetadataNamesTheSources() {
-        XCTAssertEqual(dictionary.metadata["schema"], "2")
+        XCTAssertEqual(dictionary.metadata["schema"], "3")
         XCTAssertEqual(dictionary.wordCount, 630)
         XCTAssertNotNil(dictionary.metadata["jmdict"])
         XCTAssertEqual(dictionary.metadata["words"].flatMap(Int.init), 630)

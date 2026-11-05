@@ -1,6 +1,6 @@
 # OJAD Personal
 
-A personal iOS app that looks up Japanese pitch accent on OJAD (Online Japanese Accent Dictionary, University of Tokyo) and redraws OJAD's pitch curves natively, without audio.
+A personal, fully offline iOS app that shows Japanese pitch accent the way OJAD (Online Japanese Accent Dictionary, University of Tokyo) does, from a bundled dictionary, without audio.
 
 ## Language
 
@@ -36,10 +36,14 @@ _Avoid_: Curve data, pitch array
 The F0 contour drawn from accent commands with OJAD's Fujisaki-model presets.
 _Avoid_: Graph, intonation line
 
+**Sense**:
+One numbered meaning of a word in JMdict (from 1), with its English glosses; only the senses that apply to the word's spelling and reading.
+_Avoid_: Meaning, definition
+
 **Example sentence**:
-A Japanese sentence from Tatoeba containing the looked-up word, shown with its translation.
+A corpus sentence (Tatoeba, or KFTT as a fallback) that uses the looked-up word, shown with its translations under the sense it illustrates.
 _Avoid_: Sample
 
-**Sentence analysis**:
-スズキクン's split of a sentence into accent phrases with their accent commands, requested only when the user opens an example sentence. `phrasing` appears only where it names OJAD's own endpoint (`/ojad/phrasing/index`).
-_Avoid_: Prosody
+**Basis**:
+How an example sentence was tied to its word and sense: named by the corpus index or JMdict, the word's only sense, guessed from the English translation, or a plain text match. The weaker ones are labelled in the UI.
+_Avoid_: Confidence, source

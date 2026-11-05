@@ -1,8 +1,7 @@
 import XCTest
 
 /// Walks the main flow and keeps a screenshot of each screen as an xcresult
-/// attachment. Search, conjugations and examples are offline; the run makes one
-/// スズキクン analysis request against the live service.
+/// attachment. Everything is offline.
 final class ScreenshotTests: XCTestCase {
     private let app = XCUIApplication()
 
@@ -54,16 +53,13 @@ final class ScreenshotTests: XCTestCase {
         XCTAssertTrue(example.exists, "No offline example appeared")
         snapshot("4-examples")
 
-        example.tap()
-        XCTAssertTrue(app.navigationBars["例句"].waitForExistence(timeout: 10))
-        let analyze = app.buttons["在线请求スズキクン语调分析"]
-        XCTAssertTrue(analyze.waitForExistence(timeout: 5))
-        analyze.tap()
-        XCTAssertTrue(app.staticTexts["正在请求スズキクン分析…"].waitForNonExistence(timeout: 30))
-        XCTAssertFalse(app.buttons["重试"].exists, "スズキクン analysis failed")
-        snapshot("5-sentence-intonation")
+        let senseHeader = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH '①' OR label BEGINSWITH '②'")).firstMatch
+        XCTAssertTrue(senseHeader.exists, "Examples aren't grouped under numbered senses")
+        let online = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS '在线'")).firstMatch
+        XCTAssertFalse(online.exists, "Online feature still shown: \(online.label)")
+        for _ in 0..<3 { app.swipeUp() }
+        snapshot("5-more-senses")
 
-        app.navigationBars.buttons.element(boundBy: 0).tap()
         app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.staticTexts["食べる・食べます"].waitForExistence(timeout: 10))
         snapshot("6-search-results")
