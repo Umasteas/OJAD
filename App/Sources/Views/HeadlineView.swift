@@ -41,14 +41,14 @@ private struct HeadlineFormView: View {
     let form: HeadlineForm
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 10) {
             if form.isKanaOnly {
                 MarkedKana(reading: form.readings[0], font: .title2.bold())
             } else {
                 Text(form.written).font(.title2.bold())
                 // Spaced apart so each overline reads as part of its own kana, not as an
                 // underline of the line above.
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 10) {
                     ForEach(Array(form.readings.enumerated()), id: \.offset) { _, reading in
                         MarkedKana(reading: reading, font: .title3)
                     }
