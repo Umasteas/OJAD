@@ -19,6 +19,8 @@ struct WordDetailView: View {
 
     private var isFavorite: Bool { !favorites.isEmpty }
 
+    private var conjugationGroups: [ConjugationGroup] { ConjugationGroup.groups(for: entry) }
+
     var body: some View {
         List {
             Section {
@@ -33,24 +35,15 @@ struct WordDetailView: View {
             }
 
             Section {
-                ForEach(entry.forms, id: \.kind) { form in
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(form.label)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        ForEach(Array(form.readings.enumerated()), id: \.offset) { _, reading in
-                            ScrollingPitchReading(reading: reading)
-                        }
-                    }
-                    .padding(.vertical, 2)
-                }
+                ConjugationGroupsView(groups: conjugationGroups)
+
                 if entry.isOffline {
                     NavigationLink(value: OnlineQuery(text: entry.exampleSearchTerm)) {
                         Label("在线核对 OJAD", systemImage: "globe")
                     }
                 }
             } header: {
-                Text("活用形")
+                ConjugationHeader(groups: conjugationGroups)
             } footer: {
                 if entry.isOffline {
                     Text("重音由离线词典（辞書形重音 + 活用规则）推导，个别词可能与 OJAD 略有不同。")

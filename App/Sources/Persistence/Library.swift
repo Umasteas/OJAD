@@ -135,6 +135,11 @@ final class Library {
         try context.save()
     }
 
+    func removeHistory(_ item: HistoryEntry) throws {
+        context.delete(item)
+        try context.save()
+    }
+
     private func recordHistory(query: String, entries: [WordEntry]) {
         guard !query.isEmpty else { return }
         let summary = entries.first.map { "\($0.headword)　\($0.dictionaryReading?.notation ?? "")" } ?? ""
