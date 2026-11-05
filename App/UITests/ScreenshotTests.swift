@@ -106,6 +106,51 @@ final class ScreenshotTests: XCTestCase {
         app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", title)).firstMatch
     }
 
+    /// Chinese and English typed into the search box find the Japanese word, and the word
+    /// page shows the Chinese of each sense and example.
+    func testReverseSearch() {
+        let field = app.searchFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 10))
+        field.tap()
+        field.typeText("eat")
+        let taberu = meaningSuggestion("食べる")
+        XCTAssertTrue(taberu.waitForExistence(timeout: 10), "eat didn't suggest 食べる")
+        XCTAssertTrue(taberu.label.contains("英文释义"), taberu.label)
+        snapshot("12-search-english")
+
+        field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 3) + "吃")
+        XCTAssertTrue(meaningSuggestion("吃；吃喝，饮食").waitForExistence(timeout: 10), "吃 didn't suggest 食べる")
+        XCTAssertTrue(firstSuggestion.label.contains("食べる"), "First suggestion is \(firstSuggestion.label)")
+        snapshot("13-search-chinese")
+
+        firstSuggestion.tap()
+        XCTAssertTrue(app.navigationBars["食べる"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["吃；吃喝，饮食"].firstMatch.waitForExistence(timeout: 5), "Sense Chinese missing")
+        snapshot("14-chinese-senses")
+        let chineseExample = app.staticTexts.matching(NSPredicate(format: "label CONTAINS '吃'")).element(boundBy: 2)
+        for _ in 0..<8 where !(chineseExample.exists && chineseExample.isHittable) {
+            app.swipeUp()
+            RunLoop.current.run(until: Date().addingTimeInterval(1))
+        }
+        snapshot("15-chinese-examples")
+
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        let searchField = app.searchFields.firstMatch
+        XCTAssertTrue(searchField.waitForExistence(timeout: 10))
+        searchField.tap()
+        searchField.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 6) + "電影")
+        XCTAssertTrue(meaningSuggestion("映画").waitForExistence(timeout: 10), "Traditional 電影 didn't suggest 映画")
+        snapshot("16-search-traditional")
+    }
+
+    private func meaningSuggestion(_ text: String) -> XCUIElement {
+        app.buttons.matching(NSPredicate(format: "identifier == 'suggestion' AND label CONTAINS %@", text)).firstMatch
+    }
+
+    private var firstSuggestion: XCUIElement {
+        app.buttons.matching(identifier: "suggestion").firstMatch
+    }
+
     private func snapshot(_ name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = name

@@ -1,0 +1,666 @@
+{"forms": [{"form": "勉強", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "勉強", "ruby": [["勉", "べん"], ["強", "きょう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["學習，用功"]}], "sounds": [{"other": "べんきょー"}], "word": "勉強"}
+{"forms": [{"form": "勉強", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "勉強する", "ruby": [["勉", "べん"], ["強", "きょう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["學習"]}, {"glosses": ["歷練，經驗"]}, {"glosses": ["折扣"]}], "sounds": [{"other": "べんきょー"}], "word": "勉強"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おもい"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节い (i)，对应片假名为イ (i)。在五十音中排第 2 位，位于あ行い段 (a-gyō i-dan，“a 行 i 段”)。"]}], "sounds": [], "word": "い"}
+{"forms": [{"form": "え", "roman": "e", "tags": ["alternative"]}], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["與某些終助詞連用，效果不變。"]}, {"glosses": ["與某些終助詞連用，表示感歎。"]}, {"glosses": ["用於某些動詞後，表示感歎。"]}], "sounds": [], "word": "い"}
+{"forms": [], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["強調主語，加於名詞和動詞詞幹。"], "tags": ["obsolete"]}, {"glosses": ["強調終助詞。"], "tags": ["obsolete"]}, {"glosses": ["名詞化後綴："], "tags": ["obsolete"]}], "sounds": [], "word": "い"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["直接加在一些詞後，組成形容詞。"], "tags": ["informal"]}], "sounds": [], "word": "い"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "い"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "い"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节う (u)，对应片假名为ウ (u)。在五十音中排第 3 位，位于あ行う段 (a-gyō u-dan，“a 行 u 段”)。"]}], "sounds": [], "word": "う"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节え (e)，对应片假名为エ (e)。在五十音中排第 4 位，位于あ行え段 (a-gyō e-dan，“a 行 e 段”)。"]}], "sounds": [], "word": "え"}
+{"forms": [], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["い (“exclamatory particle”)的另一種寫法"], "tags": ["alt-of", "dated"]}], "sounds": [], "word": "え"}
+{"forms": [], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["咦 (表示驚訝或懷疑)"]}], "sounds": [], "word": "え"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "え"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "え"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节か (ka)，对应片假名为カ (ka)。在五十音中排第 6 位，位于か行あ段 (ka-gyō a-dan，“ka 行 a 段”)。"]}], "sounds": [], "word": "か"}
+{"forms": [{"form": "け", "roman": "ke", "tags": ["alternative"]}, {"form": "けえ", "roman": "kē", "tags": ["alternative"]}], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["放在最後的感嘆助詞，類似問號（?）。"]}, {"glosses": ["表示間接疑問。"]}, {"glosses": ["使用助詞標誌來代替列表；或"]}, {"glosses": ["是否（或並非）"]}, {"glosses": ["表示不確定"]}], "sounds": [], "word": "か"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "か"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "か"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节き (ki)，对应片假名为キ (ki)。在五十音中排第 7 位，位于か行い段 (ka-gyō i-dan，“ka 行 i 段”)。"]}], "sounds": [], "word": "き"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "き"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "き"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节ぐ (gu)，对应片假名为グ (gu)。"]}], "sounds": [], "word": "ぐ"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["具： 工具"]}], "sounds": [], "word": "ぐ"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["具： 工具，組成部分"]}], "sounds": [], "word": "ぐ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节げ (ge)，对应片假名为ゲ (ge)。"]}], "sounds": [], "word": "げ"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["在シク活用中，接在形容詞詞幹後，使其成為形容動詞，帶有「……的樣子」之義。"]}], "sounds": [], "word": "げ"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["下： 底，低"]}], "sounds": [], "word": "げ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节ご (go)，对应片假名为ゴ (go)。"]}], "sounds": [], "word": "ご"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["語： 語言"]}, {"glosses": ["棊，棋，碁： 棋子 （棋類桌上遊戲）"]}, {"glosses": ["期： 特定的時間；死亡 (即「死期將近」)"]}, {"glosses": ["伍： 軍隊的一個班 (通常五個人為一班)；團體"]}, {"glosses": ["午： 中午；午夜"]}, {"glosses": ["豆油，豆汁： 浸泡大豆的水。將煮熟並搗碎的大豆製成的泥狀物，為製作豆腐和豆漿的原料。用於染料使其不褪色。"]}], "sounds": [], "word": "ご"}
+{"forms": [], "lang_code": "ja", "pos": "num", "senses": [{"glosses": ["五： 五"]}, {"glosses": ["伍： 金融形式的五"]}], "sounds": [], "word": "ご"}
+{"forms": [], "lang_code": "ja", "pos": "prefix", "senses": [{"glosses": ["御： 用於前綴禮貌稱呼的敬語"]}, {"glosses": ["互： 相互"]}], "sounds": [], "word": "ご"}
+{"forms": [], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["呉： Wu 姓氏"]}], "sounds": [], "word": "ご"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["語： 語言，類似-ese"]}, {"glosses": ["後： 之後"]}], "sounds": [], "word": "ご"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节こ (ko)，对应片假名为コ (ko)。在五十音中排第 10 位，位于か行お段 (ka-gyō o-dan，“ka 行 o 段”)。"]}], "sounds": [], "word": "こ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "こ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "こ"}
+{"forms": [], "lang_code": "ja", "pos": "pron", "senses": [{"glosses": ["此： (貶義) 你"]}, {"glosses": ["是： (謙遜) 你"]}], "sounds": [], "word": "こ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节さ (sa)，对应片假名为サ (sa)。在五十音中排第 11 位，位于さ行あ段 (sa-gyō a-dan，“sa 行 a 段”)。"]}], "sounds": [], "word": "さ"}
+{"forms": [], "lang_code": "ja", "pos": "pron", "senses": [{"glosses": ["第三人稱代名詞；他們"]}], "sounds": [], "word": "さ"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["形容詞轉名詞，類似-ness"]}], "sounds": [], "word": "さ"}
+{"forms": [], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["表示強調的語尾助詞"]}, {"glosses": ["表示親切或堅定的語尾助詞"], "tags": ["colloquial"]}, {"glosses": ["filler particle 類似ね (ne)"], "tags": ["informal"]}], "sounds": [], "word": "さ"}
+{"forms": [], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["to"], "tags": ["dialectal"]}], "sounds": [], "word": "さ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "じ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ず"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ち"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节ぢ (ji)，对应片假名为ヂ (ji)。"]}], "sounds": [], "word": "ぢ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ぢ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ど"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ね"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节ふ (fu)，对应片假名为フ (fu)。在五十音中排第 28 位，位于は行う段 (ha-gyō u-dan，“ha 行 u 段”)。"]}], "sounds": [], "word": "ふ"}
+{"forms": [], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["笑聲 (但是，由於漢語裡沒有同音表示笑聲的字，所以常轉譯為不同音的呵，或是非正式的借用同音的呋，來表示)"]}], "sounds": [], "word": "ふ"}
+{"forms": [], "lang_code": "ja", "pos": "prefix", "senses": [{"glosses": ["不："]}], "sounds": [], "word": "ふ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ふ"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "み"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["簸箕。"]}], "sounds": [], "word": "み"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["[接于形容词词干后]表示场所。"]}, {"glosses": ["[接于形容词词干、动词连用形后]表示程度和状态。"]}], "sounds": [], "word": "み"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "不味い"}
+{"forms": [{"form": "學校", "ruby": [["學", "がっ"], ["校", "こう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["学校的舊字體形式"], "tags": ["form-of"]}], "sounds": [], "word": "學校"}
+{"forms": [{"form": "美味しい", "ruby": [["美味", "おい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["美味的、好吃的"]}, {"glosses": ["性感"], "tags": ["slang"]}], "sounds": [{"other": "おいしい"}, {"other": "おいしい"}], "word": "美味しい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いえで"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あらい"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["粗的，大的"]}], "sounds": [], "word": "粗い"}
+{"forms": [{"form": "欠伸", "ruby": [["欠伸", "あくび"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["哈欠"]}], "sounds": [{"other": "あくび"}], "word": "欠伸"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["哈欠"]}], "sounds": [], "word": "あくび"}
+{"forms": [{"form": "可能", "ruby": [["可", "か"], ["能", "のう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["可以實現的"]}], "sounds": [{"other": "かのー"}], "word": "可能"}
+{"forms": [{"form": "可能", "ruby": [["可", "か"], ["能", "のう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["可能性"]}, {"glosses": ["可行性"]}], "sounds": [{"other": "かのー"}], "word": "可能"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あさい"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["紅的，紅色的"]}], "sounds": [], "word": "赤い"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["紅的，紅色的"]}], "sounds": [], "word": "あかい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "厚い"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["習慣，風俗"]}, {"glosses": ["樣子"]}, {"glosses": ["這樣(那樣)"]}, {"glosses": ["外表，姿態，風格"]}, {"glosses": ["封，封上"]}, {"glosses": ["楓香"]}], "sounds": [], "word": "ふう"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["安危"]}, {"glosses": ["自在"]}, {"glosses": ["安徽省，中國的一省"]}, {"glosses": ["記住，背誦"]}], "sounds": [], "word": "あんき"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["記得，背誦"]}], "sounds": [], "word": "暗記"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["輸"]}, {"glosses": ["不能抵抗"]}], "sounds": [], "word": "負ける"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["〔楽しむ〕玩耍，遊戲。"]}, {"glosses": ["〔役にたってない〕閒置，閒置不用。"]}, {"glosses": ["〔見物する〕閒逛，消遣。"]}, {"glosses": ["〔遊学する〕遊學，留學。"]}, {"glosses": ["〔酒色にふける〕遊蕩，嫖賭。"]}], "sounds": [], "word": "あそぶ"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["生命"]}, {"glosses": ["命令"]}, {"glosses": ["命運"]}, {"glosses": ["姪女，外甥女"]}, {"glosses": ["名字"]}, {"glosses": ["接在名詞前表有名的"]}, {"glosses": ["明"]}, {"glosses": ["洞察力"]}, {"glosses": ["視力"]}, {"glosses": ["同盟"]}, {"glosses": ["銘文"]}], "sounds": [], "word": "めい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "旨い"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["香的，好吃的"]}, {"glosses": ["巧妙的，高明的"]}, {"glosses": ["美妙的，幸運的，便宜的"]}, {"glosses": ["甜的"]}, {"glosses": ["淡的"]}, {"glosses": ["奉承的"]}, {"glosses": ["淺薄的"]}, {"glosses": ["姑息的，好說話的"]}, {"glosses": ["天真的，樂觀的"]}, {"glosses": ["鬆弛的"]}, {"glosses": ["笨，遲鈍"]}, {"glosses": ["(刀、剪刀等)鈍，緩"]}, {"glosses": ["(行情)下跌"]}], "sounds": [], "word": "甘い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "にほん"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["弱い："]}, {"glosses": ["弱い：", "弱，軟弱"]}, {"glosses": ["弱い：", "不結實，不耐用，禁不起"]}, {"glosses": ["弱い：", "（表示缺乏某種能力）笨，不擅長"]}], "sounds": [], "word": "よわい"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["齢，歯： 年齡"]}], "sounds": [], "word": "よわい"}
+{"forms": [{"form": "手紙", "ruby": [["手", "て"], ["紙", "がみ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["信，信件"]}, {"glosses": ["箋"], "tags": ["archaic"]}], "sounds": [{"other": "てがみ"}], "word": "手紙"}
+{"forms": [{"form": "手紙", "ruby": [["手", "て"], ["紙", "がん"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["信，信件"]}], "sounds": [], "word": "手紙"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["下\n（一年級漢字）"]}], "sounds": [], "word": "下"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["下。"]}, {"glosses": ["身份、地位低的。"]}, {"glosses": ["时间、次序在后的。"]}, {"glosses": ["低劣。"]}, {"glosses": ["下降，落下。"]}, {"glosses": ["内，里边。"]}, {"glosses": ["部下。"]}, {"glosses": ["(年龄、数量、程度)小，少，低。"]}, {"glosses": ["下边，下面。"]}, {"glosses": ["下游。"]}, {"glosses": ["臣民，部下。"]}, {"glosses": ["下身，阴部。"]}, {"glosses": ["大小便。"]}, {"glosses": ["末座。"]}, {"glosses": ["和歌的下句，俳句的最后一句。"]}, {"glosses": ["下面，根的四周。"]}, {"glosses": ["在…之下。"]}], "sounds": [], "word": "下"}
+{"forms": [{"form": "自然", "ruby": [["自", "し"], ["然", "ぜん"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["自然的"]}, {"glosses": ["自發性的"]}], "sounds": [{"other": "しぜん"}], "word": "自然"}
+{"forms": [{"form": "自然", "ruby": [["自", "し"], ["然", "ぜん"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["天生地"]}, {"glosses": ["不由自主地"]}, {"glosses": ["難得地"]}, {"glosses": ["巧合地"]}], "sounds": [{"other": "しぜん"}], "word": "自然"}
+{"forms": [{"form": "自然", "ruby": [["自", "し"], ["然", "ぜん"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["自然"]}, {"glosses": ["自發性"]}], "sounds": [{"other": "しぜん"}], "word": "自然"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ふるい"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["篩：篩"]}, {"glosses": ["震い：顫抖"]}], "sounds": [{"other": "ふるい"}], "word": "ふるい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おいしい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あおい"}
+{"forms": [{"form": "靑い", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "青い", "ruby": [["青", "あお"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["藍色的"]}, {"glosses": ["綠色的"]}, {"glosses": ["臉色蒼白的"]}, {"glosses": ["未成熟的；無經驗的"]}], "sounds": [{"other": "あおい"}], "word": "青い"}
+{"forms": [{"form": "靑い", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "phrase", "senses": [{"tags": ["no-gloss"]}], "sounds": [{"other": "あおい"}], "word": "青い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あかるい"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["明亮的"]}, {"glosses": ["鮮明，明色"]}, {"glosses": ["快活，明朗"]}, {"glosses": ["光明"]}, {"glosses": ["表裡如一，光明正大"]}, {"glosses": ["通曉，熟悉"]}], "sounds": [], "word": "明るい"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["危險的"]}, {"glosses": ["令人擔心的，靠不住的"]}, {"glosses": ["(警告時)危險，注意，小心"]}], "sounds": [], "word": "あぶない"}
+{"forms": [{"form": "危い", "tags": ["alternative", "kanji", "rare"]}, {"form": "危ない", "ruby": [["危", "あぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["危險的，危急的，不安全的"]}, {"glosses": ["有風險的，不確定的，不可靠的，難以預料的"]}, {"glosses": ["險些，差一點"]}], "sounds": [{"other": "あぶない"}, {"other": "あぶない"}], "word": "危ない"}
+{"forms": [{"form": "危い", "tags": ["alternative", "kanji", "rare"]}, {"form": "危ない", "ruby": [["危", "あぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["危險！小心！"]}], "sounds": [{"other": "あぶない"}, {"other": "あぶない"}], "word": "危ない"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あまい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いい"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["いう (iu) 的連用形 [godan]"], "tags": ["form-of"]}], "sounds": [], "word": "いい"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いい"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["討厭"]}, {"glosses": ["（用「…の～がある」的形式）有點…"]}, {"glosses": ["區別，差別"]}], "sounds": [], "word": "嫌い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きらい"}
+{"forms": [{"form": "白い", "ruby": [["白", "しろ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["白的，白色的"]}, {"glosses": ["干净的，洁白的"]}], "sounds": [{"other": "しろい"}], "word": "白い"}
+{"forms": [{"form": "白い", "ruby": [["白", "はく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["漂亮，上等"]}], "sounds": [{"other": "しろい"}], "word": "白い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "しろい"}
+{"forms": [], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["那么、那樣"]}], "sounds": [], "word": "そう"}
+{"forms": [], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["（表示驚疑）是嗎"]}, {"glosses": ["（表示肯定）是"]}], "sounds": [], "word": "そう"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["一對，一雙"]}, {"glosses": ["左和右"]}, {"glosses": ["兩側"]}, {"glosses": ["宋國"]}, {"glosses": ["劉宋"]}, {"glosses": ["宋朝"]}, {"glosses": ["基本"]}, {"glosses": ["祖先中的有德者"]}, {"glosses": ["有宗主權的國家"]}, {"glosses": ["本家"]}, {"glosses": ["老翁"]}, {"glosses": ["章奏，上呈國君的文書"]}, {"glosses": ["姿態"]}, {"glosses": ["相貌"]}, {"glosses": ["草書"]}, {"glosses": ["起草，草稿"]}, {"glosses": ["夥伴，一族，子孫"]}, {"glosses": ["辦事的官署"]}, {"glosses": ["笙"]}, {"glosses": ["喪，喪禮"]}, {"glosses": ["日本室町時代時，農村裡的自治組織"]}, {"glosses": ["毛毛雨"]}, {"glosses": ["葬，葬禮"]}, {"glosses": ["裝束"]}, {"glosses": ["裝訂"]}, {"glosses": ["僧侶"]}, {"glosses": ["想"]}, {"glosses": ["（作品、計畫）構思"]}, {"glosses": ["層"]}, {"glosses": ["地層"]}, {"glosses": ["階層"]}, {"glosses": ["(乐器) 箏。"]}, {"glosses": ["整體"]}, {"glosses": ["節操，貞操"]}, {"glosses": ["甑"]}, {"glosses": ["騷體"]}, {"glosses": ["雄壯，偉大"]}, {"glosses": ["（身體）強壯"]}, {"glosses": ["壯年"]}], "sounds": [], "word": "そう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["沿，順"]}, {"glosses": ["按照，遵循"]}, {"glosses": ["不離左右"]}, {"glosses": ["增添"]}, {"glosses": ["結婚"]}, {"glosses": ["符合"]}], "sounds": [], "word": "そう"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["前接數字，表成雙的事物"]}, {"glosses": ["前接公寓或飯店的名稱"]}, {"glosses": ["(数小船时用)艘，隻"]}], "sounds": [], "word": "そう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["覆蓋"]}, {"glosses": ["掩飾"]}, {"glosses": ["籠罩，洋溢"]}, {"glosses": ["概括"]}], "sounds": [], "word": "覆う"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["覆蓋"]}, {"glosses": ["掩飾"]}, {"glosses": ["籠罩，洋溢"]}, {"glosses": ["概括"]}], "sounds": [], "word": "おおう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["覆蓋"]}, {"glosses": ["掩飾"]}, {"glosses": ["籠罩，洋溢"]}, {"glosses": ["概括"]}], "sounds": [], "word": "蔽う"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["覆蓋"]}, {"glosses": ["掩飾"]}, {"glosses": ["籠罩，洋溢"]}, {"glosses": ["概括"]}], "sounds": [], "word": "掩う"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["覆蓋"]}], "sounds": [], "word": "被う"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["覆蓋"]}], "sounds": [], "word": "蓋う"}
+{"forms": [{"form": "弱い", "ruby": [["弱", "よわ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["弱，軟弱"]}, {"glosses": ["不結實，不耐用，禁不起"]}, {"glosses": ["（表示缺乏某種能力）笨，不擅長"]}, {"glosses": ["晕(车、船)"]}], "sounds": [{"other": "よわい"}], "word": "弱い"}
+{"forms": [{"form": "丸い", "tags": ["alternative", "kanji"]}, {"form": "円い", "tags": ["alternative", "kanji"]}, {"form": "まあるい", "raw_tags": ["非正式、強調"], "roman": "mārui", "tags": ["alternative"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["圓的，球形的"]}, {"glosses": ["鼓起的"]}, {"glosses": ["（個性）圓滑的，溫和的"]}, {"glosses": ["（多用連用形的形式表示）圓滿"]}], "sounds": [{"other": "まるい"}, {"other": "まるい"}], "word": "まるい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "丸い"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节け (ke)，对应片假名为ケ (ke)。在五十音中排第 9 位，位于か行え段 (ka-gyō e-dan，“ka 行 e 段”)。"]}], "sounds": [], "word": "け"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "け"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "け"}
+{"forms": [], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["（疑問助詞）"], "tags": ["informal"]}], "sounds": [], "word": "け"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["快來！(表示緊急，與本島的来い (koi)相對。) 来る (kuru) 的未然形及連用形 [irregular]"], "tags": ["dialectal", "form-of"]}], "sounds": [], "word": "け"}
+{"forms": [{"form": "丈夫", "ruby": [["丈", "じょう"], ["夫", "ぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["健康的"]}, {"glosses": ["坚固的，结实的"]}], "sounds": [{"other": "じょーぶ"}], "word": "丈夫"}
+{"forms": [{"form": "丈夫", "ruby": [["丈", "じょう"], ["夫", "ぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["优秀的男性"]}, {"glosses": ["健康，健壯"]}], "sounds": [{"other": "じょーぶ"}], "word": "丈夫"}
+{"forms": [{"form": "丈夫", "ruby": [["丈", "たけ"], ["夫", "お"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["男性人名"]}], "sounds": [], "word": "丈夫"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "実"}
+{"forms": [{"form": "實", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "ruby": [["実", "み"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["種子，果實，堅果"]}, {"glosses": ["內容，成分"]}, {"glosses": ["結果，成果"]}], "sounds": [{"other": "み"}], "word": "実"}
+{"forms": [{"form": "實", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "ruby": [["実", "じつ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["真實，事實"]}, {"glosses": ["忠誠，信仰"]}, {"glosses": ["善良"]}, {"glosses": ["實質，本質"]}, {"glosses": ["被除數"]}], "sounds": [{"other": "じつ"}], "word": "実"}
+{"forms": [{"form": "實", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "ruby": [["実", "さね"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["種子，石頭，坑"]}, {"glosses": ["榫，銜鐵（使用在木的手工）"]}], "sounds": [{"other": "さね"}], "word": "実"}
+{"forms": [{"form": "實", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "ruby": [["実", "まこと"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["真誠，真實"]}, {"glosses": ["忠誠，信心"]}, {"glosses": ["奉獻"]}, {"glosses": ["信任，信賴"]}], "sounds": [{"other": "まこと"}], "word": "実"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "弍"}
+{"forms": [{"form": "お得", "raw_tags": ["敬稱"], "roman": "o-toku", "ruby": [["得", "とく"]], "tags": ["alternative"]}], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["獲得，得到"]}], "sounds": [], "word": "得"}
+{"forms": [{"form": "徳", "tags": ["alternative", "kanji"]}, {"form": "得", "ruby": [["得", "とく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj_noun", "senses": [{"glosses": ["有好處的，有益處的"]}], "sounds": [{"other": "とく"}], "word": "得"}
+{"forms": [{"form": "徳", "tags": ["alternative", "kanji"]}, {"form": "得", "ruby": [["得", "とく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["好處，益處"]}], "sounds": [{"other": "とく"}], "word": "得"}
+{"forms": [{"form": "得", "ruby": [["得", "う"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["得る (uru)的古典日語寫法"], "tags": ["alt-of"]}], "sounds": [], "word": "得"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["指\n（三年級漢字）"]}], "sounds": [], "word": "指"}
+{"forms": [{"form": "指", "ruby": [["指", "ゆび"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["手指，腳指"]}, {"glosses": ["手指，腳指"]}], "sounds": [{"other": "ゆび"}], "word": "指"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "棊"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["歌，歌曲。"]}, {"glosses": ["歌唱。"]}, {"glosses": ["和歌。"]}], "sounds": [], "word": "歌"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["気\n（一年級漢字，新字体汉字，旧字体形式氣）"]}], "sounds": [], "word": "気"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["直\n（二年級漢字）"]}], "sounds": [], "word": "直"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["碁\n（常用漢字）"]}], "sounds": [], "word": "碁"}
+{"forms": [{"form": "碁", "ruby": [["碁", "ご"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["圍棋"]}], "sounds": [], "word": "碁"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["神社。"]}, {"glosses": ["社团。"]}, {"glosses": ["公司。"]}, {"glosses": ["社会。"]}], "sounds": [], "word": "社"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["惩罚，报应。"]}], "sounds": [], "word": "罰"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "脱"}
+{"forms": [{"form": "脫", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "脱", "ruby": [["脱", "だつ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "affix", "senses": [{"glosses": ["解除，消除，停止"]}], "sounds": [], "word": "脱"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["說"]}], "sounds": [], "word": "謂"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["去"]}, {"glosses": ["合乎，恰當"]}], "sounds": [], "word": "適"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "適"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["烹調過的穀物，特別指米"]}, {"glosses": ["餐"]}], "sounds": [], "word": "飯"}
+{"forms": [{"form": "飯", "ruby": [["飯", "めし"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["烹調過的穀物，特別指米"]}, {"glosses": ["餐"], "tags": ["informal"]}], "sounds": [{"other": "めし"}], "word": "飯"}
+{"forms": [{"form": "飯", "ruby": [["飯", "めし"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["姓氏"]}], "sounds": [{"other": "めし"}], "word": "飯"}
+{"forms": [{"form": "飯", "ruby": [["飯", "いい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["烹調過的穀物，特別指米"], "tags": ["archaic"]}], "sounds": [], "word": "飯"}
+{"forms": [{"form": "飯", "ruby": [["飯", "いい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["姓氏"]}], "sounds": [], "word": "飯"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "飯"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "飯"}
+{"forms": [{"form": "飲む", "tags": ["alternative", "kanji"]}, {"form": "呑む", "tags": ["alternative", "kanji"]}, {"form": "喫む", "tags": ["alternative", "kanji", "uncommon"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["飲む，呑む： 喝，饮"]}, {"glosses": ["飲む，喫む： 吸煙"]}, {"glosses": ["飲む： 饮泣吞声，忍耐"]}, {"glosses": ["飲む，呑む： 服藥，吃藥"]}, {"glosses": ["围攻，一齐袭击"]}, {"glosses": ["呑む： 小看，藐视"]}, {"glosses": ["飲む： 湮没，壓倒"]}, {"glosses": ["飲む，呑む： 勉强同意"]}], "sounds": [{"other": "のむ"}], "word": "のむ"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["膨胀，鼓起。"]}, {"glosses": ["规模变大。"]}], "sounds": [], "word": "ふくらむ"}
+{"forms": [{"form": "飮む", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "飲む"}
+{"forms": [{"form": "這入る", "tags": ["alternative", "kanji"]}, {"form": "挿入る", "raw_tags": ["新詞，性"], "tags": ["alternative", "kanji"]}, {"form": "入る", "ruby": [["入", "はい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["进入"]}, {"glosses": ["到达"]}, {"glosses": ["加入"]}, {"glosses": ["包含，含有"]}, {"glosses": ["容纳"]}, {"glosses": ["（一段时间）开始"]}, {"glosses": ["变得可用"]}], "sounds": [{"other": "はいる"}], "word": "入る"}
+{"forms": [{"form": "入る", "ruby": [["入", "い"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["进入"]}], "sounds": [{"other": "いる"}], "word": "入る"}
+{"forms": [], "lang_code": "ja", "pos": "phrase", "senses": [{"tags": ["no-gloss"]}], "sounds": [{"other": "いる"}], "word": "入る"}
+{"forms": [{"form": "見る", "tags": ["alternative", "kanji"]}, {"form": "視る", "tags": ["alternative", "kanji"]}, {"form": "観る", "tags": ["alternative", "kanji"]}, {"form": "看る", "tags": ["alternative", "kanji"]}, {"form": "診る", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["【見る、視る】 看，观看。"]}, {"glosses": ["【観る】 观赏。"]}, {"glosses": ["【看る】 照顾，照护。"]}, {"glosses": ["【診る】 诊断。"]}], "sounds": [], "word": "みる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["开始。"]}, {"glosses": ["(否定表現（はじまらない、はじまらぬ　など）として用いて)変化が生じる。特に問題が解決する。"]}], "sounds": [], "word": "はじまる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "見る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かえる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["かう (kau) 的可能形 [godan]"], "tags": ["form-of"]}], "sounds": [{"other": "かえる"}], "word": "かえる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["消失。"]}, {"glosses": ["（灯、火）熄灭。"]}, {"glosses": ["（冰、雪）融化。"]}], "sounds": [], "word": "きえる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["听得见。"]}], "sounds": [], "word": "きこえる"}
+{"forms": [{"form": "依賴", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "依頼", "ruby": [["依", "い"], ["頼", "らい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["請求"]}, {"glosses": ["依賴，依靠"]}], "sounds": [{"other": "いらい"}], "word": "依頼"}
+{"forms": [{"form": "依賴", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "依頼する", "ruby": [["依", "い"], ["頼", "らい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["請求"]}, {"glosses": ["依賴，依靠"]}], "sounds": [{"other": "いらい"}], "word": "依頼"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かける"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["抬，举，放，上。"]}, {"glosses": ["抬，举，放，上。", "【挙げる】手を使って高い位置に移動させる。"]}, {"glosses": ["抬，举，放，上。", "【挙げる】手を高い位置に移動させる。"]}, {"glosses": ["抬，举，放，上。", "【揚げる】目の高さより、相当に高い位置に移動させる。"]}, {"glosses": ["呕吐。"]}, {"glosses": ["提高。"]}, {"glosses": ["增加，增高。"]}, {"glosses": ["增加，增高。", "【騰げる】市場の相場などにおいて価格等を低いものから高いものにする。"]}, {"glosses": ["放声。"]}, {"glosses": ["放声。", "【挙げる】指出，列举。"]}, {"glosses": ["放声。", "【挙げる】推荐。"]}, {"glosses": ["（調理法）（用油）炸。"]}, {"glosses": ["让进，纳客。"]}, {"glosses": ["（「差し上げる」の略化かつぞんざい化）给。"]}], "sounds": [], "word": "あげる"}
+{"forms": [{"form": "痩せる", "tags": ["alternative", "kanji"]}, {"form": "瘠せる", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["瘦，變瘦。"]}, {"glosses": ["貧瘠。少產。"]}], "sounds": [], "word": "やせる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ねる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "まねる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "たべる"}
+{"forms": [{"form": "食べる", "ruby": [["食", "た"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["吃"]}, {"glosses": ["維持生計，過日子"]}, {"glosses": ["吃喝，飲食"], "tags": ["archaic", "humble"]}], "sounds": [{"other": "たべる"}], "word": "食べる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["决心。"]}, {"glosses": ["约定，商定。"]}, {"glosses": ["决定，规定。"]}, {"glosses": ["认定，相信。"]}], "sounds": [], "word": "きめる"}
+{"forms": [{"form": "惘れる", "tags": ["alternative", "kanji"]}, {"form": "呆れる", "ruby": [["呆", "あき"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["吃惊，惊讶，惊呆"]}, {"glosses": ["厭惡，厭煩"]}], "sounds": [], "word": "呆れる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "うる"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["?他サ 暗示，示意。"]}], "sounds": [], "word": "暗示"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["重大事件。"]}, {"glosses": ["大事，重大问题。"]}], "sounds": [], "word": "大事"}
+{"forms": [{"form": "地道", "ruby": [["地", "じ"], ["道", "みち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["直道，坦途"], "tags": ["literally"]}, {"glosses": ["正直坦蕩，誠實，勤勉"], "tags": ["figuratively"]}], "sounds": [{"other": "じみち"}], "word": "地道"}
+{"forms": [{"form": "地道", "ruby": [["地", "じ"], ["道", "みち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["穩健，穩定"]}], "sounds": [{"other": "じみち"}], "word": "地道"}
+{"forms": [{"form": "地道", "ruby": [["地", "じ"], ["道", "みち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["誠實地，公平地，公正地"]}], "sounds": [{"other": "じみち"}], "word": "地道"}
+{"forms": [{"form": "地道", "ruby": [["地", "ち"], ["道", "どう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["公共道路/街道"]}], "sounds": [{"other": "ちどー"}, {"other": "ちどー"}], "word": "地道"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["大量，丰富。"]}], "sounds": [], "word": "多量"}
+{"forms": [{"form": "巨大", "ruby": [["巨", "きょ"], ["大", "だい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["巨大"]}], "sounds": [{"other": "きょだい"}], "word": "巨大"}
+{"forms": [{"form": "巨大", "ruby": [["巨", "きょ"], ["大", "だい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["巨大"]}], "sounds": [{"other": "きょだい"}], "word": "巨大"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["拉丁字母字母R/r的名稱。"]}], "sounds": [{"other": "アール"}], "word": "アール"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["公畝"]}], "sounds": [{"other": "アール"}], "word": "アール"}
+{"forms": [{"form": "灰汁", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["草木灰水"]}, {"glosses": ["(植物中含的) 涩味"]}, {"glosses": ["个性，俗气"]}], "sounds": [{"other": "あく"}], "word": "あく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いこう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いこう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いこう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いじょう"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["犬，狗： 食肉目動物"]}, {"glosses": ["戌： 地支的第十一；晚上7點 - 9點的時辰/戌時"]}], "sounds": [], "word": "いぬ"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["率寝： 男女一起睡覺"]}, {"glosses": ["寝ぬ： 睡覺"]}, {"glosses": ["去ぬ，往ぬ： 離開"]}], "sounds": [], "word": "いぬ"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["【窺う】"]}, {"glosses": ["【窺う】", "〔ひそかに見る〕窥视，偷看。"]}, {"glosses": ["【窺う】", "〔ねらう〕伺机，窺伺。"]}, {"glosses": ["【窺う】", "〔うかがい知る〕看出一点，看出（某情況）。"]}, {"glosses": ["【窺う】", "看人脸色。"]}, {"glosses": ["【伺う】"]}, {"glosses": ["【伺う】", "〔訪れる〕拜訪，訪問。"]}, {"glosses": ["【伺う】", "〔問う、尋ねる〕請教，打聽。"]}, {"glosses": ["【伺う】", "〔聞く〕聽說。"]}, {"glosses": ["【伺う】", "說一段（相聲），講個…。"]}], "sounds": [], "word": "うかがう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["被埋上。"]}, {"glosses": ["(场所)被占满。"]}], "sounds": [], "word": "うずまる"}
+{"forms": [{"form": "歌う", "tags": ["alternative", "kanji"]}, {"form": "唄う", "tags": ["alternative", "kanji"]}, {"form": "謡う", "tags": ["alternative", "kanji"]}, {"form": "詠う", "tags": ["alternative", "kanji"]}, {"form": "謳う", "tags": ["alternative", "kanji"]}, {"form": "咏う", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["歌う，唄う： 唱，唱歌"], "tags": ["intransitive", "transitive"]}, {"glosses": ["歌う，唄う： 唱，唱歌", "謡う： 唱謡曲"], "tags": ["intransitive", "transitive"]}, {"glosses": ["詠う，咏う： 作詩"], "tags": ["transitive"]}, {"glosses": ["詠う，咏う： 吟詩"], "tags": ["intransitive", "transitive"]}, {"glosses": ["歌う，唄う： 鳴叫"], "tags": ["intransitive"]}, {"glosses": ["謳う： 歌頌；讚美"]}, {"glosses": ["謳う： 主張"]}], "sounds": [{"other": "うたう"}], "word": "うたう"}
+{"forms": [{"form": "歌う", "tags": ["alternative", "kanji"]}, {"form": "唄う", "tags": ["alternative", "kanji"]}, {"form": "謡う", "tags": ["alternative", "kanji"]}, {"form": "詠う", "tags": ["alternative", "kanji"]}, {"form": "謳う", "tags": ["alternative", "kanji"]}, {"form": "咏う", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "proverb", "senses": [{"tags": ["no-gloss"]}], "sounds": [{"other": "うたう"}], "word": "うたう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["（自五）【倦む】厌倦，厌烦，疲倦。"]}, {"glosses": ["（自五）【膿む】化脓。"]}, {"glosses": ["（自五）【熟む】(果实等)熟，成熟。"]}, {"glosses": ["（他五）【績む】纺，搓。"]}], "sounds": [], "word": "うむ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "うれしい"}
+{"forms": [{"form": "えいっ", "roman": "ei'", "tags": ["alternative"]}], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["唉，啊（惊讶、感动时发出的声音）"]}], "sounds": [{"other": "えい"}], "word": "えい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "えい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おかしい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おごる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おす"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おす"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["见脅かす。"]}], "sounds": [], "word": "おどかす"}
+{"forms": [{"form": "居る", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["有；存在"]}, {"glosses": ["正在（表示持續或進行；-ておる (-te oru)常縮略作とる (-toru)）"]}, {"glosses": ["正在（表示持續，常作よる (yoru)）"]}], "sounds": [{"other": "おる"}, {"other": "おる"}], "word": "おる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おる"}
+{"forms": [], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["格： 男性人名"]}, {"glosses": ["郭： 漢語姓氏"]}], "sounds": [], "word": "かく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かく"}
+{"forms": [], "lang_code": "ja", "pos": "adj_noun", "senses": [{"glosses": ["苛刻。"]}], "sounds": [], "word": "かこく"}
+{"forms": [{"form": "硬い", "ruby": [["硬", "かた"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["堅硬"]}, {"glosses": ["紧张"]}, {"glosses": ["嚴肅"]}, {"glosses": ["僵硬"]}], "sounds": [{"other": "かたい"}], "word": "硬い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かって"}
+{"forms": [], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["かつて (katsute，“曾經, 以前, 過去; (接否定動詞) 從未”)的另一種寫法"], "tags": ["alt-of"]}], "sounds": [], "word": "かって"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["(鸡等的)骨头架子。"]}, {"glosses": ["(煤)渣。"]}, {"glosses": ["柄"]}], "sounds": [], "word": "がら"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かれる"}
+{"forms": [{"form": "緊い", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["緊，挤，瘦"]}, {"glosses": ["严厉，苛刻"]}, {"glosses": ["费力，累人"]}], "sounds": [{"other": "きつい"}, {"other": "きつい"}], "word": "きつい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きれい"}
+{"forms": [{"form": "呉れる", "tags": ["alternative", "kanji", "rare"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["给，给予，送 （本意上表示地位较高的人给予地位较低的人，他人做主语时表示感谢他人，自己做主语时表示轻蔑）"]}, {"glosses": ["帮自己做（接在动词て形后，表示自己是某动作的受益人）"]}, {"glosses": ["（己方做主语时接在动词て形后，表示自己前面的动作对对方不利，有轻蔑的语气）"], "tags": ["colloquial"]}], "sounds": [{"other": "くれる"}], "word": "くれる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "くれる"}
+{"forms": [], "lang_code": "ja", "pos": "adj_noun", "senses": [{"glosses": ["诧异，莫名其妙。"]}], "sounds": [], "word": "けげん"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["呛人。"]}, {"glosses": ["难以接近，令人拘谨。"]}, {"glosses": ["けむたいさ，けむたいげ，けむたいがる"]}], "sounds": [], "word": "けむたい"}
+{"forms": [{"form": "珈琲", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["咖啡"]}], "sounds": [{"other": "コーヒー"}], "word": "コーヒー"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["【柵】栅栏。"]}, {"glosses": ["【朔】朔。"]}], "sounds": [], "word": "さく"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["（接动词连用形）表示中途停止。"]}], "sounds": [], "word": "さし"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "した"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["する 的完成形"], "tags": ["form-of"]}], "sounds": [{"other": "した"}], "word": "した"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["别致，考究。"]}, {"glosses": ["打扮，盛装。"]}, {"glosses": ["说俏皮话。"]}, {"glosses": ["骄傲自大。"]}], "sounds": [], "word": "しゃれる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "すえる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "すごい"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["漱口。"]}, {"glosses": ["洗涮。"]}, {"glosses": ["雪耻，申冤。"]}], "sounds": [], "word": "すすぐ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "すてき"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "そぼく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ためる"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["【柄】"]}, {"glosses": ["【柄】", "（刀剑的）把柄。"]}, {"glosses": ["【柄】", "（毛笔的）笔杆。"]}, {"glosses": ["【束】"]}, {"glosses": ["【束】", "四指握着的长度。"]}, {"glosses": ["【束】", "一点点。"]}, {"glosses": ["【束】", "（つか 柱的略语）立柱，短柱。"]}], "sounds": [], "word": "つか"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "つく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "つぐ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "つながる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "つる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "にくい"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["缓慢。"]}, {"glosses": ["宽松，宽大。"]}, {"glosses": ["ぬるいさ ぬるい"]}, {"glosses": ["温。"]}], "sounds": [], "word": "ぬるい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ぬれる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["(他下一) 移开，挪开。"]}, {"glosses": ["(补动下一) 做完，完成。"]}, {"glosses": ["敢于。"]}], "sounds": [], "word": "のける"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "のろい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "はく"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["后退，逃走。"]}, {"glosses": ["辞去，退出。"]}, {"glosses": ["减退，消退。"]}, {"glosses": ["锯，拉。"]}, {"glosses": ["旋。"]}, {"glosses": ["拉，挽。"]}, {"glosses": ["弹。"]}, {"glosses": ["磨，磨碎。"]}, {"glosses": ["轧，压。"]}], "sounds": [], "word": "ひく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ひどい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ひろい"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["擦，拭。"]}, {"glosses": ["修葺。"]}], "sounds": [], "word": "ふく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "まくる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["「ます」 一般用来表示说话人对于对方的礼貌、客气、郑重其事的态度，接动词及动词型活用的助动词(れる•られる•せる•させる)的连用形。"]}], "sounds": [], "word": "ます"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ます"}
+{"forms": [{"form": "不味い", "tags": ["alternative", "kanji"]}, {"form": "拙い", "tags": ["alternative", "kanji", "uncommon"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["不好吃的"]}, {"glosses": ["拙劣的、笨拙的"]}, {"glosses": ["為難的、不好辦的"]}, {"glosses": ["不漂亮的、不美的"]}], "sounds": [{"other": "まずい"}], "word": "まずい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "むく"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["脱皮，脱落。"]}, {"glosses": ["可以剥去。"]}], "sounds": [], "word": "むける"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "めくる"}
+{"forms": [{"form": "貰う", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["收到，得到"]}, {"glosses": ["（跟在动词て形后，表示这个动作是为了自己而做的，给自己带来了好处，或者表示这个动作是自己请其他人做的）"], "tags": ["auxiliary"]}, {"glosses": ["（跟在动词て形后，表示这个动作的后果由自己承担）"], "tags": ["auxiliary"]}], "sounds": [{"other": "もらう"}], "word": "もらう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "やすい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "やめる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["行く：去，走"]}, {"glosses": ["逝く：過世"]}], "sounds": [], "word": "ゆく"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["（他五）【濯ぐ】漂洗，涮。"]}], "sounds": [], "word": "ゆすぐ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "よう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "よう"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["接在上一段、下一段动词、カ变活用动词、サ变活用动词的未然形之后。其活用形只有终止形「よう」"]}, {"glosses": ["接在上一段、下一段动词、カ变活用动词、サ变活用动词的未然形之后。其活用形只有终止形「よう」", "[(用于句尾)表示说话人的意志或决心]想，要，…吧。"]}, {"glosses": ["接在上一段、下一段动词、カ变活用动词、サ变活用动词的未然形之后。其活用形只有终止形「よう」", "[表示劝诱或委婉地命令对方进行某种行为]…吧。"]}, {"glosses": ["接在上一段、下一段动词、カ变活用动词、サ变活用动词的未然形之后。其活用形只有终止形「よう」", "[用「……ようとする」的形式表示马上要进行某种动作或者是非意志的行为即将发生]马上…，就要…。"]}, {"glosses": ["接在上一段、 一下段动词、カ变活用动词、サ变活用动词、助动词「せる•させる」「れる•られる」的未然形之后(サ变活用动词接「し」)。其活用形只有终止形「よう」和连体形「よう」两种，而后者用法极为有限，一般只后续「もの」「はず」「わけ」等形式体言"]}, {"glosses": ["接在上一段、 一下段动词、カ变活用动词、サ变活用动词、助动词「せる•させる」「れる•られる」的未然形之后(サ变活用动词接「し」)。其活用形只有终止形「よう」和连体形「よう」两种，而后者用法极为有限，一般只后续「もの」「はず」「わけ」等形式体言", "[(用于句尾)表示说话人的推测、 想像]大概，可能，…吧。"]}, {"glosses": ["接在上一段、 一下段动词、カ变活用动词、サ变活用动词、助动词「せる•させる」「れる•られる」的未然形之后(サ变活用动词接「し」)。其活用形只有终止形「よう」和连体形「よう」两种，而后者用法极为有限，一般只后续「もの」「はず」「わけ」等形式体言", "[(与疑问词或终助词「か」一起使用)表示疑问、询问、反问]…吗? 怎么，难道。"]}, {"glosses": ["接在上一段、 一下段动词、カ变活用动词、サ变活用动词、助动词「せる•させる」「れる•られる」的未然形之后(サ变活用动词接「し」)。其活用形只有终止形「よう」和连体形「よう」两种，而后者用法极为有限，一般只后续「もの」「はず」「わけ」等形式体言", "[用「…ようが…まいが」「…ようと…まいと」的形式将动作、作用正反对照地举出来]不论…还是，无论…与否，…(还是)不…。"]}], "sounds": [], "word": "よう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "受取る"}
+{"forms": [{"form": "襲う", "ruby": [["襲", "おそ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["袭击"]}, {"glosses": ["突然前去"]}, {"glosses": ["繼承"]}], "sounds": [{"other": "おそう"}, {"other": "おそう"}], "word": "襲う"}
+{"forms": [{"form": "從う", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "随う", "tags": ["alternative", "kanji"]}, {"form": "順う", "tags": ["alternative", "kanji"]}, {"form": "遵う", "tags": ["alternative", "kanji"]}, {"form": "从う", "tags": ["alternative", "kanji"]}, {"form": "従う", "ruby": [["従", "したが"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["跟随"]}, {"glosses": ["服从，听从"]}, {"glosses": ["根据，按照"]}, {"glosses": ["沿，顺"]}, {"glosses": ["随着，伴随"]}], "sounds": [{"other": "したがう"}, {"other": "したがう"}], "word": "従う"}
+{"forms": [{"form": "澁い", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "渋い", "ruby": [["渋", "しぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["（味道）澀"]}, {"glosses": ["素氣，雅素；質樸，淳厚，深沉而有韻味"]}, {"glosses": ["吝嗇，小氣"]}, {"glosses": ["陰沉，悶悶不樂"]}], "sounds": [{"other": "しぶい"}], "word": "渋い"}
+{"forms": [{"form": "重い", "ruby": [["重", "おも"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["重"]}, {"glosses": ["緩慢"]}, {"glosses": ["重要，重大"]}, {"glosses": ["严重"]}, {"glosses": ["緩慢；（網路）壅塞"]}, {"glosses": ["大量"]}], "sounds": [{"other": "おもい"}], "word": "重い"}
+{"forms": [{"form": "意外", "ruby": [["意", "い"], ["外", "がい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["意外的，意想不到的"]}], "sounds": [{"other": "いがい"}, {"other": "いがい"}], "word": "意外"}
+{"forms": [{"form": "意外", "ruby": [["意", "い"], ["外", "がい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["意外"]}], "sounds": [{"other": "いがい"}, {"other": "いがい"}], "word": "意外"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["異常【いじょう】\n名?形动 异常，反常，不正常。\n精神に異常をきたす\n精神失常。"]}], "sounds": [], "word": "異常"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["移行【いこう】\n名?自サ\n1. 過渡，移動，轉變，移交。\n新制度への移行に手間どる\n向新制度過渡要費時間。\n2. 進位。"]}], "sounds": [], "word": "移行"}
+{"forms": [{"form": "違反", "ruby": [["違", "い"], ["反", "はん"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["違反"]}], "sounds": [{"other": "いはん"}], "word": "違反"}
+{"forms": [{"form": "違反する", "ruby": [["違", "い"], ["反", "はん"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["違法"]}], "sounds": [{"other": "いはん"}], "word": "違反"}
+{"forms": [{"form": "拠る", "tags": ["alternative", "kanji"]}, {"form": "由る", "tags": ["alternative", "kanji"]}, {"form": "依る", "tags": ["alternative", "kanji"]}, {"form": "因る", "ruby": [["因", "よ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["由于，因为"]}, {"glosses": ["在於，取決於"]}, {"glosses": ["依靠；通過"]}, {"glosses": ["根據"]}], "sounds": [{"other": "よる"}], "word": "因る"}
+{"forms": [{"form": "引く", "ruby": [["引", "ひ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["拉，拽"], "tags": ["transitive"]}, {"glosses": ["拖，搭拉"], "tags": ["transitive"]}, {"glosses": ["吸引，引诱"], "tags": ["transitive"]}, {"glosses": ["划线，描绘"], "tags": ["transitive"]}, {"glosses": ["拖长，拉长"], "tags": ["transitive"]}, {"glosses": ["引用"], "tags": ["transitive"]}, {"glosses": ["引進，安裝，架設(电线等)"], "tags": ["transitive"]}, {"glosses": ["减去，扣除"]}, {"glosses": ["查(工具书等)"], "tags": ["transitive"]}, {"glosses": ["涂上"], "tags": ["transitive"]}, {"glosses": ["患(疾病)"], "tags": ["transitive"]}, {"glosses": ["消退，減退，消失"], "tags": ["intransitive"]}, {"glosses": ["（因惡心等）對...失去興趣"], "tags": ["colloquial", "intransitive"]}, {"glosses": ["辭去，辭退"]}], "sounds": [{"other": "ひく"}], "word": "引く"}
+{"forms": [{"form": "引く", "ruby": [["引", "ひ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "conj", "senses": [{"glosses": ["減"]}], "sounds": [{"other": "ひく"}], "word": "引く"}
+{"forms": [{"form": "映畫", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "映画", "ruby": [["映", "えい"], ["画", "が"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["電影"]}], "sounds": [{"other": "えーが"}], "word": "映画"}
+{"forms": [{"form": "延期", "ruby": [["延", "えん"], ["期", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["延緩或延長期限"]}], "sounds": [{"other": "えんき"}], "word": "延期"}
+{"forms": [{"form": "延期する", "ruby": [["延", "えん"], ["期", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["延緩或延長期限"]}], "sounds": [{"other": "えんき"}], "word": "延期"}
+{"forms": [{"form": "沿う", "ruby": [["沿", "そ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["沿着，顺着"]}, {"glosses": ["按照，遵守（規則、指南）"]}], "sounds": [{"other": "そう"}, {"other": "そう"}], "word": "沿う"}
+{"forms": [{"form": "應じる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "応じる", "ruby": [["応", "おう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["回答"]}, {"glosses": ["答應，滿足"]}, {"glosses": ["接受"]}, {"glosses": ["按照"]}], "sounds": [{"other": "おーじる"}, {"other": "おーじる"}], "word": "応じる"}
+{"forms": [{"form": "圧す", "tags": ["alternative", "kanji"]}, {"form": "推す", "tags": ["alternative", "kanji"]}, {"form": "押す", "ruby": [["押", "お"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["推，擠（從己方向前方施力）"]}, {"glosses": ["按，壓（從上向下施加力量）"]}, {"glosses": ["蓋章；貼上（金箔等）"]}, {"glosses": ["不顧困難、反對或不利條件而強行去做"]}, {"glosses": ["強行堅持自己的意見；強加於人，施壓"]}, {"glosses": ["堅持，貫徹（某種做法或方針）"]}, {"glosses": ["壓倒，佔優勢"]}, {"glosses": ["確認，叮囑"]}], "sounds": [{"other": "おす"}, {"other": "おす"}], "word": "押す"}
+{"forms": [{"form": "加わる", "ruby": [["加", "くわ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["參加，參與"]}, {"glosses": ["增加"]}, {"glosses": ["附加"]}], "sounds": [{"other": "くわわる"}, {"other": "くわわる"}], "word": "加わる"}
+{"forms": [{"form": "勝手", "ruby": [["勝", "かっ"], ["手", "て"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["自私的"]}, {"glosses": ["任意的，隨便的"]}, {"glosses": ["私自的"]}], "sounds": [{"other": "かって"}], "word": "勝手"}
+{"forms": [{"form": "勝手", "ruby": [["勝", "かっ"], ["手", "て"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["方便"]}, {"glosses": ["情况"]}, {"glosses": ["廚房"]}], "sounds": [{"other": "かって"}], "word": "勝手"}
+{"forms": [{"form": "乘せる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "乗せる", "ruby": [["乗", "の"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["放上去"]}, {"glosses": ["装上"]}, {"glosses": ["欺骗"]}, {"glosses": ["参加，入伙"]}, {"glosses": ["登载，刊载"]}], "sounds": [{"other": "のせる"}], "word": "乗せる"}
+{"forms": [{"form": "乘る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "乗る", "ruby": [["乗", "の"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["骑，乘坐。"]}, {"glosses": ["上当，受骗。"]}, {"glosses": ["加入，参加。"]}, {"glosses": ["附着。"]}, {"glosses": ["伴随。"]}, {"glosses": ["乘势。"]}], "sounds": [{"other": "のる"}], "word": "乗る"}
+{"forms": [{"form": "樹える", "tags": ["alternative", "kanji", "rare"]}, {"form": "植える", "ruby": [["植", "う"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["栽種，種植"]}, {"glosses": ["栽種，種植", "樹える： 將樹木直立栽培"]}, {"glosses": ["移植，植入"]}, {"glosses": ["接種"]}, {"glosses": ["灌輸 （思想、想法等）"]}], "sounds": [{"other": "うえる"}], "word": "植える"}
+{"forms": [{"form": "食べ物", "ruby": [["食", "た"], ["物", "もの"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["食物，食品（總稱）"]}, {"glosses": ["某一種食物"]}, {"glosses": ["飲食"]}], "sounds": [{"other": "たべもの"}, {"other": "たべもの"}, {"other": "たべもの"}], "word": "食べ物"}
+{"forms": [{"form": "寢る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "寝る", "ruby": [["寝", "ね"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["睡覺"]}, {"glosses": ["躺/臥"]}, {"glosses": ["(と〜) 和……發生性關係"]}, {"glosses": ["橫"]}, {"glosses": ["發酵完成"]}], "sounds": [{"other": "ねる"}], "word": "寝る"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["挥，摇。"]}, {"glosses": ["撒。"]}, {"glosses": ["分派。"]}, {"glosses": ["开(票据等)。"]}, {"glosses": ["拒绝。"]}, {"glosses": ["丧生，丢掉。"]}, {"glosses": ["(自五)装腔作势。"]}], "sounds": [], "word": "振る"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["(接尾)【接名词下构成五段动词】冒充，假装。"]}], "sounds": [], "word": "振る"}
+{"forms": [{"form": "推す", "ruby": [["推", "お"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["推舉，推選"]}, {"glosses": ["推想，推論"]}, {"glosses": ["支持； 狂熱粉絲； 死忠追星"], "tags": ["lifestyle", "slang"]}], "sounds": [{"other": "おす"}], "word": "推す"}
+{"forms": [{"form": "廻す", "tags": ["alternative", "kanji"]}, {"form": "回す", "ruby": [["回", "まわ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["轉，轉圈，旋轉"]}, {"glosses": ["繞，纏"]}, {"glosses": ["輪（到下一個）"]}, {"glosses": ["周到，全面"]}, {"glosses": ["轉移"]}, {"glosses": ["投資"]}, {"glosses": ["錄影"]}], "sounds": [{"other": "まわす"}], "word": "回す"}
+{"forms": [{"form": "廻す", "tags": ["alternative", "kanji"]}, {"form": "回す", "ruby": [["回", "まわ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["對周圍整體做…"]}, {"glosses": ["持續地…；反覆地…"]}], "sounds": [{"other": "まわす"}], "word": "回す"}
+{"forms": [{"form": "産む", "tags": ["alternative", "kanji"]}, {"form": "生む", "ruby": [["生", "う"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["生，产"]}, {"glosses": ["产生"]}], "sounds": [{"other": "うむ"}], "word": "生む"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "生れる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["【開ける】"]}, {"glosses": ["【開ける】", "〔引いて・めくって・ほどいて〕開，打開。"]}, {"glosses": ["【開ける】", "開張，開始營業。"]}, {"glosses": ["【開ける】", "開闊，寬敞。"]}, {"glosses": ["【開ける】", "開化，進步。"]}, {"glosses": ["【開ける】", "繁榮。"]}, {"glosses": ["【空ける】"]}, {"glosses": ["【空ける】", "〔穴などを〕［突き抜く］挖，穿開。"]}, {"glosses": ["【空ける】", "〔間隔を〕空開。"]}, {"glosses": ["【空ける】", "〔からにする〕空出，讓出，騰出。"]}, {"glosses": ["【空ける】", "〔時間や体を〕留出工夫，騰出身子。"]}, {"glosses": ["【明ける】"]}, {"glosses": ["【明ける】", "〔夜が〕明，亮。"]}, {"glosses": ["【明ける】", "〔年が〕過年。"]}, {"glosses": ["【明ける】", "〔期間が〕結束，終了。"]}], "sounds": [], "word": "あける"}
+{"forms": [{"form": "割る", "ruby": [["割", "わ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["打破，打碎"]}, {"glosses": ["劈；切"]}, {"glosses": ["分隔，分開"]}, {"glosses": ["分割"]}], "sounds": [{"other": "わる"}], "word": "割る"}
+{"forms": [{"form": "割る", "ruby": [["割", "わ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "conj", "senses": [{"glosses": ["除以"]}], "sounds": [{"other": "わる"}], "word": "割る"}
+{"forms": [{"form": "割る", "ruby": [["割", "われ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["割れる的另一種拼寫法"], "tags": ["alt-of"]}], "sounds": [], "word": "割る"}
+{"forms": [{"form": "割る", "ruby": [["割", "わ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["下載盜版軟件"], "tags": ["Internet"]}], "sounds": [], "word": "割る"}
+{"forms": [{"form": "破れる", "tags": ["alternative"]}, {"form": "割れる", "ruby": [["割", "わ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["破碎，被破壞"]}, {"glosses": ["分裂；破裂；撕裂"]}, {"glosses": ["整除；被除盡"]}, {"glosses": ["泄露；暴露；被發現"], "tags": ["colloquial"]}], "sounds": [], "word": "割れる"}
+{"forms": [{"form": "寒い", "ruby": [["寒", "さむ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["冷，寒冷"]}, {"glosses": ["（常加「お」）贫寒，简陋"]}, {"glosses": ["害怕"], "tags": ["figuratively"]}, {"glosses": ["不好笑"]}], "sounds": [{"other": "さむい"}], "word": "寒い"}
+{"forms": [{"form": "奔る", "tags": ["alternative", "kanji", "obsolete"]}, {"form": "趨る", "tags": ["alternative", "kanji", "obsolete"]}, {"form": "犇る", "tags": ["alternative", "kanji", "obsolete"]}, {"form": "逸る", "tags": ["alternative", "kanji", "obsolete"]}, {"form": "走る", "ruby": [["走", "はし"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["跑"]}, {"glosses": ["順地移動；滑"]}, {"glosses": ["逃跑、逃離"]}, {"glosses": ["匆忙"]}, {"glosses": ["放棄；屈服於"]}, {"glosses": ["散開、噴濺、噴出"]}, {"glosses": ["朝某個方向延伸"]}, {"glosses": ["短暫出現"]}, {"glosses": ["破裂"], "tags": ["euphemistic"]}, {"glosses": ["偏重"]}], "sounds": [{"other": "はしる"}], "word": "走る"}
+{"forms": [{"form": "增す", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "益す", "tags": ["alternative", "kanji"]}, {"form": "増す", "ruby": [["増", "ま"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["增加，加強，進一步。"], "tags": ["intransitive"]}, {"glosses": ["增加，加大。"], "tags": ["transitive"]}], "sounds": [{"other": "ます"}], "word": "増す"}
+{"forms": [{"form": "寄せる", "ruby": [["寄", "よ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["接近，靠近"]}, {"glosses": ["召集，集中"]}, {"glosses": ["加"]}, {"glosses": ["寄居，投靠"]}, {"glosses": ["借口，借故"]}, {"glosses": ["寄，送"]}, {"glosses": ["倾心，爱慕"]}], "sounds": [{"other": "よせる"}], "word": "寄せる"}
+{"forms": [{"form": "寄る", "ruby": [["寄", "よ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["靠近，接近"]}, {"glosses": ["站在旁邊"]}, {"glosses": ["集聚"]}, {"glosses": ["顺便去，顺路去"]}, {"glosses": ["年齡增長"]}, {"glosses": ["抓住腰帶同時把人推出去"]}], "sounds": [{"other": "よる"}], "word": "寄る"}
+{"forms": [{"form": "稀薄", "tags": ["alternative", "kanji"]}, {"form": "希薄", "ruby": [["希", "き"], ["薄", "はく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["稀薄"]}, {"glosses": ["缺少，不足"]}, {"glosses": ["不可能"]}], "sounds": [{"other": "きはく"}], "word": "希薄"}
+{"forms": [{"form": "稀薄", "tags": ["alternative", "kanji"]}, {"form": "希薄", "ruby": [["希", "き"], ["薄", "はく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["稀薄"]}, {"glosses": ["缺少，不足"]}, {"glosses": ["不可能"]}], "sounds": [{"other": "きはく"}], "word": "希薄"}
+{"forms": [{"form": "氣さく", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "気さく", "ruby": [["気", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["坦率，直爽，爽快"]}], "sounds": [{"other": "きさく"}], "word": "気さく"}
+{"forms": [{"form": "喫う", "tags": ["alternative", "kanji"]}, {"form": "吸う", "ruby": [["吸", "す"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["吸氣"]}, {"glosses": ["吮吸"]}, {"glosses": ["吸收"]}, {"glosses": ["吸菸"]}, {"glosses": ["吸引；吸入"]}, {"glosses": ["接吻"]}], "sounds": [{"other": "すう"}], "word": "吸う"}
+{"forms": [{"form": "大っきい", "roman": "okkii", "ruby": [["大", "お"]], "tags": ["alternative"]}, {"form": "大きい", "ruby": [["大", "おお"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["(体积、面积)大"]}, {"glosses": ["(数量、程度)多，大"]}, {"glosses": ["(年龄)大"]}, {"glosses": ["夸张"]}, {"glosses": ["伟大，宏大"]}], "sounds": [{"other": "おおきい"}], "word": "大きい"}
+{"forms": [{"form": "曲げる", "ruby": [["曲", "ま"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["彎曲"]}], "sounds": [], "word": "曲げる"}
+{"forms": [{"form": "価する", "tags": ["alternative", "kanji"]}, {"form": "値する", "ruby": [["値", "あたい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["值得，有…價值"]}], "sounds": [{"other": "あたいする"}], "word": "値する"}
+{"forms": [{"form": "知的", "ruby": [["知", "ち"], ["的", "てき"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["智慧的，知识的，理智的"]}], "sounds": [{"other": "ちてき"}], "word": "知的"}
+{"forms": [{"form": "空く", "ruby": [["空", "あ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["空開，出现空間、空隙"]}, {"glosses": ["拉開，間隔擴大"]}, {"glosses": ["空出來，騰出來，原有的東西消失而出現空位"]}, {"glosses": ["空缺，人員缺額"]}, {"glosses": ["閒著，空閒"]}], "sounds": [{"other": "あく"}], "word": "空く"}
+{"forms": [{"form": "空く", "ruby": [["空", "す"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["空曠，稀疏，人的數量少"]}, {"glosses": ["空腹"]}, {"glosses": ["順暢，通暢，舒暢，阻礙消失"]}, {"glosses": ["有空，有閒，有餘暇"]}], "sounds": [{"other": "すく"}], "word": "空く"}
+{"forms": [{"form": "措く", "tags": ["alternative", "kanji"]}, {"form": "居く", "tags": ["alternative", "kanji"]}, {"form": "置く", "ruby": [["置", "お"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["放，置"]}, {"glosses": ["留下，放下"]}, {"glosses": ["設置，設立"]}, {"glosses": ["雇用"]}, {"glosses": ["隔"]}, {"glosses": ["表示预先做好准备"]}, {"glosses": ["不改变某种状态或动作的结果"]}], "sounds": [{"other": "おく"}, {"other": "おく"}], "word": "置く"}
+{"forms": [{"form": "遲い", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "遅い", "ruby": [["遅", "おそ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["慢的"]}, {"glosses": ["晚的、遲的"]}], "sounds": [{"other": "おそい"}], "word": "遅い"}
+{"forms": [{"form": "遲れる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "後れる", "tags": ["alternative", "kanji"]}, {"form": "遅れる", "ruby": [["遅", "おく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["慢"]}, {"glosses": ["晚，遲"]}], "sounds": [{"other": "おくれる"}], "word": "遅れる"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["茶"]}], "sounds": [], "word": "茶"}
+{"forms": [{"form": "茶", "ruby": [["茶", "ちゃ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["茶樹；茶葉"]}, {"glosses": ["茶"]}, {"glosses": ["類似茶的飲品"]}, {"glosses": ["茶色，褐色"]}], "sounds": [{"other": "ちゃ"}], "word": "茶"}
+{"forms": [{"form": "着く", "ruby": [["着", "つ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["到达"]}, {"glosses": ["就坐"]}], "sounds": [{"other": "つく"}, {"other": "つく"}], "word": "着く"}
+{"forms": [{"form": "缺く", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "欠く", "ruby": [["欠", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["打碎"]}, {"glosses": ["缺乏，欠缺"]}], "sounds": [{"other": "かく"}], "word": "欠く"}
+{"forms": [{"form": "缺ける", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "闕ける", "tags": ["alternative", "kanji"]}, {"form": "欠ける", "ruby": [["欠", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["受傷，破碎"]}, {"glosses": ["不足，欠缺"]}, {"glosses": ["（月）缺"]}], "sounds": [{"other": "かける"}], "word": "欠ける"}
+{"forms": [{"form": "見送る", "ruby": [["見", "み"], ["送", "おく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["送行，送别"]}, {"glosses": ["看著某人/某物經過，離開或死亡"]}, {"glosses": ["延期，稍候，静观"]}], "sounds": [{"other": "みおくる"}], "word": "見送る"}
+{"forms": [{"form": "見張る", "ruby": [["見", "み"], ["張", "は"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["看"]}, {"glosses": ["站崗，看守"]}, {"glosses": ["堤防，警戒"]}, {"glosses": ["張大眼睛"]}], "sounds": [{"other": "みはる"}], "word": "見張る"}
+{"forms": [{"form": "見渡す", "ruby": [["見", "み"], ["渡", "わた"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["眺望；遠眺"]}, {"glosses": ["環視；一覽"]}, {"glosses": ["沉思；考量"]}, {"glosses": ["凝視；注視"]}], "sounds": [{"other": "みわたす"}, {"other": "みわたす"}], "word": "見渡す"}
+{"forms": [{"form": "旧い", "tags": ["alternative", "kanji", "uncommon"]}, {"form": "故い", "tags": ["alternative", "kanji", "rare"]}, {"form": "古い", "ruby": [["古", "ふる"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["舊的，老的"]}, {"glosses": ["落後的，過時的"]}], "sounds": [{"other": "ふるい"}], "word": "古い"}
+{"forms": [{"form": "呼ぶ", "ruby": [["呼", "よ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["呼喚，喊叫"]}, {"glosses": ["將...稱為，把...叫做"]}, {"glosses": ["把...叫過來"]}, {"glosses": ["稱呼"]}, {"glosses": ["邀請"]}], "sounds": [{"other": "よぶ"}], "word": "呼ぶ"}
+{"forms": [{"form": "固まる", "ruby": [["固", "かた"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["變堅固；凝固"]}, {"glosses": ["穩固，穩定"]}, {"glosses": ["聚集，成堆"]}, {"glosses": ["(由於緊張、恐懼等) 肢體、表情僵硬"]}, {"glosses": ["宕機，死機"]}], "sounds": [{"other": "かたまる"}], "word": "固まる"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["使坚固。"]}, {"glosses": ["坚实，巩固。"]}, {"glosses": ["集中，归拢。"]}], "sounds": [], "word": "固める"}
+{"forms": [{"form": "枯れる", "ruby": [["枯", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["植物枯死"]}, {"glosses": ["失去、耗盡才能"]}, {"glosses": ["失去了原有的東西"]}], "sounds": [{"other": "かれる"}], "word": "枯れる"}
+{"forms": [{"form": "效く", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "利く", "tags": ["alternative", "kanji"]}, {"form": "効く", "ruby": [["効", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["有效，生效"]}, {"glosses": ["靈便，好使"]}, {"glosses": ["能夠；經得住"]}], "sounds": [{"other": "きく"}], "word": "効く"}
+{"forms": [{"form": "向く", "ruby": [["向", "む"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["向，指向，面向，朝向"]}, {"glosses": ["適合，適於"]}], "sounds": [{"other": "むく"}], "word": "向く"}
+{"forms": [{"form": "向う", "tags": ["alternative", "kanji"]}, {"form": "向こう", "ruby": [["向", "む"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["对方，对面，远方，前方。"]}, {"glosses": ["(谈话中的地方)那里，那块儿。"]}, {"glosses": ["…以后，…以远。"]}, {"glosses": ["对方，他。"]}], "sounds": [{"other": "むこー"}, {"other": "むこー"}], "word": "向こう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "巧み"}
+{"forms": [{"form": "廣い", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "弘い", "tags": ["alternative", "kanji"]}, {"form": "宏い", "tags": ["alternative", "kanji"]}, {"form": "広い", "ruby": [["広", "ひろ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["遼闊，寬闊"]}, {"glosses": ["淵博，廣泛"]}, {"glosses": ["寬容"]}], "sounds": [{"other": "ひろい"}], "word": "広い"}
+{"forms": [{"form": "荒れる", "ruby": [["荒", "あ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["气候恶化"]}, {"glosses": ["海上起浪头"]}, {"glosses": ["荒芜，荒废"]}, {"glosses": ["(皮肤)皲，裂，发干"]}, {"glosses": ["混乱"]}, {"glosses": ["胡闹，粗鲁，不检点"]}], "sounds": [{"other": "あれる"}], "word": "荒れる"}
+{"forms": [{"form": "高価い", "raw_tags": ["\"貴的\""], "tags": ["alternative", "kanji"]}, {"form": "高い", "ruby": [["高", "たか"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["高"]}, {"glosses": ["貴"]}, {"glosses": ["高贵"]}, {"glosses": ["(声音)大，高"]}], "sounds": [{"other": "たかい"}], "word": "高い"}
+{"forms": [{"form": "釣る", "ruby": [["釣", "つ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["釣（魚）"]}, {"glosses": ["引誘"]}], "sounds": [{"other": "つる"}], "word": "釣る"}
+{"forms": [{"form": "低い", "ruby": [["低", "ひく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["低"]}, {"glosses": ["矮"]}, {"glosses": ["低賤，微贱"]}, {"glosses": ["(声音)低"]}], "sounds": [{"other": "ひくい"}], "word": "低い"}
+{"forms": [{"form": "程遠い", "ruby": [["程", "ほど"], ["遠", "とお"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["相當遠，差距很大。"]}], "sounds": [{"other": "ほどとおい"}, {"other": "ほどとおい"}], "word": "程遠い"}
+{"forms": [{"form": "傳わる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "伝わる", "ruby": [["伝", "つた"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["传播，傳達"]}, {"glosses": ["流传，遗留"]}, {"glosses": ["传入；文化傳承"]}, {"glosses": ["传导"]}], "sounds": [{"other": "つたわる"}], "word": "伝わる"}
+{"forms": [{"form": "當てる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "当てる", "ruby": [["当", "あ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["碰，撞，打，投，击"]}, {"glosses": ["中，命中，击中，对，对准"]}, {"glosses": ["猜(中)，推测"]}, {"glosses": ["贴，加，放，补，量，垫"]}, {"glosses": ["晒，烤，淋，吹，晾"]}, {"glosses": ["适用，适合"]}, {"glosses": ["点名，指定"]}], "sounds": [{"other": "あてる"}], "word": "当てる"}
+{"forms": [{"form": "載る", "ruby": [["載", "の"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["刊載，登載。"]}, {"glosses": ["放，置。"]}], "sounds": [{"other": "のる"}], "word": "載る"}
+{"forms": [{"form": "咲く", "ruby": [["咲", "さ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["花開，開花"]}, {"glosses": ["形成白色碎浪"]}], "sounds": [{"other": "さく"}], "word": "咲く"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "刷る"}
+{"forms": [{"form": "散らかる", "ruby": [["散", "ち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["零乱，乱七八糟"]}], "sounds": [], "word": "散らかる"}
+{"forms": [{"form": "散ばる", "tags": ["alternative", "kanji"]}, {"form": "散らばる", "ruby": [["散", "ち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["分散，分布"]}, {"glosses": ["零乱，散亂，散落得到處都是"]}], "sounds": [{"other": "ちらばる"}], "word": "散らばる"}
+{"forms": [{"form": "突く", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "衝く", "tags": ["alternative", "kanji"]}, {"form": "撞く", "tags": ["alternative", "kanji"]}, {"form": "捺く", "tags": ["alternative", "kanji"]}, {"form": "突く", "ruby": [["突", "つ"]], "tags": ["canonical"]}, {"form": "つっつく", "roman": "tsuttsuku", "tags": ["alternative"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["扎，戳"]}, {"glosses": ["敲"]}, {"glosses": ["支撐"]}, {"glosses": ["攻擊"]}, {"glosses": ["冒，頂"]}], "sounds": [{"other": "つく"}, {"other": "つく"}], "word": "突く"}
+{"forms": [{"form": "突く", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "突付く", "tags": ["alternative", "kanji"]}, {"form": "突つく", "tags": ["alternative", "kanji"]}, {"form": "突く", "ruby": [["突", "つつ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["（用手指等）戳"]}, {"glosses": ["啄"]}], "sounds": [{"other": "つつく"}], "word": "突く"}
+{"forms": [{"form": "鈍い", "ruby": [["鈍", "のろ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["遲緩，緩慢"]}, {"glosses": ["遲鈍，愚笨"]}], "sounds": [{"other": "のろい"}], "word": "鈍い"}
+{"forms": [{"form": "鈍い", "ruby": [["鈍", "にぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["鈍，不鋒利"]}, {"glosses": ["遲鈍，不靈敏；遲緩，遲笨"]}, {"glosses": ["微弱，隱隱"]}], "sounds": [{"other": "にぶい"}], "word": "鈍い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "鈍い"}
+{"forms": [{"form": "留める", "tags": ["alternative"]}, {"form": "停める", "tags": ["alternative"]}, {"form": "止める", "ruby": [["止", "と"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["停止"]}, {"glosses": ["注意，留心，關心"]}, {"glosses": ["放在某地"]}, {"glosses": ["停放"]}, {"glosses": ["別住，固定"]}, {"glosses": ["制止"]}, {"glosses": ["禁止"]}, {"glosses": ["關，閉"]}, {"glosses": ["寫下筆畫「點」（㇔）"]}], "sounds": [{"other": "とめる"}], "word": "止める"}
+{"forms": [{"form": "廃める", "tags": ["alternative", "kanji"]}, {"form": "止める", "ruby": [["止", "や"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["停止，結束，終止，中斷，放棄"]}, {"glosses": ["不做；不說"]}, {"glosses": ["廢除"]}], "sounds": [{"other": "やめる"}], "word": "止める"}
+{"forms": [{"form": "止める", "ruby": [["止", "とど"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["留める的另一種寫法"], "tags": ["alt-of"]}], "sounds": [{"other": "とどめる"}], "word": "止める"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["二"]}], "sounds": [], "word": "弐"}
+{"forms": [{"form": "弐", "ruby": [["弐", "に"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "num", "senses": [{"glosses": ["二"]}], "sounds": [], "word": "弐"}
+{"forms": [{"form": "亜ぐ", "tags": ["alternative", "kanji"]}, {"form": "次ぐ", "ruby": [["次", "つ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["接着，…之后"]}, {"glosses": ["次于"]}], "sounds": [], "word": "次ぐ"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["肛門部位的病灶"]}], "sounds": [], "word": "痔"}
+{"forms": [{"form": "痔", "ruby": [["痔", "じ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["痔核，痔瘡"]}], "sounds": [{"other": "じ"}], "word": "痔"}
+{"forms": [{"form": "自在", "ruby": [["自", "じ"], ["在", "ざい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["自(じ)在(ざい) (jizai)\n名·形动 自在，随便。\n自在がき\n(炉上用来吊水壶等的)可自由伸缩的钩。"]}], "sounds": [], "word": "自在"}
+{"forms": [{"form": "辭める", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "辞める", "ruby": [["辞", "や"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["辭去，離開（職務）"]}], "sounds": [], "word": "辞める"}
+{"forms": [{"form": "喪う", "tags": ["alternative", "kanji"]}, {"form": "失う", "ruby": [["失", "うしな"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["失掉，失去，丟失"]}, {"glosses": ["錯過（機會等）"]}, {"glosses": ["喪失（某人），死亡"]}], "sounds": [{"other": "うしなう"}], "word": "失う"}
+{"forms": [{"form": "熱する", "ruby": [["熱", "ねっ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["變熱"], "tags": ["intransitive"]}, {"glosses": ["加熱"], "tags": ["transitive"]}, {"glosses": ["熱衷於，對……抱有熱情"], "tags": ["intransitive"]}], "sounds": [], "word": "熱する"}
+{"forms": [{"form": "濃い", "ruby": [["濃", "こ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["（顏色）深"]}, {"glosses": ["濃，稠"]}, {"glosses": ["氣味強烈、味道厚重"]}, {"glosses": ["密集"]}, {"glosses": ["（關係）親密，密切"]}], "sounds": [{"other": "こい"}], "word": "濃い"}
+{"forms": [{"form": "主要", "ruby": [["主", "しゅ"], ["要", "よう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["主要"]}], "sounds": [{"other": "しゅよー"}], "word": "主要"}
+{"forms": [{"form": "主要", "ruby": [["主", "しゅ"], ["要", "よう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["主要，重要"]}], "sounds": [{"other": "しゅよー"}], "word": "主要"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "取消す"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["拔"]}, {"glosses": ["抽，挑"]}, {"glosses": ["省，減少"]}, {"glosses": ["去掉，除掉"]}, {"glosses": ["超過，趕過"]}, {"glosses": ["攻下"]}, {"glosses": ["竊取"]}], "sounds": [], "word": "抜く"}
+{"forms": [{"form": "舞う", "ruby": [["舞", "ま"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["跳舞"]}, {"glosses": ["飞舞，飘舞"]}, {"glosses": ["保持移動"], "tags": ["archaic"]}], "sounds": [{"other": "まう"}, {"other": "まう"}], "word": "舞う"}
+{"forms": [{"form": "鎔かす", "tags": ["alternative", "kanji"]}, {"form": "沸かす", "ruby": [["沸", "わ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["燒開"]}, {"glosses": ["使…沸騰"]}, {"glosses": ["熔化金屬（又寫作鎔かす (wakasu)）"]}], "sounds": [{"other": "わかす"}], "word": "沸かす"}
+{"forms": [{"form": "聴く", "tags": ["alternative", "kanji"]}, {"form": "訊く", "tags": ["alternative", "kanji"]}, {"form": "聞く", "ruby": [["聞", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["聞く，聴く： 聆聽，欣賞"]}, {"glosses": ["聞く，訊く： 打聽，詢問"]}, {"glosses": ["聞く： 答应，听从"]}, {"glosses": ["聞く： 嗅，闻"]}], "sounds": [{"other": "きく"}], "word": "聞く"}
+{"forms": [{"form": "平たい", "ruby": [["平", "ひら"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["平，平坦"]}, {"glosses": ["浅显易懂"]}], "sounds": [{"other": "ひらたい"}, {"other": "ひらたい"}], "word": "平たい"}
+{"forms": [{"form": "變える", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "変える", "ruby": [["変", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["改變、變更、變動、變化"]}, {"glosses": ["變更至不同的時間或地點"]}], "sounds": [{"other": "かえる"}], "word": "変える"}
+{"forms": [{"form": "眠たい", "ruby": [["眠", "ねむ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["睏的，困倦的，想睡的"]}], "sounds": [{"other": "ねむたい"}, {"other": "ねむたい"}], "word": "眠たい"}
+{"forms": [{"form": "眠たい", "ruby": [["眠", "ねぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["睏的，困倦的，想睡的"]}], "sounds": [{"other": "ねぶたい"}, {"other": "ねぶたい"}], "word": "眠たい"}
+{"forms": [{"form": "明く", "ruby": [["明", "あ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["被打開，被敞開"]}, {"glosses": ["期滿，到期"]}, {"glosses": ["睜開，睜著"]}], "sounds": [{"other": "あく"}], "word": "明く"}
+{"forms": [{"form": "鳴る", "ruby": [["鳴", "な"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["發出聲音"]}, {"glosses": ["聞名"]}], "sounds": [{"other": "なる"}], "word": "鳴る"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["毛髮，皮毛"]}], "sounds": [], "word": "毛"}
+{"forms": [{"form": "毛", "ruby": [["毛", "け"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["毛髮，皮毛"]}], "sounds": [{"other": "け"}], "word": "毛"}
+{"forms": [{"form": "毛", "ruby": [["毛", "もう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["千分之一"]}, {"glosses": ["千分之一", "千分之一寸 (sun) (約0.0303毫米)"]}, {"glosses": ["千分之一", "千分之一匁 (monme) (正好3.75毫克)"]}, {"glosses": ["千分之一", "千分之一割 (wari) (0.01百分比)"]}], "sounds": [{"other": "もー"}], "word": "毛"}
+{"forms": [{"form": "揚げる", "ruby": [["揚", "あ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["（用油）炸"]}], "sounds": [{"other": "あげる"}], "word": "揚げる"}
+{"forms": [{"form": "欲しい", "ruby": [["欲", "ほ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["想要，希望得到。"]}, {"glosses": ["【用 「…て～」 的形式】希望。"]}], "sounds": [{"other": "ほしい"}], "word": "欲しい"}
+{"forms": [{"form": "來る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "来る", "ruby": [["来", "く"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["來"]}, {"glosses": ["感受並刺激到"]}], "sounds": [{"other": "くる"}], "word": "来る"}
+{"forms": [{"form": "來る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "来る", "ruby": [["来", "きた"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["來，到達"]}], "sounds": [{"other": "きたる"}, {"other": "きたる"}], "word": "来る"}
+{"forms": [{"form": "立ち止る", "tags": ["alternative", "kanji"]}, {"form": "立止る", "tags": ["alternative", "kanji"]}, {"form": "立ち留まる", "tags": ["alternative", "kanji"]}, {"form": "立ち留る", "tags": ["alternative", "kanji"]}, {"form": "立留る", "tags": ["alternative", "kanji"]}, {"form": "立ちどまる", "tags": ["alternative", "kanji"]}, {"form": "立ち止まる", "ruby": [["立", "た"], ["止", "ど"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["止步，站住"]}, {"glosses": ["停留在原地；留宿"], "tags": ["archaic"]}], "sounds": [{"other": "たちどまる"}, {"other": "たちどまる"}], "word": "立ち止まる"}
+{"forms": [{"form": "立上がる", "tags": ["alternative", "kanji"]}, {"form": "起上がる", "tags": ["alternative", "kanji"]}, {"form": "起ち上がる", "tags": ["alternative", "kanji"]}, {"form": "立ち上がる", "ruby": [["立", "た"], ["上", "あ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["站起来，起立"]}, {"glosses": ["着手"]}, {"glosses": ["冒，升起"]}, {"glosses": ["恢復，振奮"]}], "sounds": [{"other": "たちあがる"}, {"other": "たちあがる"}], "word": "立ち上がる"}
+{"forms": [{"form": "冷たい", "ruby": [["冷", "つめ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["冷，凉"]}, {"glosses": ["冷淡，冷漠（不友好）"]}], "sounds": [{"other": "つめたい"}, {"other": "つめたい"}], "word": "冷たい"}
+{"forms": [{"form": "冷たい", "ruby": [["冷", "つべ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["冷，凉"]}, {"glosses": ["冷淡 （不友好）"]}], "sounds": [{"other": "つべたい"}], "word": "冷たい"}
+{"forms": [{"form": "孤獨", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "孤独", "ruby": [["孤", "こ"], ["独", "どく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["孤單寂寞"]}], "sounds": [{"other": "こどく"}], "word": "孤独"}
+{"forms": [{"form": "孤獨", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "孤独", "ruby": [["孤", "こ"], ["独", "どく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["單獨"]}, {"glosses": ["孤寂"]}], "sounds": [{"other": "こどく"}], "word": "孤独"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "こどく"}
+{"forms": [{"form": "うれC", "roman": "ureshii", "ruby": [["C", "しい"]], "tags": ["slang", "alternative"]}, {"form": "嬉しい", "ruby": [["嬉", "うれ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["高興的，歡喜的"]}], "sounds": [{"other": "うれしい"}], "word": "嬉しい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きく"}
+{"forms": [{"form": "奇麗", "tags": ["alternative", "kanji"]}, {"form": "キレイ", "tags": ["alternative", "kanji", "informal"]}, {"form": "綺麗", "ruby": [["綺", "き"], ["麗", "れい"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["美麗，漂亮"]}, {"glosses": ["清澈，乾淨，純粹"]}, {"glosses": ["清潔，潔淨，乾淨，沒有汙垢"]}, {"glosses": ["整潔，俐落"]}, {"glosses": ["公平，公正，問心無愧"]}], "sounds": [{"other": "きれー"}], "word": "綺麗"}
+{"forms": [{"form": "素樸", "tags": ["alternative", "kanji"]}, {"form": "素朴", "ruby": [["素", "そ"], ["朴", "ぼく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["樸實，簡單"]}], "sounds": [{"other": "そぼく"}], "word": "素朴"}
+{"forms": [{"form": "素樸", "tags": ["alternative", "kanji"]}, {"form": "素朴", "ruby": [["素", "そ"], ["朴", "ぼく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["樸實，簡單"]}], "sounds": [{"other": "そぼく"}], "word": "素朴"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "素樸"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "血"}
+{"forms": [{"form": "血", "ruby": [["血", "ち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["血液"]}], "sounds": [{"other": "ち"}], "word": "血"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "偶"}
+{"forms": [{"form": "適", "tags": ["alternative", "kanji"]}, {"form": "偶", "ruby": [["偶", "たま"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["偶然"]}], "sounds": [], "word": "偶"}
+{"forms": [{"form": "適", "tags": ["alternative", "kanji"]}, {"form": "偶", "ruby": [["偶", "たま"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["稀有"]}], "sounds": [], "word": "偶"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "偶"}
+{"forms": [{"form": "偶", "ruby": [["偶", "ぐう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["成雙"]}], "sounds": [], "word": "偶"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["價值，價錢"]}], "sounds": [], "word": "價"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["新生兒"]}, {"glosses": ["兒童"]}, {"glosses": ["年幼的動物"]}], "sounds": [], "word": "児"}
+{"forms": [{"form": "児", "ruby": [["児", "こ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["子的另一種寫法"], "tags": ["alt-of"]}], "sounds": [], "word": "児"}
+{"forms": [{"form": "具", "ruby": [["具", "ぐ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "classifier", "senses": [{"glosses": ["套裝（盔甲、家具）"]}], "sounds": [], "word": "具"}
+{"forms": [{"form": "具", "ruby": [["具", "ぐ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["工具"]}, {"glosses": ["手段"]}, {"glosses": ["次要成分，如香料、調味料和醬汁"]}, {"glosses": ["base"]}, {"glosses": ["外陰部。"], "tags": ["slang"]}], "sounds": [], "word": "具"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["分离。"]}, {"glosses": ["不同，不一样。"]}, {"glosses": ["特别，特殊。"]}, {"glosses": ["区别。"]}, {"glosses": ["除外。"]}], "sounds": [], "word": "別"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["芬芳、氣味；聞"]}], "sounds": [], "word": "匂"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "子"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["懇求，要求"]}, {"glosses": ["少有，不多 (同稀)"]}, {"glosses": ["希臘 (Girishia)的簡稱"]}], "sounds": [], "word": "希"}
+{"forms": [{"form": "希", "ruby": [["希", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "affix", "senses": [{"glosses": ["求"]}, {"glosses": ["希臘 (Girishia)的簡稱"]}], "sounds": [], "word": "希"}
+{"forms": [{"form": "稀", "tags": ["alternative", "kanji"]}, {"form": "希", "ruby": [["希", "き"]], "tags": ["canonical"]}, {"form": "希", "ruby": [["希", "け"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "affix", "senses": [{"glosses": ["稀缺；罕見"]}, {"glosses": ["稀疏；淡薄；低濃度"]}], "sounds": [], "word": "希"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "希"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["急\n（三年級漢字）"]}], "sounds": [], "word": "急"}
+{"forms": [{"form": "急", "ruby": [["急", "きゅう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj_noun", "senses": [{"glosses": ["迅速的，快的"]}, {"glosses": ["險阻的"]}, {"glosses": ["立即"]}], "sounds": [{"other": "きゅう"}], "word": "急"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["空闲，闲暇。"]}, {"glosses": ["休假。"]}, {"glosses": ["时间。"]}], "sounds": [], "word": "暇"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["標記"]}], "sounds": [], "word": "棋"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["氣\n（人名用漢字，旧字体汉字，新字体形式気）"]}], "sounds": [], "word": "氣"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["水。"]}, {"glosses": ["水体，有水的地方。"]}, {"glosses": ["水状物。"]}, {"glosses": ["氢的略称。"]}], "sounds": [], "word": "水"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["狗"]}, {"glosses": ["部首名，犬部（いぬ）"]}], "sounds": [], "word": "犬"}
+{"forms": [{"form": "狗", "tags": ["alternative", "kanji"]}, {"form": "犬", "ruby": [["犬", "いぬ"]], "tags": ["canonical"]}, {"form": "犬", "ruby": [["犬", "イヌ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["狗"]}, {"glosses": ["僕人"]}, {"glosses": ["間諜"]}], "sounds": [{"other": "いぬ"}], "word": "犬"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["小狗，狗"]}, {"glosses": ["哨兵"]}, {"glosses": ["窺探者或間諜"]}, {"glosses": ["無用，沒用"]}], "sounds": [], "word": "狗"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "狗"}
+{"forms": [{"form": "狗", "ruby": [["狗", "えぬ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["小狗，狗"], "tags": ["obsolete"]}], "sounds": [], "word": "狗"}
+{"forms": [{"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "tags": ["alternative", "kanji"]}, {"form": "誠", "tags": ["alternative", "kanji"]}, {"form": "真", "ruby": [["真", "まこと"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["真實；真實性"]}], "sounds": [{"other": "まこと"}], "word": "真"}
+{"forms": [{"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "tags": ["alternative", "kanji"]}, {"form": "誠", "tags": ["alternative", "kanji"]}, {"form": "真", "ruby": [["真", "まこと"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["絕對，真的"]}], "sounds": [{"other": "まこと"}], "word": "真"}
+{"forms": [{"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "tags": ["alternative", "kanji"]}, {"form": "誠", "tags": ["alternative", "kanji"]}, {"form": "真", "ruby": [["真", "まこと"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["回憶以前忘記的信息或突然改變的主題：那就對了"]}], "sounds": [{"other": "まこと"}], "word": "真"}
+{"forms": [{"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "眞", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "実", "tags": ["alternative", "kanji"]}, {"form": "誠", "tags": ["alternative", "kanji"]}, {"form": "真", "ruby": [["真", "まこと"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["男性或女性人名"]}], "sounds": [{"other": "まこと"}], "word": "真"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["葉"]}], "sounds": [], "word": "葉"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["蚊子"]}], "sounds": [], "word": "蚊"}
+{"forms": [{"form": "蚊", "ruby": [["蚊", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["蚊子"]}], "sounds": [{"other": "か"}], "word": "蚊"}
+{"forms": [{"form": "蚊", "ruby": [["蚊", "かあ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["蚊子"]}], "sounds": [], "word": "蚊"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["驚懼"]}, {"glosses": ["焦慮"]}], "sounds": [], "word": "遑"}
+{"forms": [], "lang_code": "ja", "pos": "unknown", "senses": [{"glosses": ["（以下詞條尚未創建：暇。）"]}], "sounds": [], "word": "遑"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["達\n（四年級漢字）"]}], "sounds": [], "word": "達"}
+{"forms": [{"form": "達", "ruby": [["達", "たち"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["們 附在人稱後，表示複數"]}, {"glosses": ["附在團體代表的名字後，指代整個團體"]}], "sounds": [], "word": "達"}
+{"forms": [], "lang_code": "ja", "pos": "character", "senses": [{"glosses": ["黃色"]}], "sounds": [], "word": "黄"}
+{"forms": [{"form": "黄", "ruby": [["黄", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["黃色的"]}], "sounds": [{"other": "き"}, {"other": "き"}], "word": "黄"}
+{"forms": [{"form": "黄", "ruby": [["黄", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["黃色"]}], "sounds": [{"other": "き"}, {"other": "き"}], "word": "黄"}
+{"forms": [{"form": "黃", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "黄", "ruby": [["黄", "こう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "affix", "senses": [{"glosses": ["黃色"]}], "sounds": [], "word": "黄"}
+{"forms": [{"form": "黃", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "黄", "ruby": [["黄", "おう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "affix", "senses": [{"glosses": ["黃色"]}], "sounds": [], "word": "黄"}
+{"forms": [{"form": "爲る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "為る"}
+{"forms": [{"form": "爲る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "爲る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "為る"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["進，入，進入。"]}, {"glosses": ["加入，參加。"]}], "sounds": [], "word": "はいる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "這入る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "容れる"}
+{"forms": [{"form": "棄てる", "ruby": [["棄", "す"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["捨てる的另一種寫法"], "tags": ["alt-of"]}], "sounds": [], "word": "棄てる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "摺る"}
+{"forms": [{"form": "剃る", "ruby": [["剃", "そ"]], "tags": ["canonical"]}, {"form": "剃る", "ruby": [["剃", "す"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["剃（體毛或臉部毛髮）"]}], "sounds": [{"other": "そる"}], "word": "剃る"}
+{"forms": [{"form": "視る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "視る"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["〔行為をする〕做，办。"]}, {"glosses": ["〔実施する〕实行，实施。"]}, {"glosses": ["〔挙行する〕举行。"]}], "sounds": [], "word": "おこなう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["上，登。"]}, {"glosses": ["〔空中に昇る〕升起，飛揚。"]}, {"glosses": ["〔高まる〕提高，長進；〔ねだんが〕高漲；晉級；〔効果が〕取得，有。"]}], "sounds": [], "word": "あがる"}
+{"forms": [{"form": "學校", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "学校", "ruby": [["学", "がっ"], ["校", "こう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["學校"]}], "sounds": [{"other": "がっこー"}], "word": "学校"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["よる：基於，取決於，歸因於 - （最常用義項）"]}, {"glosses": ["拠る：根據，按照"]}, {"glosses": ["因る：依靠，因為"]}, {"glosses": ["寄る：路過，靠近"]}, {"glosses": ["選る：選擇"]}, {"glosses": ["縒る：捻，搓，擰"]}], "sounds": [], "word": "よる"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["夜： 夜晚"]}], "sounds": [{"other": "よる"}], "word": "よる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おおきい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "みず"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["ミズ： 女士"]}], "sounds": [], "word": "みず"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["見ず： 見る的否定連用形"]}], "sounds": [], "word": "みず"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "わるい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "じょう"}
+{"forms": [{"form": "氣に入る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "気にいる", "tags": ["alternative", "kanji"]}, {"form": "気に入る", "ruby": [["気", "き"], ["入", "い"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["喜欢，满意"]}], "sounds": [{"other": "きにいる"}], "word": "気に入る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "がっこう"}
+{"forms": [{"form": "可笑しい", "ruby": [["可笑", "おか"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["好玩的："]}, {"glosses": ["好玩的：", "有趣的，滑稽的，可笑的"]}, {"glosses": ["好玩的：", "奇怪的，不正常的"]}, {"glosses": ["好玩的：", "不合理的，不合邏輯的"]}, {"glosses": ["有趣的："], "tags": ["obsolete"]}, {"glosses": ["有趣的：", "有趣的"], "tags": ["obsolete"]}, {"glosses": ["有趣的：", "美味的"], "tags": ["obsolete"]}, {"glosses": ["有趣的：", "漂亮的"], "tags": ["obsolete"]}, {"glosses": ["有趣的：", "很好的，卓越的"], "tags": ["obsolete"]}], "sounds": [{"other": "おかしい"}], "word": "可笑しい"}
+{"forms": [{"form": "引きずる", "tags": ["alternative", "kanji"]}, {"form": "引き摺る", "ruby": [["引", "ひ"], ["摺", "ず"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["拖，曳"]}, {"glosses": ["硬拉"]}, {"glosses": ["拖延，延长"]}], "sounds": [], "word": "引き摺る"}
+{"forms": [{"form": "凄い", "ruby": [["凄", "すご"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["可怕"]}, {"glosses": ["厉害"]}, {"glosses": ["了不起，非常"]}], "sounds": [{"other": "すごい"}], "word": "凄い"}
+{"forms": [{"form": "凄い", "ruby": [["凄", "すご"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["十分"], "tags": ["colloquial"]}], "sounds": [{"other": "すごい"}], "word": "凄い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "立ち止る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "上手い"}
+{"forms": [{"form": "善い", "ruby": [["善", "い"]], "tags": ["canonical"]}, {"form": "善い", "ruby": [["善", "よ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["好，良好，优良，优秀（良い的另一種寫法）"], "tags": ["alt-of"]}], "sounds": [], "word": "善い"}
+{"forms": [{"form": "無く", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "adv", "senses": [{"glosses": ["ない (nai) 的副詞性"], "tags": ["form-of"]}], "sounds": [{"other": "なく"}], "word": "なく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "なく"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["愛好： 喜好；愛慕"]}], "sounds": [], "word": "あいこう"}
+{"forms": [{"form": "載せる", "ruby": [["載", "の"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["轉載，運載"]}, {"glosses": ["刊載，刊登在出版物，運轉"]}], "sounds": [{"other": "のせる"}], "word": "載せる"}
+{"forms": [{"form": "買う", "ruby": [["買", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["買"]}, {"glosses": ["讚揚"]}, {"glosses": ["挑釁"]}], "sounds": [{"other": "かう"}], "word": "買う"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["犬，狗： 食肉目動物"]}], "sounds": [], "word": "イヌ"}
+{"forms": [], "lang_code": "ja", "pos": "intj", "senses": [{"glosses": ["非正式問候語，類似嘿。參見よう。"]}, {"glosses": ["非正式問候語，類似喔或哎喲。"]}, {"glosses": ["非正式應答方式（肯定）"]}], "sounds": [], "word": "おう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["追う： 追逐"]}, {"glosses": ["負う： 招致或承受"]}, {"glosses": ["生う： 生長或春天來臨"]}], "sounds": [], "word": "おう"}
+{"forms": [], "lang_code": "ja", "pos": "affix", "senses": [{"glosses": ["氓： (音読み (on'yomi)，仅用于合成词) 人，物"]}], "sounds": [], "word": "ぼう"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["（以下詞條尚未創建：暮雨、坊、帽、房、暴、望、某、貌。）"]}], "sounds": [], "word": "ぼう"}
+{"forms": [], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["昴： 28個日本傳統星座之一，昴宿星團"]}], "sounds": [], "word": "ぼう"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["追う： 追隨，追逐"]}], "sounds": [], "word": "ぼう"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节しゃ (sha)，对应片假名为シャ (sha)。"]}], "sounds": [], "word": "しゃ"}
+{"forms": [], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["者： 某种人，做某种工作的人"]}, {"glosses": ["社： 公司"]}, {"glosses": ["舎： 房子"]}], "sounds": [], "word": "しゃ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おん"}
+{"forms": [], "lang_code": "ja", "pos": "adj_noun", "senses": [{"glosses": ["（以下詞條尚未創建：静か。）"]}], "sounds": [], "word": "しずか"}
+{"forms": [], "lang_code": "ja", "pos": "name", "senses": [{"glosses": ["姓氏"]}, {"glosses": ["男性人名"]}, {"glosses": ["女性人名"]}], "sounds": [], "word": "しずか"}
+{"forms": [{"form": "虛ける", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "虚ける"}
+{"forms": [], "lang_code": "ja", "pos": "verb", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "価する"}
+{"forms": [{"form": "遣る", "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["做 (執行，實施)"], "tags": ["colloquial"]}, {"glosses": ["給（非人類或下等的事物）"]}, {"glosses": ["打發某人至某處，派遣"]}, {"glosses": ["做愛，性交"]}, {"glosses": ["殺害"]}, {"glosses": ["划（船）"]}, {"glosses": ["幹得好"], "tags": ["colloquial"]}], "sounds": [{"other": "やる"}], "word": "やる"}
+{"forms": [{"form": "映畫", "ruby": [["映", "えい"], ["畫", "が"]], "tags": ["canonical"]}, {"form": "映畵", "tags": ["alternative"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["映画 (“電影”)的舊字體形式"], "tags": ["form-of"]}], "sounds": [], "word": "映畫"}
+{"forms": [], "lang_code": "ja", "pos": "noun", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "珈琲"}
+{"forms": [{"form": "突付く", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "突付く"}
+{"forms": [{"form": "突つく", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "突つく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "衝く"}
+{"forms": [{"form": "撞く", "ruby": [["撞", "つ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["突く的另一種寫法。通常用於「撞鐘」等義。"], "tags": ["alt-of"]}], "sounds": [], "word": "撞く"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "捺く"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "にっぽん"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かのう"}
+{"forms": [{"form": "止める", "tags": ["alternative"]}, {"form": "停める", "tags": ["alternative"]}, {"form": "留める", "ruby": [["留", "とど"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["停止，停下"]}, {"glosses": ["保持，保留"]}, {"glosses": ["留下，留存"]}, {"glosses": ["止於，限於"]}], "sounds": [], "word": "留める"}
+{"forms": [{"form": "停める", "ruby": [["停", "と"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["停放（車輛）"]}], "sounds": [], "word": "停める"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "廃める"}
+{"forms": [{"form": "詫びる", "ruby": [["詫", "わ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["道歉"]}], "sounds": [], "word": "詫びる"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["難しい： 困難的"]}], "sounds": [], "word": "むずかしい"}
+{"forms": [{"form": "据える", "ruby": [["据", "す"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["擺放，安放"]}, {"glosses": ["使坐下"]}, {"glosses": ["安插（職位、任務等）"], "tags": ["figuratively"]}, {"glosses": ["使沉靜下來；專注於"]}, {"glosses": ["放上艾條"]}, {"glosses": ["蓋章"]}, {"glosses": ["棲息"]}, {"glosses": ["移栽，移植"]}], "sounds": [{"other": "すえる"}], "word": "据える"}
+{"forms": [], "lang_code": "ja", "pos": "proverb", "senses": [{"tags": ["no-gloss"]}], "sounds": [{"other": "すえる"}], "word": "据える"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "わかす"}
+{"forms": [], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["痒い： 痒的"]}], "sounds": [], "word": "かゆい"}
+{"forms": [{"form": "嗣ぐ", "ruby": [["嗣", "つ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["継ぐ的另一種寫法：繼承、承襲（家業、王位）"], "tags": ["alt-of"]}], "sounds": [], "word": "嗣ぐ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きにいる"}
+{"forms": [{"form": "氣にいる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "気にいる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きはく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "たるい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あたいする"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "だいじ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "しぬ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "しぶい"}
+{"forms": [{"form": "澁い", "ruby": [["澁", "しぶ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["渋い的舊字體形式"], "tags": ["form-of"]}], "sounds": [], "word": "澁い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "じょうふ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "じょうぶ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "にぶい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おくる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ステキ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "素適"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "素的"}
+{"forms": [{"form": "取消す", "tags": ["alternative", "kanji"]}, {"form": "取り消す", "ruby": [["取", "と"], ["消", "け"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["取消，作廢，廢除，撤銷，吊銷"]}], "sounds": [{"other": "とりけす"}, {"other": "とりけす"}], "word": "取り消す"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "とりけす"}
+{"forms": [{"form": "生れる", "tags": ["alternative", "kanji"]}, {"form": "産まれる", "tags": ["alternative", "kanji"]}, {"form": "産れる", "tags": ["alternative", "kanji"]}, {"form": "生まれる", "ruby": [["生", "う"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["生，出生，誕生"]}, {"glosses": ["產生，誕生，出現"]}], "sounds": [{"other": "うまれる"}], "word": "生まれる"}
+{"forms": [{"form": "產まれる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "産まれる"}
+{"forms": [{"form": "產れる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "産れる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "喪う"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "うしなう"}
+{"forms": [{"form": "飛ぶ", "tags": ["alternative"]}, {"form": "翔ぶ", "tags": ["alternative"]}, {"form": "跳ぶ", "ruby": [["跳", "と"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["跳"]}], "sounds": [], "word": "跳ぶ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "はやい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "べんきょう"}
+{"forms": [{"form": "圓い", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "円い"}
+{"forms": [{"form": "瘦せる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "痩せる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "瘠せる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "のる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "貰う"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あやうい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "見なす"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "看做す"}
+{"forms": [{"form": "傲る", "tags": ["alternative", "kanji"]}, {"form": "驕る", "ruby": [["驕", "おご"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["驕傲，傲慢"]}], "sounds": [{"other": "おごる"}], "word": "驕る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "傲る"}
+{"forms": [{"form": "奢る", "ruby": [["奢", "おご"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["奢侈，鋪張浪費"]}, {"glosses": ["請客，做東"]}], "sounds": [{"other": "おごる"}], "word": "奢る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "立止る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "立ち留まる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "立留る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "立ちどまる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "つれる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "うれる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ねむたい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ねぶたい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "睡たい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きょだい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ひくい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "たかい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "たかい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ながい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "にがい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おくれる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "よごす"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "まなぶ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "まなぶ"}
+{"forms": [{"form": "轢く", "ruby": [["轢", "ひ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["（汽車、火車等）壓過，輾過"]}], "sounds": [{"other": "ひく"}], "word": "轢く"}
+{"forms": [{"form": "聽く", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "聴く"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ちらばる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おちこむ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "うえる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あれる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "みまもる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "みおくる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "けがす"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "穢す"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "わかい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "かたい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ひろう"}
+{"forms": [{"form": "產む", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "産む", "ruby": [["産", "う"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["生む (“生下，產下”)的另一種拼寫法"], "tags": ["alt-of"]}], "sounds": [{"other": "うむ"}], "word": "産む"}
+{"forms": [{"form": "受取る", "tags": ["alternative", "kanji"]}, {"form": "請け取る", "tags": ["alternative", "kanji"]}, {"form": "請取る", "tags": ["alternative", "kanji"]}, {"form": "受け取る", "ruby": [["受", "う"], ["取", "と"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["接收"]}, {"glosses": ["理解，領會"]}], "sounds": [{"other": "うけとる"}, {"other": "うけとる"}], "word": "受け取る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "うけとる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "請け取る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "請取る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "たく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "つめたい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "さむい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "よせる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "上る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "上る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "したがう"}
+{"forms": [{"form": "吊る", "ruby": [["吊", "つ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["吊；掛"]}, {"glosses": ["架"]}, {"glosses": ["舉起"]}], "sounds": [{"other": "つる"}], "word": "吊る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "緊い"}
+{"forms": [], "lang_code": "ja", "pos": "pron", "senses": [{"glosses": ["這個"], "tags": ["dialectal"]}], "sounds": [], "word": "こい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "こい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ひらたい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "あきれる"}
+{"forms": [{"form": "揉む", "ruby": [["揉", "も"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["揉，搓"]}], "sounds": [{"other": "もむ"}], "word": "揉む"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "もむ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "おそう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "こえる"}
+{"forms": [{"form": "利く", "ruby": [["利", "き"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["効く的另一種寫法"], "tags": ["alt-of"]}], "sounds": [], "word": "利く"}
+{"forms": [{"form": "當る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "当る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "みわたす"}
+{"forms": [], "lang_code": "ja", "pos": "syllable", "senses": [{"glosses": ["平假名音节ちゃ (cha)，对应片假名为チャ (cha)。"]}], "sounds": [], "word": "ちゃ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ちゃ"}
+{"forms": [], "lang_code": "ja", "pos": "conj", "senses": [{"glosses": ["ては (-te wa)的縮約形"], "tags": ["colloquial", "form-of"]}], "sounds": [], "word": "ちゃ"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "たべもの"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "唄う"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "詠う"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "謳う"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "すう"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "まわる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "廻る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "はしる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "奔る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "こまい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いがい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いらい"}
+{"forms": [{"form": "茶色い", "ruby": [["茶", "ちゃ"], ["色", "いろ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["褐色的"]}], "sounds": [{"other": "ちゃいろい"}], "word": "茶色い"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ちゃいろい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "いやしい"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "きさく"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ほる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ひらく"}
+{"forms": [{"form": "濡れる", "ruby": [["濡", "ぬ"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["變濕，沾濕，濕透（物體表面黏有水氣，或者水浸透到物體中）"]}, {"glosses": ["沾血，染血"]}, {"glosses": ["行房事，交歡"]}, {"glosses": ["變得潤滑，尤指因性興奮而產生之分泌物所致"]}], "sounds": [{"other": "ぬれる"}], "word": "濡れる"}
+{"forms": [{"form": "嗄れる", "tags": ["alternative", "kanji"]}, {"form": "沍れる", "tags": ["alternative", "kanji"]}, {"form": "涸れる", "ruby": [["涸", "か"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["乾涸，枯竭"]}, {"glosses": ["能力、感情或靈感枯竭"]}], "sounds": [{"other": "かれる"}], "word": "涸れる"}
+{"forms": [{"form": "眞似る", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "真似る", "ruby": [["真", "ま"], ["似", "ね"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["模仿"]}], "sounds": [{"other": "まねる"}], "word": "真似る"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "ほどとおい"}
+{"forms": [{"form": "捲る", "ruby": [["捲", "まく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["捲起，挽起。"]}], "sounds": [{"other": "まくる"}], "word": "捲る"}
+{"forms": [{"form": "捲る", "ruby": [["捲", "まく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "suffix", "senses": [{"glosses": ["不斷地……，不停地……，激烈地……，拼命地……"]}], "sounds": [{"other": "まくる"}], "word": "捲る"}
+{"forms": [{"form": "捲る", "ruby": [["捲", "めく"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["翻開，翻過。"]}], "sounds": [{"other": "めくる"}], "word": "捲る"}
+{"forms": [{"form": "多樣", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "多様", "ruby": [["多", "た"], ["様", "よう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "adj", "senses": [{"glosses": ["多樣的，有多種變化的"]}], "sounds": [{"other": "たよー"}], "word": "多様"}
+{"forms": [{"form": "多樣", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "多様", "ruby": [["多", "た"], ["様", "よう"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "noun", "senses": [{"glosses": ["多樣，多種變化"]}], "sounds": [{"other": "たよー"}], "word": "多様"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "まわす"}
+{"forms": [], "lang_code": "ja", "pos": "particle", "senses": [{"glosses": ["中国人角色使用的句末助词，該詞本身基於刻板印象"]}, {"glosses": ["模仿中國人口音以諷刺華裔"], "tags": ["offensive", "slur"]}], "sounds": [], "word": "アル"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "みはる"}
+{"forms": [{"form": "繫がる", "raw_tags": ["舊字體"], "tags": ["alternative", "kanji"]}, {"form": "繋がる", "ruby": [["繋", "つな"]], "tags": ["canonical"]}], "lang_code": "ja", "pos": "verb", "senses": [{"glosses": ["相連，連接；接通"]}, {"glosses": ["排列，成排，連綿"]}, {"glosses": ["有血緣或親族關係"]}, {"glosses": ["有關聯，牽涉；導致，引起"]}, {"glosses": ["相通，心心相印"]}, {"glosses": ["拴，繫； 束縛，牽絆"]}], "sounds": [{"other": "つながる"}], "word": "繋がる"}
+{"forms": [], "lang_code": "ja", "pos": "soft-redirect", "senses": [{"tags": ["no-gloss"]}], "sounds": [], "word": "わたる"}

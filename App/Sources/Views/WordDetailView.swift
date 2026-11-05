@@ -19,6 +19,11 @@ struct WordDetailView: View {
 
     private var conjugationGroups: [ConjugationGroup] { ConjugationGroup.groups(for: entry) }
 
+    /// Wiktionary's Chinese that fits no single sense, else the first sense's.
+    private var chineseSummary: String? {
+        word?.chinese ?? examples?.lazy.compactMap { $0.sense?.chinese }.first
+    }
+
     var body: some View {
         List {
             Section {
@@ -27,6 +32,10 @@ struct WordDetailView: View {
                     Text(entry.category.displayName).font(.subheadline).foregroundStyle(.secondary)
                     if let gloss = word?.gloss {
                         Text(gloss).font(.subheadline).foregroundStyle(.secondary).textSelection(.enabled)
+                    }
+                    if let chinese = chineseSummary {
+                        Text(chinese).font(.subheadline).foregroundStyle(.secondary).textSelection(.enabled)
+                            .accessibilityIdentifier("chinese-summary")
                     }
                 }
                 .padding(.vertical, 4)
@@ -95,7 +104,7 @@ struct WordDetailView: View {
                         }
                     } footer: {
                         if group.id == examples.last?.id {
-                            Text("例句来自 Tatoeba（CC BY 2.0 FR）和 KFTT（CC BY-SA 3.0），按 JMdict 义项归类。")
+                            Text("例句来自 Tatoeba（CC BY 2.0 FR）和 KFTT（CC BY-SA 3.0），按 JMdict 义项归类。中文释义来自中文维基词典（CC BY-SA 4.0），标「同形词」的取自 CC-CEDICT（CC BY-SA 4.0）。")
                         }
                     }
                 }
@@ -104,15 +113,27 @@ struct WordDetailView: View {
     }
 }
 
-/// `① to eat` — numbered like JMdict; the number is left out for single-sense words.
+/// `① to eat` and its Chinese `吃；吃喝，饮食` — numbered like JMdict; the number is left
+/// out for single-sense words.
 struct SenseHeader: View {
     let sense: WordSense
     let count: Int
 
     var body: some View {
-        Text(count > 1 ? "\(Self.circled(sense.number)) \(sense.gloss)" : sense.gloss)
-            .textCase(nil)
-            .accessibilityIdentifier("sense-\(sense.number)")
+        VStack(alignment: .leading, spacing: 2) {
+            Text(count > 1 ? "\(Self.circled(sense.number)) \(sense.gloss)" : sense.gloss)
+            if let chinese = sense.chinese {
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text(chinese)
+                    if sense.chineseSource == .cedict {
+                        GlossTag(text: "同形词")
+                    }
+                }
+                .padding(.leading, count > 1 ? 20 : 0)
+            }
+        }
+        .textCase(nil)
+        .accessibilityIdentifier("sense-\(sense.number)")
     }
 
     static func circled(_ number: Int) -> String {
@@ -147,7 +168,8 @@ struct ExampleSentenceRow: View {
         case .text: "原文匹配，未经词典标注"
         case .tagged, .jmdict, .single, .unassigned: nil
         }
-        let parts = [basis, source].compactMap { $0 }
+        let chinese = sentence.chinese != nil && sentence.chineseViaEnglish ? "中文译自英译" : nil
+        let parts = [basis, chinese, source].compactMap { $0 }
         return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }
 }

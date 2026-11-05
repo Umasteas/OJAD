@@ -12,8 +12,13 @@ public struct DictionaryWord: Sendable, Hashable, Identifiable {
     public let rank: Int
     /// Short English gloss from JMdict.
     public let gloss: String?
+    /// Simplified Chinese from Wiktionary that couldn't be tied to one sense.
+    public let chinese: String?
 
-    public init(id: Int, written: String, reading: String, accents: [Int], wordClass: WordClass, rank: Int, gloss: String?) {
+    public init(
+        id: Int, written: String, reading: String, accents: [Int], wordClass: WordClass, rank: Int, gloss: String?,
+        chinese: String? = nil
+    ) {
         self.id = id
         self.written = written
         self.reading = reading
@@ -21,6 +26,7 @@ public struct DictionaryWord: Sendable, Hashable, Identifiable {
         self.wordClass = wordClass
         self.rank = rank
         self.gloss = gloss
+        self.chinese = chinese
     }
 
     /// The reading with `ꜜ` after each accent nucleus, one per accent (`たべꜜる`, `いꜜい・いい`).
@@ -47,13 +53,15 @@ extension WordEntry {
 }
 
 /// The bundled, read-only pitch-accent dictionary (Kanjium accents, JMdict words and
-/// senses, Tatoeba and KFTT examples).
+/// senses, Tatoeba and KFTT examples, Chinese from Wiktionary and CC-CEDICT).
 public final class OfflineDictionary: @unchecked Sendable {
-    private let database: SQLiteDatabase
+    let database: SQLiteDatabase
     private let lock = NSLock()
     public let metadata: [String: String]
     /// Busy prefixes have their top words precomputed (schema 2+); 0 when absent.
     private let precomputedTop: Int
+    /// OpenCC's Traditional → Simplified characters, for searching by Chinese gloss.
+    let traditionalToSimplified: [Character: Character]
 
     public init(url: URL) throws {
         database = try SQLiteDatabase(readOnly: url)
@@ -62,6 +70,7 @@ public final class OfflineDictionary: @unchecked Sendable {
             uniquingKeysWith: { first, _ in first }
         )
         precomputedTop = metadata["prefix_top"].flatMap(Int.init) ?? 0
+        traditionalToSimplified = Self.traditionalTable(database)
     }
 
     public var wordCount: Int { metadata["words"].flatMap(Int.init) ?? 0 }
@@ -105,8 +114,14 @@ public final class OfflineDictionary: @unchecked Sendable {
     public func senses(for word: DictionaryWord) -> [WordSense] {
         let rows = locked {
             try? database.query(
-                "SELECT number, gloss FROM senses WHERE word_id = ? ORDER BY number", [.int(word.id)]
-            ) { WordSense(number: $0.int(0), gloss: $0.text(1) ?? "") }
+                "SELECT number, gloss, chinese, chinese_source FROM senses WHERE word_id = ? ORDER BY number",
+                [.int(word.id)]
+            ) { row in
+                WordSense(
+                    number: row.int(0), gloss: row.text(1) ?? "", chinese: row.text(2),
+                    chineseSource: row.text(3).flatMap(WordSense.ChineseSource.init(rawValue:))
+                )
+            }
         }
         return rows ?? []
     }
@@ -116,7 +131,7 @@ public final class OfflineDictionary: @unchecked Sendable {
         let rows = locked {
             try? database.query(
                 """
-                SELECT s.id, s.japanese, s.english, s.chinese, e.sense, e.basis
+                SELECT s.id, s.japanese, s.english, s.chinese, e.sense, e.basis, s.chinese_via
                 FROM examples e JOIN sentences s ON s.id = e.sentence_id
                 WHERE e.word_id = ? ORDER BY e.position
                 """,
@@ -124,7 +139,7 @@ public final class OfflineDictionary: @unchecked Sendable {
             ) { row in
                 ExampleSentence(
                     id: row.int(0), japanese: row.text(1) ?? "", english: row.text(2), chinese: row.text(3),
-                    sense: row.isNull(4) ? nil : row.int(4),
+                    chineseViaEnglish: row.text(6) == "english", sense: row.isNull(4) ? nil : row.int(4),
                     basis: ExampleSentence.Basis(rawValue: row.text(5) ?? "") ?? .unassigned
                 )
             }
@@ -144,7 +159,9 @@ public final class OfflineDictionary: @unchecked Sendable {
 
     // MARK: Query
 
-    private static let columns = "w.id, w.written, w.reading, w.accents, w.class, w.rank, w.gloss"
+    static let columns = "w.id, w.written, w.reading, w.accents, w.class, w.rank, w.gloss, w.chinese"
+    /// Index of the first column after `columns`.
+    static let extraColumn: Int32 = 8
 
     /// Spellings the typed text may stand for: the text itself (also without the
     /// spaces a pinyin IME puts between syllables) and its hiragana if it's romaji.
@@ -207,7 +224,7 @@ public final class OfflineDictionary: @unchecked Sendable {
             for key in keys {
                 let values: [SQLiteDatabase.Value] = [.text(key), .text(key + "\u{10FFFF}"), .int(limit)]
                 func rows(_ sql: String) -> [(DictionaryWord, Bool)] {
-                    (try? database.query(sql, values) { row in (Self.word(row), row.int(7) == 1) }) ?? []
+                    (try? database.query(sql, values) { row in (Self.word(row), row.int(Self.extraColumn) == 1) }) ?? []
                 }
                 var matches: [(DictionaryWord, Bool)] = []
                 if !prefix {
@@ -229,7 +246,7 @@ public final class OfflineDictionary: @unchecked Sendable {
             .map(\.word)
     }
 
-    private static func word(_ row: SQLiteDatabase.Row) -> DictionaryWord {
+    static func word(_ row: SQLiteDatabase.Row) -> DictionaryWord {
         DictionaryWord(
             id: row.int(0),
             written: row.text(1) ?? "",
@@ -237,11 +254,12 @@ public final class OfflineDictionary: @unchecked Sendable {
             accents: (row.text(3) ?? "0").split(separator: ",").compactMap { Int($0) },
             wordClass: WordClass(rawValue: row.text(4) ?? "") ?? .noun,
             rank: row.int(5),
-            gloss: row.text(6)
+            gloss: row.text(6),
+            chinese: row.text(7)
         )
     }
 
-    private func locked<T>(_ body: () throws -> T) rethrows -> T {
+    func locked<T>(_ body: () throws -> T) rethrows -> T {
         lock.lock()
         defer { lock.unlock() }
         return try body()

@@ -74,24 +74,45 @@ def _tsv(path, columns):
 class Corpus:
     """Japanese sentences with their index tokens and English/Chinese translations."""
 
-    def __init__(self, japanese, indices, eng_links, english, cmn_links, chinese):
+    def __init__(self, japanese, indices, eng_links, english, cmn_links, chinese, cmn_eng_links):
         self.japanese = {int(i): text for i, _, text in _tsv(japanese, 3)}
         self.tokens = {}
         for sentence_id, _, line in _tsv(indices, 3):
             sentence_id = int(sentence_id)
             if sentence_id in self.japanese:
                 self.tokens[sentence_id] = parse_tokens(line)
-        self.english = self._translations(eng_links, english)
-        self.chinese = self._translations(cmn_links, chinese)
+        english_links = self._links(eng_links)
+        self.english = self._pick(english_links, self._texts(english, english_links.values()))
+        chinese_links = self._links(cmn_links)
+        # Chinese translations of a sentence's English translations: human translations too,
+        # one step removed from the Japanese, and labelled as such.
+        english_ids = {i for ids in english_links.values() for i in ids}
+        by_english = {}
+        for cmn, eng in _tsv(cmn_eng_links, 2):
+            if int(eng) in english_ids:
+                by_english.setdefault(int(eng), []).append(int(cmn))
+        via_english = {jpn: sorted({c for e in ids for c in by_english.get(e, ())}) for jpn, ids in english_links.items()}
+        texts = self._texts(chinese, list(chinese_links.values()) + list(via_english.values()))
+        self.chinese = self._pick(chinese_links, texts)
+        self.chinese_via_english = {
+            jpn: text for jpn, text in self._pick(via_english, texts).items() if text and not self.chinese.get(jpn)
+        }
 
-    def _translations(self, links_path, sentences_path):
+    def _links(self, path):
         links = {}
-        for jpn, other in _tsv(links_path, 2):
+        for jpn, other in _tsv(path, 2):
             jpn = int(jpn)
             if jpn in self.japanese:
                 links.setdefault(jpn, []).append(int(other))
-        wanted = {i for ids in links.values() for i in ids}
-        texts = {int(i): text for i, _, text in _tsv(sentences_path, 3) if int(i) in wanted}
+        return links
+
+    @staticmethod
+    def _texts(path, id_lists):
+        wanted = {i for ids in id_lists for i in ids}
+        return {int(i): text for i, _, text in _tsv(path, 3) if int(i) in wanted}
+
+    @staticmethod
+    def _pick(links, texts):
         # Lowest id first: the oldest translation is usually the reviewed one.
         return {jpn: next((texts[i] for i in sorted(ids) if i in texts), None) for jpn, ids in links.items()}
 
@@ -183,12 +204,12 @@ def choose(candidates, sense_numbers):
     """Picks up to MAX_PER_WORD examples: every sense gets one before any gets a
     second (PER_SENSE at most), then unassigned sentences top the word up to MIN_PER_WORD.
 
-    candidates: dicts with id, sense (or None), basis, japanese, english, chinese, checked.
+    candidates: dicts with id, sense (or None), basis, japanese, english, chinese, chinese_via, checked.
     """
     def quality(c):
         strength = BASES.index(c['basis'])
-        return (strength, c['id'] >= KFTT_ID_BASE, not c['checked'], c['english'] is None, c['chinese'] is None,
-                abs(len(c['japanese']) - 18), c['id'])
+        return (strength, c['id'] >= KFTT_ID_BASE, c['english'] is None, c['chinese'] is None,
+                c.get('chinese_via') is not None, not c['checked'], abs(len(c['japanese']) - 18), c['id'])
 
     by_sense = {}
     for c in sorted(candidates, key=quality):

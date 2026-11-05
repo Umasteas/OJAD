@@ -144,9 +144,106 @@ final class OfflineDictionaryTests: XCTestCase {
     }
 
     func testMetadataNamesTheSources() {
-        XCTAssertEqual(dictionary.metadata["schema"], "3")
-        XCTAssertEqual(dictionary.wordCount, 630)
+        XCTAssertEqual(dictionary.metadata["schema"], "4")
+        XCTAssertEqual(dictionary.wordCount, 645)
         XCTAssertNotNil(dictionary.metadata["jmdict"])
-        XCTAssertEqual(dictionary.metadata["words"].flatMap(Int.init), 630)
+        XCTAssertNotNil(dictionary.metadata["wiktionary"])
+        XCTAssertNotNil(dictionary.metadata["cedict"])
+        XCTAssertEqual(dictionary.metadata["words"].flatMap(Int.init), 645)
+    }
+
+    // MARK: Chinese
+
+    func testSensesCarryChineseWhereASourceHasIt() throws {
+        let taberu = try XCTUnwrap(dictionary.lookup("食べる").first)
+        let senses = dictionary.senses(for: taberu)
+        XCTAssertEqual(senses.first?.chinese, "吃；吃喝，饮食")
+        XCTAssertEqual(senses.first?.chineseSource, .wiktionary)
+
+        let mouse = try XCTUnwrap(dictionary.lookup("マウス").first)
+        XCTAssertEqual(dictionary.senses(for: mouse).map(\.chinese), [nil, "鼠标，滑鼠"])
+
+        let collision = try XCTUnwrap(dictionary.lookup("衝突").first)
+        XCTAssertEqual(dictionary.senses(for: collision).first?.chineseSource, .cedict)
+    }
+
+    func testExamplesSayWhenTheChineseCameThroughEnglish() throws {
+        let word = try XCTUnwrap(dictionary.lookup("治る").first)
+        let examples = dictionary.examples(for: word).filter { $0.chinese != nil }
+        XCTAssertEqual(examples.map(\.chineseViaEnglish).sorted { !$0 && $1 }, [false, true])
+
+        let school = try XCTUnwrap(dictionary.lookup("学校").first)
+        XCTAssertTrue(dictionary.examples(for: school).allSatisfy { $0.chinese != nil && !$0.chineseViaEnglish })
+    }
+
+    func testChineseFindsTheJapaneseWord() {
+        let matches = dictionary.glossSuggestions(for: "吃")
+        XCTAssertEqual(matches.first?.word.written, "食べる")
+        XCTAssertEqual(matches.first?.kind, .exact)
+        XCTAssertEqual(matches.first?.language, .chinese)
+        XCTAssertEqual(matches.first?.gloss, "吃；吃喝，饮食")
+        XCTAssertFalse(matches.first?.viaEnglish ?? true)
+        // Words that reach 吃 only through CC-CEDICT's English come after every word that lists it.
+        XCTAssertEqual(matches.map(\.viaEnglish), matches.map(\.viaEnglish).sorted { !$0 && $1 })
+        XCTAssertTrue(matches.contains(where: \.viaEnglish))
+
+        XCTAssertEqual(dictionary.glossSuggestions(for: "电影").first?.word.written, "映画")
+    }
+
+    func testTraditionalChineseIsFoldedToSimplified() {
+        XCTAssertEqual(dictionary.simplified("電影學"), "电影学")
+        XCTAssertEqual(dictionary.glossSuggestions(for: "電影").first?.word.written, "映画")
+    }
+
+    func testEnglishFindsTheJapaneseWord() {
+        let eat = dictionary.glossSuggestions(for: "eat")
+        XCTAssertEqual(eat.first?.word.written, "食べる")
+        XCTAssertEqual(eat.first?.language, .english)
+        XCTAssertEqual(eat.first?.gloss, "to eat")
+        XCTAssertEqual(dictionary.glossSuggestions(for: "To Eat").map(\.word.id), eat.map(\.word.id))
+        XCTAssertEqual(dictionary.glossSuggestions(for: "movie").first?.word.written, "映画")
+    }
+
+    func testGlossMatchesRankExactThenPrefixThenContains() {
+        let matches = dictionary.glossSuggestions(for: "电", limit: 30).filter { !$0.viaEnglish }
+        XCTAssertFalse(matches.isEmpty)
+        XCTAssertEqual(matches.map(\.kind), matches.map(\.kind).sorted())
+        XCTAssertTrue(matches.contains { $0.word.written == "映画" && $0.kind == .prefix })
+
+        let film = dictionary.glossSuggestions(for: "film", limit: 30)
+        XCTAssertEqual(film.filter { !$0.viaEnglish }.map(\.kind), film.filter { !$0.viaEnglish }.map(\.kind).sorted())
+        XCTAssertEqual(Set(film.map(\.id)).count, film.count)
+
+        // The word's own first meaning beats a more frequent word's twentieth.
+        XCTAssertEqual(dictionary.glossSuggestions(for: "dog").first?.word.written, "犬")
+        XCTAssertEqual(dictionary.glossSuggestions(for: "water").first?.word.written, "水")
+    }
+
+    func testEnglishContainsMatchesWholeWordsOnly() {
+        for match in dictionary.glossSuggestions(for: "ice", limit: 50) where match.kind == .contains {
+            XCTAssertNotNil(match.gloss.range(of: #"\bice\b"#, options: [.regularExpression, .caseInsensitive]), match.gloss)
+        }
+    }
+
+    func testSearchSuggestionsMixSpellingsAndMeanings() {
+        XCTAssertEqual(dictionary.searchSuggestions(for: "吃").first, .meaning(dictionary.glossSuggestions(for: "吃")[0]))
+        XCTAssertEqual(dictionary.searchSuggestions(for: "eat").first?.word.written, "食べる")
+        XCTAssertEqual(dictionary.searchSuggestions(for: "tabe").first, .word(dictionary.suggestions(for: "tabe")[0]))
+        XCTAssertEqual(dictionary.searchSuggestions(for: "学校").first, .word(dictionary.lookup("学校")[0]))
+
+        let mixed = dictionary.searchSuggestions(for: "go")
+        XCTAssertLessThanOrEqual(mixed.count, 12)
+        XCTAssertEqual(Set(mixed.map(\.id)).count, mixed.count)
+        let firstMeaning = mixed.firstIndex { if case .meaning = $0 { true } else { false } }
+        XCTAssertNotNil(firstMeaning)
+        XCTAssertTrue(mixed.prefix(firstMeaning ?? 0).allSatisfy { $0.word.reading == "ご" })
+    }
+
+    func testGlossSearchIgnoresKanaAndJunk() {
+        XCTAssertTrue(dictionary.glossSuggestions(for: "たべる").isEmpty)
+        XCTAssertTrue(dictionary.glossSuggestions(for: "食べ").isEmpty)
+        XCTAssertTrue(dictionary.glossSuggestions(for: "  ").isEmpty)
+        XCTAssertTrue(dictionary.glossSuggestions(for: "%_").isEmpty)
+        XCTAssertEqual(dictionary.glossSuggestions(for: "吃", limit: 3).count, 3)
     }
 }

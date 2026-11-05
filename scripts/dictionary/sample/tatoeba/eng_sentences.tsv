@@ -36,6 +36,7 @@
 1689	eng	It is very hot today.
 1718	eng	Call the police!
 1761	eng	I'd like to study in Paris.
+1764	eng	Why do people go to the movies?
 1780	eng	"Good morning", said Tom with a smile.
 1815	eng	When I ask people what they regret most about high school, they nearly all say the same thing: that they wasted so much time.
 1860	eng	I don't want to go to school.
@@ -48,6 +49,8 @@
 2260	eng	Take good care of yourself.
 2299	eng	Japan is full of beautiful cities. Kyoto and Nara, for instance.
 2352	eng	No news is good news.
+2438	eng	The film started at 2 o'clock.
+2440	eng	The film lasted 2 hours.
 6041	eng	How come you know so much about Japanese history?
 16320	eng	I'm surprised that you're so naïve.
 16339	eng	How dare you speak to me like that?
@@ -162,6 +165,7 @@
 23595	eng	Don't scratch your mosquito bite. It'll get inflamed.
 23605	eng	Her eyes have sunk through overwork.
 23640	eng	Our policy is to build for the future, not the past.
+23674	eng	I'd like to put my belongings away.
 23693	eng	Company A is trying to play us off against Company B in a severe price-war.
 23728	eng	The fireworks were set off on all sides.
 23863	eng	Fire is very dangerous.
@@ -192,6 +196,7 @@
 25904	eng	I can't be around smoke.
 26150	eng	In 1971 the United Kingdom changed its currency to the decimal system.
 26153	eng	Britain's currency crisis has turned into a political one over government failure to stop the pound from going into free-fall.
+26448	eng	Would you like to take in a movie?
 26479	eng	Which would you rather do, go to the cinema or stay at home?
 26670	eng	After rain comes fair weather.
 26682	eng	The rainy season has set in.
@@ -295,6 +300,7 @@
 33791	eng	Ben committed his diary to the lawyer's care.
 33796	eng	Ben acted out the scene of the waitress spilling soup in his lap.
 34059	eng	The bath was not hot enough and I was unable to enjoy it.
+34138	eng	The French are said to love art.
 34196	eng	Frank had a reputation as a bad boy but he lived it down as he grew up.
 34216	eng	Plastic does not break easily.
 34259	eng	Mr Brown is a wool merchant.
@@ -486,6 +492,7 @@
 49438	eng	The sound grew fainter and fainter.
 49440	eng	The noise frightened the baby.
 49486	eng	The liquid does not strain well.
+49519	eng	I want to see the movie again.
 49748	eng	That is how he got out of danger.
 49774	eng	Was it necessary to inflict such a punishment on him?
 49794	eng	Such international cooperation produced great results.
@@ -645,6 +652,7 @@
 61516	eng	We have very big lotus leaves.
 61559	eng	The Union of South Africa has had racial problems in recent years.
 61753	eng	It's illegal to park your car here.
+61847	eng	Here are some letters for you.
 61928	eng	We find diverse ethnic and economic interests here.
 62094	eng	We can hear the ocean from here.
 62132	eng	It is a far cry from here to the goal.
@@ -811,6 +819,7 @@
 72775	eng	I want to rent an apartment with two rooms.
 72834	eng	There were two children playing on the street.
 72853	eng	I had been thinking about our new project for two weeks, but I couldn't come up with a good idea.
+72856	eng	It will go away by itself in two weeks.
 72894	eng	There's a good view of Mt. Akagi from upstairs.
 72924	eng	There is not much difference between the two opinions.
 72956	eng	Many young women in their 20s plan to go abroad during their summer holidays.
@@ -961,6 +970,7 @@
 246241	eng	Around the world thoughts shall fly in the twinkling of an eye.
 246373	eng	The drowned body has not been recovered.
 246448	eng	Take back what you said about me being stingy.
+246676	eng	While I was cleaning out my desk, I came across this old picture.
 246771	eng	What I want now is a hot cup of coffee.
 246900	eng	The dog gave a yelp when I trod on its paw.
 247243	eng	We watched him until he was out of sight.
@@ -972,6 +982,7 @@
 247771	eng	We found it difficult to walk in the deep snow.
 247883	eng	We are here in the name of Jesus Christ and King Charles.
 247912	eng	We are short of money.
+247923	eng	We should try to understand one another.
 248486	eng	We kept the fire burning.
 248495	eng	We had to put off the meeting.
 248539	eng	We moved our bags to make room for the elderly lady to sit down.
@@ -1004,6 +1015,7 @@
 252022	eng	My friend was arrested for speeding.
 252053	eng	I'll eat my hat if my candidate does not win the election.
 252202	eng	I would like to purchase a wooden deck panel that can be laid on the porch.
+252244	eng	I work every other day: Monday, Wednesday, and Friday.
 252603	eng	My credit is good for 50,000 yen.
 252653	eng	I suppressed a yawn.
 252945	eng	I discerned the potential of great things in him.
@@ -1061,6 +1073,7 @@
 259365	eng	I was looking downward to the bottom of the valley.
 259444	eng	I marveled at seeing the Chinese people burning coal.
 259568	eng	I planted roses in the garden.
+259576	eng	I had my brother put this room in order.
 259702	eng	I shook my head a few times.
 259904	eng	I saw a horse pulling a cart.
 259943	eng	I've often seen him bullied.
@@ -1073,6 +1086,7 @@
 260884	eng	I felt bad about picking on him.
 261205	eng	I ran into her in the street.
 261215	eng	I asked her a difficult question.
+261279	eng	I spent several days sorting through her papers.
 261432	eng	I looked down on Mt. Fuji from the window of the plane.
 261470	eng	I asked after my sick friend.
 261471	eng	I've been to Osaka to ask after my sick friend.
@@ -1125,6 +1139,7 @@
 265197	eng	The experiment failed in the initial stages.
 265322	eng	It is boiled just enough.
 265369	eng	I'll put you through to the president.
+265418	eng	The car collided with a truck.
 265444	eng	Each passing car threw up a cloud of dust.
 265494	eng	My car battery is dead.
 265495	eng	The car battery is dead.
@@ -1183,6 +1198,7 @@
 268249	eng	An elephant is a strong animal.
 268255	eng	An elephant is an enormous animal.
 268275	eng	The higher you climb, the greater the fall.
+268294	eng	Two passenger trains crashed in Shanghai.
 268331	eng	The boss asked Mr Brown to take charge of the office while she was away.
 268371	eng	It was the tall man in the long, black coat.
 268401	eng	The passengers were asleep in their cabins when the ship hit a huge iceberg.
@@ -1235,6 +1251,7 @@
 270818	eng	Water is essential to life.
 270831	eng	Water changes into vapor when it is heated.
 270833	eng	The water came up to his waist.
+270857	eng	Add water and stir to a paste.
 270910	eng	I have athlete's foot and it's very itchy.
 270927	eng	During the water shortage, the value of water really came home to me.
 271027	eng	Once you go ahead and start, even the tiresome work of adding and subtracting figures is interesting in its way.
@@ -1249,6 +1266,7 @@
 271921	eng	The Bible sells more than one million copies every year.
 271943	eng	Any industrial property rights relating to the Product Specification shall belong to ABC Inc.
 271947	eng	The western sky glows crimson.
+272001	eng	Adolescents often quarrel with their parents.
 272009	eng	The economy of Aomori Prefecture depends heavily on apple growing.
 272101	eng	All the seats are occupied.
 272121	eng	Once there lived a great king.
@@ -1466,11 +1484,13 @@
 280779	eng	I'd like a coat with the wooly side in, please.
 280789	eng	The pot calls the kettle black.
 280898	eng	Two little girls are picking daisies.
+280950	eng	Two trucks bumped together.
 281006	eng	The meat was crawling with maggots.
 281021	eng	Cut the meat into thin slices.
 281046	eng	The weather was getting worse and worse as the day went on.
 281067	eng	It got dark and I was at loss what to do.
 281074	eng	Because of the drought, the grass has withered.
+281157	eng	Japanese and American interests clashed on this point.
 281196	eng	We can drive in Japan when we are eighteen years old.
 281213	eng	English education flourishes in Japan.
 281244	eng	In Japan you can always catch a cab, day or night.
@@ -1564,6 +1584,7 @@
 285283	eng	The ice gave way under his weight.
 285334	eng	This invention of his proved to be of great value.
 285355	eng	We fully appreciate his excellence as a skier.
+285393	eng	His bike ran into a guard-rail.
 285421	eng	His bark is worse than his bite.
 285424	eng	The spectators were excited by his home run.
 285449	eng	His infectious humor stimulated applause.
@@ -1594,6 +1615,7 @@
 286635	eng	His letter alludes to the event.
 286729	eng	His novel sold well.
 286748	eng	His portrait was mounted in the fancy frame.
+286756	eng	His car collided with a train.
 286811	eng	His behavior was theatrical.
 286818	eng	His new record sells well.
 286831	eng	His new book added to his reputation.
@@ -1645,6 +1667,7 @@
 288803	eng	He drinks too much beer.
 288896	eng	He is threatened by a certain gangster.
 289141	eng	He gives me a bad time, as he always does.
+289186	eng	He seems to be always in conflict with someone.
 289314	eng	He soiled his white shirt when he changed the ink cartridge.
 289333	eng	He wore a light blue tie.
 289374	eng	He is heavy by nature.
@@ -1674,6 +1697,7 @@
 290984	eng	When he got the letter, he burned it without reading it.
 290987	eng	He read the letter in a loud voice.
 291030	eng	He has sent the boy on an errand.
+291031	eng	He affirmed that he saw the crash.
 291099	eng	He leaped over the shallow ditch.
 291237	eng	He made a profit of ten thousand dollars on the sale.
 291360	eng	He accommodated the traveler for the night.
@@ -1807,6 +1831,7 @@
 298483	eng	He turned the dial on the bicycle lock.
 298567	eng	He thinks he is somebody, but really he is nobody.
 298637	eng	He lost his reason when he saw his house burn down.
+298788	eng	He put his affairs in order.
 298933	eng	He steeled himself against possible failure.
 298949	eng	He raised his hand to ask a question.
 298969	eng	He has a good record as a businessman.
@@ -1887,6 +1912,7 @@
 301512	eng	He was always in hot water with his teachers for being late.
 301553	eng	He smoked a cigar after lunch.
 301684	eng	He was driving a car along the street.
+301693	eng	He loves fishing.
 301718	eng	He knocked his brother about.
 301786	eng	He moved from place to place.
 301787	eng	He had to commit the whole message to memory.
@@ -1932,6 +1958,7 @@
 302907	eng	He apologized for having offended her.
 302928	eng	He cried out and ran away.
 302963	eng	He didn't reveal his secret.
+302971	eng	He is such a tidy person. Every pot and pan is in its place.
 303163	eng	He is handicapped by poor health.
 303182	eng	He was born to poor parents.
 303242	eng	He made over the estate to his children.
@@ -1940,10 +1967,12 @@
 303281	eng	He was cheating.
 303282	eng	He is under fire for his affair.
 303283	eng	He took over the business from his father.
+303290	eng	He disagreed with his father.
 303300	eng	He wants to take over his father's business.
 303352	eng	He must succeed to his father's business.
 303377	eng	He played "Hamlet" on the stage.
 303378	eng	He acted on the stage.
+303408	eng	He set things in order in his room.
 303447	eng	He is a man of wide experience.
 303475	eng	He is slow to learn.
 303479	eng	He's been taught to accept things as they are.
@@ -2214,6 +2243,7 @@
 312510	eng	Brought up by a weak mother, she is partial to sweets.
 312717	eng	She stopped to smoke.
 312724	eng	She put the dirty dishes in the sink.
+312755	eng	She had a passionate interest in music.
 312774	eng	She quit her job for some reason.
 312830	eng	She has been dyeing her hair black for years.
 312893	eng	She made a name for herself as a singer.
@@ -2231,6 +2261,7 @@
 313106	eng	She is not less beautiful than her sister.
 313131	eng	She has a friendly appearance.
 313152	eng	She had bright black eyes.
+313163	eng	She put her room in order before her guests arrived.
 313173	eng	She spent a good deal of money on her vacation.
 313221	eng	She fried fish in salad oil.
 313241	eng	She was pale with fear.
@@ -2412,6 +2443,7 @@
 316972	eng	She was captured trying to steal jewelry.
 316977	eng	She put aside the sewing and stood up.
 316987	eng	She called him back to give him something left behind.
+316991	eng	She is afraid of barking dogs.
 317017	eng	She complied with my request.
 317029	eng	She turned a page of her book.
 317032	eng	She has a book under her arm.
@@ -2552,7 +2584,9 @@
 319476	eng	I took the liberty of using the dictionary while you were out of the room.
 319498	eng	The room is cluttered with newspapers.
 319506	eng	Books were lying about in the room.
+319530	eng	You should set your room in order.
 319540	eng	Don't run about wildly in the room.
+319555	eng	Make your room tidy.
 319570	eng	The room was all messed up.
 319571	eng	The room was in total disorder.
 319600	eng	Please put the light out when you leave the room.
@@ -2566,6 +2600,8 @@
 319692	eng	Look at the flowers trembling in the breeze.
 319695	eng	The tree bent in the wind.
 319707	eng	The wind carries seeds for great distances.
+319729	eng	It took me more than a month to get over my cold.
+319730	eng	It took me a long time to get over my cold.
 319731	eng	He took two tablets of aspirin to get rid of his cold.
 319732	eng	I can't shake off my cold.
 319738	eng	A cold dulled his taste.
@@ -2885,6 +2921,7 @@
 323874	eng	The question is how we will bell the cat.
 323877	eng	The problem was where to set up the tent.
 323881	eng	I found the problem easier than I had expected.
+323908	eng	The point is whether she will read the letter or not.
 323918	eng	You mustn't leave your problems unsolved.
 323930	eng	The gate is wide enough for the car to go through.
 323931	eng	The gate is too narrow for the car.
@@ -2929,6 +2966,7 @@
 324215	eng	Don't go back on your promise.
 324219	eng	The medicine had no effect.
 324220	eng	The medicine has worked.
+324223	eng	You can't rely on medicine alone if you want to get well.
 324230	eng	The effect of the drug had worn off.
 324238	eng	The medicine acted on his stomach.
 324239	eng	I believe more in diet than in drugs.
@@ -2946,6 +2984,8 @@
 324302	eng	Who can read the heroic deeds of brave men without a feeling of respect and admiration?
 324312	eng	None but the brave deserve our respect.
 324326	eng	Nothing is so valuable as friendship.
+324329	eng	My friend sent me a letter asking how I was.
+324335	eng	I received a letter from my friend.
 324337	eng	Just one year has gone by since my friend died.
 324367	eng	My friend departed from Narita for Paris.
 324368	eng	Few treasures are worth as much as a friend.
@@ -2963,6 +3003,7 @@
 324505	eng	The gap between rich and poor is getting wider.
 324524	eng	I still have a lot of time for fun.
 324525	eng	The sound of children playing was borne on the wind.
+324535	eng	The postman delivers letters every morning.
 324537	eng	In the post office, mail is classified according to the place where it is to go.
 324545	eng	The post office is down the street.
 324549	eng	The post office is not far from your college.
@@ -3009,6 +3050,7 @@
 324929	eng	The sun sank below the horizon before I knew it.
 324930	eng	As the weather became colder, he went from bad to worse.
 324931	eng	The warm weather will bring the fruit trees into blossom soon.
+324936	eng	He sent me a letter to the effect that his poultry farm would go bankrupt sooner or later.
 324947	eng	Greed seems to have blinded his good judgement.
 324948	eng	The greedy man was by no means satisfied with the reward.
 324949	eng	His greed brought him low.
@@ -3020,10 +3062,12 @@
 324989	eng	As many men as came were caught.
 324993	eng	I'd be very glad if you'd come.
 325028	eng	Taxi fares will go up next month.
+325038	eng	Watch out for his latest movie which comes out next month.
 325043	eng	We are going to have a baby next month.
 325044	eng	I have just received a letter from a friend saying that she is coming to see me next week.
 325047	eng	Would you please allow me to treat you to dinner next week?
 325050	eng	I'd like to visit you next week. What day of the week would it be convenient for you?
+325058	eng	Please tell me what will be coming next week.
 325062	eng	Try us again next Monday.
 325070	eng	I will be free next Saturday.
 325071	eng	I'll be free next Sunday.
@@ -3117,6 +3161,7 @@
 325655	eng	After their parents died, their grandparents brought them up.
 325656	eng	A child whose parents are dead is called an orphan.
 325660	eng	Both my parents came to see me off at the airport.
+325662	eng	I keep in touch with my parents by mail.
 325676	eng	You cannot be too good to your parents.
 325684	eng	You should mind your parents.
 325701	eng	My parents came to the airport to see me off.
@@ -3291,6 +3336,7 @@
 326808	eng	Use only as directed.
 326810	eng	If you've got time to play around on an acoustic guitar, practice your bass!
 326816	eng	Y'know we're short of money to have fun and ... Well to be blunt, gimme!
+326819	eng	That movie's downright dirty.
 326821	eng	That red cloth is a "fukusa"; it is a vital tool used to cleanse the tea equipment.
 326832	eng	Well, it's just like the proverb "fine feathers make a fine bird". You look really good when you wear a suit.
 326837	eng	Down there hurts, down there. Er, what do you call them? Testicles? In any case a male's 'important parts'.
@@ -3355,6 +3401,7 @@
 327132	eng	Anyway what are you on about? Going around sleeveless in this cold.
 327138	eng	If you make too many, we won't be able to sell them all, so don't go wild.
 327139	eng	However the air's bad in Tokyo, and there are too many people so I can't settle down.
+327159	eng	Chewtarou is Mrs Tanaka's dog.
 327162	eng	Come round the corner for coffee.
 327169	eng	Or rather it seems, Kensuke arrived at the studio at the same that I and the other two were still coming.
 327171	eng	Thoughts of being trapped grew stronger.
@@ -3417,6 +3464,7 @@
 327406	eng	Turn the volume up.
 327408	eng	Halfway back from school I played with a girl who was walking her dog.
 327409	eng	I was assailed by the stupid, but unshakeable, idea that if I was imprudent enough to move my hand I'd be noticed.
+327414	eng	I didn't know what was what. The inside of my head had gone to panic mode and I couldn't get things straight.
 327417	eng	What now, you wretch? You thinking of protecting her?
 327419	eng	At any rate, that it had ended without serious incident was a small mercy.
 327421	eng	I kept saying "Let's stop" but she drained cup after cup of wine — and now, as you can see, she's completely drunk.
@@ -3500,8 +3548,10 @@
 327780	eng	I'm very happy that I can take care of the baby.
 327800	eng	The discount can't be used for all goods or at all restaurants.
 327811	eng	The opera ain't over till the fat lady sings.
+327814	eng	She smoothly and elegantly poured the water into the glass.
 327818	eng	You stand the axis on the base and then proceed to stack up each part, staggering their position.
 327824	eng	Since they didn't tie the knot following a grand love affair, it wasn't a matter of blind love.
+327836	eng	The boy splashed about in the tub.
 327843	eng	After the break-up with her game partners she started to make trouble for other players.
 327844	eng	NB: This was drawn a long time ago so the quality is low.
 327845	eng	I can hear the chirping of insects.
@@ -3586,6 +3636,7 @@
 328180	eng	"By the way, do you know what a Shinto shrine is?" "I've a little bit of knowledge on the subject. It's a religious facility where that which is the object of worship, that called the genius loci, is enshrined."
 328186	eng	A creepy cry that sounds like a human voice, velvet black wings, the image of tearing into dead flesh; crows are known across the world as an ill-omened bird that flies down with ill-luck.
 328191	eng	To keep holding the barrier up is just to wait for death! So we're going to go out past the wall and counter attack the enemy, you ready!?
+328193	eng	A certain movie was novelized - rather it was a scenario written for a movie that was expanded as a novel and localized to Japanese.
 328194	eng	About the same time as he entered the classroom and arrived at his seat, the chime to announce class rings across the school.
 328195	eng	That's because they're the classic places for 'something' to appear. Like the grand piano that plays by itself, the human anatomical model that moves by itself ...
 328196	eng	Businesses perceive as competitors a narrow range of the business world; there are many cases where they don't understand their real rivals.
@@ -3673,11 +3724,13 @@
 328431	eng	You need permission to put up that sort of poster, and, most of all, you're ruining the looks of the street!
 328437	eng	This bow has a strong draw.
 328438	eng	Losing my daughter has taken away my will to live.
+328441	eng	It's a fiddle going to and fro between the keyboard and mouse so are there shortcuts to allow operation using only the keyboard?
 328443	eng	You couldn't tell it by looking, but she has the legendary tale of having eaten two whole cakes when a child.
 328447	eng	You're pretty late to have just gone shopping. Have you been making out someplace?
 328449	eng	It's talking about how, thanks to air transport, we've lost the sense of 'season' for foodstuffs.
 328454	eng	Even if we don't get lucky on the first try we can just keep fucking till I get pregnant.
 328465	eng	Ha-ha-ha, pray forgive me. Please don't worry yourself about that!
+328468	eng	This week I've watched foreign car-action movies with subtitles for three days in a row.
 328470	eng	Ah, the phone card's already running out.. See you in half an hour.
 328475	eng	That's a plan that sounds likely to be cancelled by rain.
 328479	eng	Oh, but don't worry. I don't put the moves on straight guys.
@@ -3694,6 +3747,7 @@
 328522	eng	I cannot help but be concerned about the commercialism of Hollywood movies.
 328535	eng	In hard times, in sorrowful times, let's try doing something for other people.
 328543	eng	In the cold season when you want to drink something hot I recommend this sort of thermos flask.
+328545	eng	Next, let us think about whether we have the time to look after a dog.
 328548	eng	The example is a past progressive tense sentence. How was everybody taught when they were learning about progressive tense?
 328551	eng	An English-Japanese dictionary is surely a must have book, not just for those taking TOEIC, but for all studying English.
 328552	eng	Among my cousins, you know, there's a girl with the most enormous breasts.
@@ -3758,6 +3812,7 @@
 328739	eng	Moreover it's difficult to get rubbish out for garbage day because the collection time is too early.
 328740	eng	Putting ideas into practice is difficult.
 328744	eng	He edged sideways through the crowd.
+328745	eng	The dragonfly was skimming across the water.
 328750	eng	We decided not to have peace negotiations with the invaders.
 328751	eng	It's getting darker outside now.
 328755	eng	When you're fed up with the school cafe you can buy something at Bellfa or eat at a family restaurant.
@@ -3771,6 +3826,7 @@
 328781	eng	We've nearly finished preparations. How about taking a nap?
 328785	eng	We drew lots to decide who would go first at the early morning reception desk.
 328786	eng	I'm expecting a baby in the new year!
+328787	eng	The Aegis collision - why couldn't it have been avoided?
 328791	eng	I had only one aim in throwing everything away to run this restaurant.
 328792	eng	Where've you stuck my flat-head screwdriver?!
 328796	eng	"Certainly if someone is _that_ beautiful you'd draw back from approaching her." "Thought you'd agree."
@@ -3784,6 +3840,7 @@
 328831	eng	Eh? Have we run out of toner? Oh well, sorry, but can you go the staff-room and get some, Katou?
 328832	eng	Yes, that is most certainly so.
 328837	eng	On the other hand, there seem to be those among young folk who, while touching on Buddhism, have started to think of it as a vital spiritual support.
+328839	eng	Is it true that you recover from colds when you give them to someone else?
 328840	eng	I completely forgot the number.
 328844	eng	"...Hey...Hey, teacher!" "Eh? Oh." "Are you really OK? Shouldn't you cancel the lesson?"
 328847	eng	In schools everywhere sports-wear is all spats and shorts.
@@ -3814,8 +3871,10 @@
 328923	eng	A female beggar was begging with five or six children following along.
 328925	eng	"Who do you belong to?" Wrapped around his feet was a small cat. It was a fluffy grey striped cat.
 328927	eng	Then, although it was dreary up to the other day, everywhere were flowers, flowers, flowers.
+328939	eng	Sometimes my dog barks in the middle of the night.
 328941	eng	"I'm just popping out on a date, OK?" "Come home by 7, Sakura!"
 328942	eng	There's the chance to get a huge income in this business, a million yen a month is possible!
+328944	eng	Sponge absorbs water so it is convenient for shading water-colours and such.
 328948	eng	Due to this a lot of time was lost, it's possible that if it wasn't for this accident the final stage of the race would have been better.
 328951	eng	Be sure to simmer on a low heat so it doesn't boil.
 328953	eng	My companions were all asleep.
@@ -3860,6 +3919,7 @@
 329049	eng	Oh my, you're right, I didn't know that at all.
 329056	eng	I'm aghast at the lack of manners, common sense and so on and so forth on the net.
 329057	eng	Let's take advantage of the 'exemption' controversy to reconsider the way we work.
+329058	eng	This problem is the clash of the idol's and obsessive fan's egos.
 329064	eng	Equestrian is the only mixed-gender Olympic event.
 329070	eng	It's impressive that he's popular with just a bit part!
 329073	eng	The mirror on a compact I got from a friend has cracked.
@@ -3947,6 +4007,7 @@
 329288	eng	His head had been shattered by a savage blow from some heavy weapon.
 329289	eng	Closer examination revealed that the skull had been crushed by some heavy blow.
 329294	eng	Somehow I just don't feel like hurrying. I have enough time.
+329295	eng	Why is it you can write a letter in English this well, but can't speak in it?
 329300	eng	We sometimes combine going for a drive with eating the ramen we love so.
 329301	eng	I'm Japanese, but I don't live in Japan.
 329303	eng	I was overjoyed when I was able to make friends with her!
@@ -4059,6 +4120,7 @@
 329547	eng	It was April 1905 when a school was built on the site of the theatre.
 329548	eng	This is centrifugal force; Newton viewed it as absolute motion.
 329551	eng	In Japan the ring shaped ones came into use first so they're also often called "contraceptive rings".
+329552	eng	"Gang Wives" is a Yakuza movie released in 1986 by Toei Distribution Network.
 329554	eng	I held a wedding ceremony last month.
 329556	eng	However the disciples awoke to that danger.
 329557	eng	Please don't draw the curtains when the window is open.
@@ -4080,12 +4142,15 @@
 329597	eng	"Say, you, the lady over there." "Eh?" "Could you give me a bit of advice?"
 329600	eng	Finally dawn broke; the long night had ended.
 329601	eng	Good points: The pleasure of disposing of enemies with a variety of combos.
+329603	eng	If you taste this sauce you'll find it a bit salty.
 329604	eng	It's nice to sip and savour drinks other than beer as well from time to time.
 329609	eng	It's OK to leave the baby to cry on occasion.
 329611	eng	Are there any knacks, or good sites, for downloading Japanese software?
 329613	eng	"Dad, this a real sword?" "Of course, it is a duel after all."
 329615	eng	Hold them there! Don't let them into the city!
 329617	eng	How thoughtful of you to have chilled some wine for us.
+329618	eng	Watch out! A police spy is snooping around.
+329620	eng	I expect you've chanted "kuwabara kuwabara" after a lightning flash, or have seen somebody do so.
 329621	eng	Mama! That lady and man are holding hands, they're great friends aren't they!
 329622	eng	There were many journalists who praised Ogawa with, "bravo, good show!"
 329626	eng	Expressions and smiles change like that just from applying rouge and lipstick.
@@ -4112,6 +4177,7 @@
 329678	eng	Sorry, "my hands shuddered with the cold" was a bit over the top.
 329679	eng	Apparently an old friend of mine is going to a university in Osaka in Spring.
 329680	eng	Why are '0.3' pencil leads so expensive?
+329682	eng	The "People's Choice" award, by public polling, was announced again this year and Mel Gibson and Julia Roberts were selected as the most popular male, and female, film actors.
 329685	eng	He risked his life to carry out his duty and inspired police officers everywhere.
 329686	eng	Why have you kept such an excellent wine back till now?
 329688	eng	I also prefer it with the hair worn up.
@@ -4161,6 +4227,7 @@
 395534	eng	My father gives my mother all of his salary.
 400066	eng	You can't fight city hall.
 400111	eng	Adversity strengthens the foundations.
+400581	eng	Why is it you can write a letter in English this well, but can't speak it?
 401762	eng	"Are you going to buy a lottery ticket?" "I don't think I'm lucky at gambling."
 401813	eng	What did you eat for lunch today?
 402035	eng	I'll call at your house tomorrow.
@@ -4176,6 +4243,7 @@
 433531	eng	I'll give you five dollars.
 435575	eng	Calm down.
 435650	eng	I want you to dry my tears.
+437322	eng	This game is basically designed for use with keyboard and gamepad but configuration can only be done by mouse.
 438210	eng	My father is shaving in the bathroom.
 441752	eng	Judging by her expression, she looked worried.
 441968	eng	Please speak in a louder voice.
@@ -4216,6 +4284,7 @@
 506757	eng	It goes without saying that it was supremely difficult to carry out this mission.
 507506	eng	She will give birth to a child next month.
 507507	eng	She will have a baby next month.
+516611	eng	The film began at 2.
 518926	eng	If you come back by five, you may go.
 520679	eng	Cut the quartered Chinese cabbage into wide strips.
 521660	eng	Which would you rather do, go to a movie or stay at home?
@@ -4225,6 +4294,7 @@
 528858	eng	He was able to memorize that poem when he was five years old.
 536515	eng	The mere sight of a mosquito makes her sick.
 538063	eng	Mr. Johnson's room was a large one.
+540398	eng	Additionally, the tale starting with "Genji's Story" was also much loved.
 541212	eng	Here come the police. Let's get out of here.
 543075	eng	My sister shelled the beans.
 546462	eng	Yes. She got an introduction from her previous doctor and transferred to this hospital.
@@ -4303,6 +4373,7 @@
 1088537	eng	It's difficult choosing between what's right and what's wrong, but you have to choose.
 1088538	eng	It's difficult choosing between what's right and what's wrong, but you have to make the choice.
 1093278	eng	Tom linked to my website from his blog.
+1099531	eng	The car he was riding crashed into a train.
 1101528	eng	There was a statement in the Asahi newspaper yesterday or the day before stressing that you shouldn't quote Wikipedia.
 1123494	eng	Calm down!
 1164101	eng	They provide value for money.
@@ -4335,12 +4406,14 @@
 1292956	eng	Fallen rocks blocked the way.
 1292958	eng	Fallen rocks blocked the road.
 1293047	eng	Strange rumors are going around.
+1293167	eng	I wrote her a letter every day.
 1304623	eng	The story begins a long time ago.
 1307546	eng	Flags had been hoisted on the eaves of houses.
 1308112	eng	Frankly speaking, I don't like him.
 1308115	eng	Frankly speaking, I don't like the idea.
 1311220	eng	I wonder if exchange students can join this club.
 1315784	eng	He's being threatened by a certain gangster.
+1316041	eng	He tidied up his room.
 1316139	eng	He put me up for a night.
 1316140	eng	He let me stay for a night.
 1316141	eng	He put the traveler up for the night.
@@ -4416,6 +4489,7 @@
 1636183	eng	Every rose has its thorns.
 1643204	eng	The wind still blows strongly.
 1643209	eng	"Good morning. You're late today, aren't you?" "Yeah, I got a bit caught up."
+1664985	eng	The dragonfly gracefully passed over the water.
 1665448	eng	"Good morning. You were a bit late today." "Mhm, I got a tad delayed."
 1722133	eng	Relax.
 1860739	eng	Cool down.
@@ -4461,6 +4535,7 @@
 2766914	eng	Fry me an egg.
 2766916	eng	Fry me some eggs.
 2768601	eng	I was late for school.
+2769808	eng	I bought an Apple mouse. It's only 69 €!
 2769861	eng	My eyes itch.
 2795064	eng	I'm surprised that you're so naive.
 2806245	eng	I can't raise my right arm.
@@ -4542,10 +4617,12 @@
 7792961	eng	You can't burn anything without oxygen.
 7895906	eng	The graffiti-covered building is ugly to look at.
 7957078	eng	Please start up the motor, Tom.
+8043840	eng	Why do people go to movies?
 8092948	eng	You're too lightly dressed.
 8215914	eng	Don't change horses midstream.
 8249346	eng	He thought of a brilliant idea.
 8264243	eng	I hope that I'm not disturbing you.
+8289091	eng	I bought a new mouse.
 8290896	eng	The sea was rough.
 8332467	eng	My father told me to wash the car.
 8334290	eng	I felt I was being spied on.
@@ -4599,10 +4676,12 @@
 10650513	eng	Don't talk to me before I've had my coffee.
 10650554	eng	Brush your teeth before going to sleep.
 10708143	eng	I can't live without television.
+10729865	eng	The film started at two o'clock.
 10756900	eng	The explosion shook the entire building.
 10783721	eng	He believed that Black people could win their fight for equal rights without violence.
 10794205	eng	My salary rose in April.
 10794206	eng	I had a pay raise in April.
+10875155	eng	It'll go away by itself in two weeks.
 10971358	eng	He shook his head angrily.
 11029978	eng	After rain comes nice weather.
 11129748	eng	She's weak by nature.
@@ -4627,6 +4706,8 @@
 12399816	eng	Personally, I think this is a lie.
 12419945	eng	I'll go get a bucket of water.
 12455241	eng	White and yellow flowers were blooming on the side of the road.
+12459079	eng	I was reading the letter you sent me.
+12459080	eng	I was reading the letters you sent me.
 12598572	eng	Please do whatever that person tells you to do.
 12613035	eng	Hatred is the other side of cuteness.
 12613037	eng	Those who are cute have a hateful backside.

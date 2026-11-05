@@ -40,6 +40,14 @@ _Avoid_: Graph, intonation line
 One numbered meaning of a word in JMdict (from 1), with its English glosses; only the senses that apply to the word's spelling and reading.
 _Avoid_: Meaning, definition
 
+**Chinese gloss**:
+The Simplified Chinese for a sense, from Chinese Wiktionary, or from the same-spelt Chinese word in CC-CEDICT when its English agrees (labelled 同形词). Wiktionary Chinese that fits no single sense is kept on the word.
+_Avoid_: Translation, 机翻 (no machine translation is used)
+
+**Meaning search**:
+Finding Japanese words by typing a Chinese or English gloss (`吃`, `eat`) instead of the word itself; matches rank exact, then prefix, then contains, and words reached only through CC-CEDICT's English (a **pivot**) come last.
+_Avoid_: Reverse lookup, translation search
+
 **Example sentence**:
 A corpus sentence (Tatoeba, or KFTT as a fallback) that uses the looked-up word, shown with its translations under the sense it illustrates.
 _Avoid_: Sample

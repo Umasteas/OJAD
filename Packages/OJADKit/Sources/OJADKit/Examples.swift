@@ -2,13 +2,26 @@ import Foundation
 
 /// One JMdict sense of a dictionary word, numbered as in JMdict (from 1).
 public struct WordSense: Sendable, Hashable, Identifiable {
+    /// Where a sense's Simplified Chinese comes from (`scripts/dictionary/chinese.py`).
+    public enum ChineseSource: String, Sendable, Hashable {
+        /// Chinese Wiktionary's definition of the Japanese word.
+        case wiktionary
+        /// The Chinese word spelt the same (衝突 → 冲突), when CC-CEDICT's English agrees with the sense.
+        case cedict
+    }
+
     public let number: Int
     /// Up to three English glosses, e.g. `to eat`.
     public let gloss: String
+    /// Simplified Chinese for this sense, e.g. `吃`; nil when no source has one.
+    public let chinese: String?
+    public let chineseSource: ChineseSource?
 
-    public init(number: Int, gloss: String) {
+    public init(number: Int, gloss: String, chinese: String? = nil, chineseSource: ChineseSource? = nil) {
         self.number = number
         self.gloss = gloss
+        self.chinese = chinese
+        self.chineseSource = chineseSource
     }
 
     public var id: Int { number }
@@ -44,16 +57,23 @@ public struct ExampleSentence: Sendable, Hashable, Identifiable {
     public let id: Int
     public let japanese: String
     public let english: String?
+    /// Simplified Chinese translation, from Tatoeba.
     public let chinese: String?
+    /// The Chinese translates the English translation rather than the Japanese.
+    public let chineseViaEnglish: Bool
     /// JMdict sense number; nil when unknown.
     public let sense: Int?
     public let basis: Basis
 
-    public init(id: Int, japanese: String, english: String?, chinese: String?, sense: Int?, basis: Basis) {
+    public init(
+        id: Int, japanese: String, english: String?, chinese: String?, chineseViaEnglish: Bool = false,
+        sense: Int?, basis: Basis
+    ) {
         self.id = id
         self.japanese = japanese
         self.english = english
         self.chinese = chinese
+        self.chineseViaEnglish = chineseViaEnglish
         self.sense = sense
         self.basis = basis
     }

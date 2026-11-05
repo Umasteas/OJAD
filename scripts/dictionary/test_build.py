@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 import build
+import chinese
 import examples
 
 ROOT = os.path.dirname(os.path.dirname(build.HERE))
@@ -111,9 +112,46 @@ class SampleDictionaryTests(unittest.TestCase):
 
     def test_metadata_records_the_sources(self):
         meta = dict(self.db.execute('SELECT key, value FROM meta'))
-        self.assertEqual(meta['schema'], '3')
+        self.assertEqual(meta['schema'], '4')
         self.assertEqual(meta['tatoeba'], 'sample')
         self.assertEqual(meta['kftt'], '1.0')
+        self.assertEqual(meta['wiktionary'], 'sample')
+        self.assertEqual(meta['cedict'], 'sample')
+
+    def chinese_of(self, written):
+        return self.db.execute(
+            """SELECT s.number, s.chinese, s.chinese_source FROM senses s JOIN words w ON w.id = s.word_id
+               WHERE w.written = ? ORDER BY s.number""", (written,)).fetchall()
+
+    def test_senses_get_wiktionary_chinese_aligned_by_meaning(self):
+        self.assertEqual(self.chinese_of('食べる')[0][2], chinese.WIKTIONARY)
+        self.assertIn('吃', self.chinese_of('食べる')[0][1])
+        self.assertIn('维持生计', self.chinese_of('食べる')[1][1])
+        self.assertEqual(self.chinese_of('映画'), [(1, '电影', chinese.WIKTIONARY)])
+        mouse = dict((n, zh) for n, zh, _ in self.chinese_of('マウス'))
+        self.assertIsNone(mouse[1], 'the laboratory mouse is not a computer mouse')
+        self.assertIn('鼠标', mouse[2])
+
+    def test_cognates_need_overlapping_english(self):
+        self.assertEqual(self.chinese_of('衝突')[0], (1, '冲突', chinese.CEDICT))
+        for written, false_friend in (('勉強', '勉强'), ('手紙', '手纸')):
+            self.assertNotIn(false_friend, [zh for _, zh, _ in self.chinese_of(written)], written)
+
+    def test_chinese_and_english_glosses_find_the_word(self):
+        def found(term):
+            return {(w, tier) for w, tier in self.db.execute(
+                'SELECT w.written, g.tier FROM glosses g JOIN words w ON w.id = g.word_id WHERE g.term = ?', (term,))}
+        self.assertIn(('食べる', chinese.TIER_CHINESE), found('吃'))
+        self.assertIn(('食べる', chinese.TIER_ENGLISH), found('eat'))
+        self.assertIn(('映画', chinese.TIER_CHINESE), found('电影'))
+        self.assertEqual(self.db.execute("SELECT simplified FROM t2s WHERE traditional = '學'").fetchone(), ('学',))
+
+    def test_example_chinese_is_simplified_and_labelled_when_via_english(self):
+        rows = self.db.execute('SELECT chinese, chinese_via FROM sentences WHERE chinese IS NOT NULL').fetchall()
+        self.assertTrue(any(via == 'english' for _, via in rows))
+        self.assertTrue(any(via is None for _, via in rows))
+        common_traditional = set('這個們說時會麼裡來對還開們')
+        self.assertFalse(any(set(zh) & common_traditional for zh, _ in rows), 'example Chinese is stored in simplified')
 
 
 class ExampleMatchingTests(unittest.TestCase):
@@ -146,12 +184,45 @@ class ExampleMatchingTests(unittest.TestCase):
     def test_every_sense_gets_one_before_any_gets_two(self):
         def candidate(i, sense, basis=examples.TAGGED):
             return {'id': i, 'sense': sense, 'basis': basis, 'japanese': 'あ' * 18, 'english': 'x',
-                    'chinese': None, 'checked': True}
+                    'chinese': None, 'chinese_via': None, 'checked': True}
         pool = [candidate(i, 1) for i in range(1, 6)] + [candidate(10, 2), candidate(20, None, examples.UNASSIGNED)]
         chosen = examples.choose(pool, [1, 2, 3])
         self.assertEqual([(c['id'], c['sense']) for c in chosen], [(1, 1), (2, 1), (10, 2)])
         lonely = examples.choose([candidate(1, 1), candidate(20, None, examples.UNASSIGNED)], [1])
         self.assertEqual([c['id'] for c in lonely], [1, 20], 'unassigned sentences top a word up to two')
+
+
+class ChineseTests(unittest.TestCase):
+    def test_long_vowels_match_across_spelling_and_pronunciation(self):
+        self.assertEqual(chinese.pronunciation('がっこー'), chinese.pronunciation('がっこう'))
+        self.assertEqual(chinese.pronunciation('えーが'), chinese.pronunciation('えいが'))
+        self.assertEqual(chinese.pronunciation('ネーサン'), chinese.pronunciation('ねえさん'))
+        self.assertNotEqual(chinese.pronunciation('きのう'), chinese.pronunciation('きの'))
+
+    def test_old_wiktionary_blocks(self):
+        convert = chinese.Converter(**build.local_inputs(os.path.join(build.HERE, 'sample'))['opencc'])
+        self.assertEqual(chinese._legacy('整理【せいり】\n名·他サ\n1. 整理，收拾。\n2. 清理，处理。\n人員整理\n精简人员。', convert),
+                         ('せいり', ['整理，收拾', '清理，处理']))
+        self.assertEqual(chinese._legacy('愛吟【あいぎん】\n名?他サ 喜欢吟诵(诗歌)。', convert), ('あいぎん', ['喜欢吟诵(诗歌)']))
+        self.assertEqual(chinese._legacy('上下【じょうげ】\n上下。', convert), ('じょうげ', ['上下']))
+        self.assertEqual(chinese._legacy('哀恳，哀求。', convert), (None, ['哀恳，哀求']))
+        self.assertEqual(chinese.clean_gloss('名·自他サ 下降，落下。', convert), '下降，落下')
+        self.assertEqual(chinese.clean_gloss(':Template:音乐 休止符', convert), '休止符')
+        self.assertEqual(chinese.clean_gloss('思索，[[盘算', convert), '思索，盘算')
+        self.assertEqual(chinese.clean_gloss('一下', convert), '一下')
+        self.assertIsNone(chinese.clean_gloss('诘(きつ)问(もん) (kitsumon)', convert))
+        self.assertEqual(chinese._spelling_prefix('【見る、視る】 看，观看。'), (('見る', '視る'), '看，观看。'))
+        self.assertEqual(convert.simplified('學校'), '学校')
+        self.assertEqual(convert.from_japanese('衝突'), '冲突')
+
+    def test_search_terms(self):
+        self.assertEqual(chinese.english_items('to eat (with chopsticks)'), 'eat')
+        self.assertEqual(chinese.chinese_items('吃喝，饮食（古）'), ['吃喝', '饮食'])
+        self.assertEqual(chinese.distinct(['直率，开放，坦率', '开放，坦率', '露骨']), ['直率，开放，坦率', '露骨'])
+        terms = chinese.search_terms({1: ('吃', chinese.WIKTIONARY)}, ['饮食'], [(1, ['to eat'])], [(1, ['吃', '食'])])
+        self.assertEqual(terms, [('eat', 1, chinese.TIER_ENGLISH, 0), ('吃', 1, chinese.TIER_CHINESE, 0),
+                                 ('食', 1, chinese.TIER_PIVOT, 1), ('饮食', None, chinese.TIER_CHINESE, 0)])
+        self.assertEqual(chinese.english_items('dog (Canis (lupus) familiaris)'), 'dog')
 
 
 class SearchKeyTests(unittest.TestCase):

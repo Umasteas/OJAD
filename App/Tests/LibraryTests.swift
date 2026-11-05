@@ -110,12 +110,26 @@ final class LibraryTests: XCTestCase {
     func testSuggestionsAcceptRomaji() async throws {
         let library = try offlineLibrary()
         let suggestions = await library.suggestions(for: "tabe")
-        XCTAssertEqual(suggestions.first?.written, "食べる")
-        XCTAssertLessThanOrEqual(suggestions.count, 10)
+        XCTAssertEqual(suggestions.first?.word.written, "食べる")
+        XCTAssertLessThanOrEqual(suggestions.count, 12)
         XCTAssertEqual(library.diagnostics.lastSuggestion?.query, "tabe")
         XCTAssertEqual(library.diagnostics.lastSuggestion?.results, suggestions.count)
         let empty = await library.suggestions(for: "")
         XCTAssertTrue(empty.isEmpty)
+    }
+
+    func testChineseAndEnglishFindTheJapaneseWord() async throws {
+        let library = try offlineLibrary()
+        for typed in ["吃", "eat", "To eat"] {
+            let suggestions = await library.suggestions(for: typed)
+            guard case .meaning(let match)? = suggestions.first else {
+                return XCTFail("\(typed): \(suggestions.map(\.word.written))")
+            }
+            XCTAssertEqual(match.word.written, "食べる", typed)
+            XCTAssertFalse(match.gloss.isEmpty, typed)
+        }
+        let movie = await library.suggestions(for: "電影")
+        XCTAssertEqual(movie.first?.word.written, "映画")
     }
 
     func testTheBundledDictionaryIsInTheAppAndOpens() {
@@ -125,7 +139,7 @@ final class LibraryTests: XCTestCase {
         XCTAssertEqual(bundled.diagnostics.state, .loaded)
         XCTAssertGreaterThan(bundled.diagnostics.words, 100_000)
         XCTAssertGreaterThan(bundled.diagnostics.fileSize, 10_000_000)
-        XCTAssertEqual(bundled.dictionary?.metadata["schema"], "3")
+        XCTAssertEqual(bundled.dictionary?.metadata["schema"], "4")
     }
 
     func testAMissingOrBrokenDictionaryIsReportedAndSearchSaysSo() async throws {
@@ -154,7 +168,7 @@ final class LibraryTests: XCTestCase {
         let library = try offlineLibrary()
         BundledDictionary.shared.dictionary?.warmUp()
         let clock = ContinuousClock()
-        for typed in ["あ", "か", "し", "s", "tabe", "たb", "食", "ta be"] {
+        for typed in ["あ", "か", "し", "s", "tabe", "たb", "食", "ta be", "吃", "電影", "eat", "water", "老师"] {
             let start = clock.now
             let words = await library.suggestions(for: typed)
             let elapsed = start.duration(to: clock.now)
