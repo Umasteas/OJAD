@@ -28,6 +28,7 @@ final class ScreenshotTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["to eat"].waitForExistence(timeout: 5), "JMdict gloss missing")
         // Default: everyday forms open, the rest folded.
         XCTAssertTrue(app.staticTexts["〜ます形"].exists, "常用形 should start expanded")
+        assertHeadline(contains: ["食べる，たべꜜる", "食べます，たべまꜜす"])
         snapshot("3-conjugations")
 
         app.buttons["全部展开"].tap()
@@ -99,6 +100,42 @@ final class ScreenshotTests: XCTestCase {
         snapshot("9-history-confirm-clear")
         confirm.tap()
         XCTAssertTrue(app.staticTexts["没有查询记录"].waitForExistence(timeout: 5))
+
+        // A noun with two accent variants, and an adjective with two readings of its forms.
+        openFromSuggestion(typing: "eiga", word: "映画")
+        assertHeadline(contains: ["映画，えꜜいが，えいが"])
+        snapshot("10-headline-noun-variants")
+        openFromSuggestion(typing: "tsumetai", word: "冷たい")
+        assertHeadline(contains: ["冷たい，", "冷たいです，"])
+        snapshot("11-headline-adjective")
+    }
+
+    private func openFromSuggestion(typing romaji: String, word: String) {
+        app.tabBars.buttons["查询"].tap()
+        for _ in 0..<3 where !(app.searchFields.firstMatch.exists && app.searchFields.firstMatch.isHittable) {
+            let back = app.navigationBars.buttons.element(boundBy: 0)
+            guard back.exists else { break }
+            back.tap()
+        }
+        let field = app.searchFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap()
+        field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 10) + romaji)
+        let suggestion = app.buttons
+            .matching(NSPredicate(format: "identifier == 'suggestion' AND label CONTAINS %@", word))
+            .firstMatch
+        XCTAssertTrue(suggestion.waitForExistence(timeout: 10), "No suggestion for \(word)")
+        suggestion.tap()
+        XCTAssertTrue(app.navigationBars[word].waitForExistence(timeout: 10))
+    }
+
+    /// The headline's accessibility label lists each part with its pitch notation.
+    private func assertHeadline(contains parts: [String], file: StaticString = #filePath, line: UInt = #line) {
+        let headline = app.descendants(matching: .any)["headline"]
+        XCTAssertTrue(headline.waitForExistence(timeout: 5), "No headline", file: file, line: line)
+        for part in parts {
+            XCTAssertTrue(headline.label.contains(part), "Headline is \(headline.label)", file: file, line: line)
+        }
     }
 
     /// A conjugation group's disclosure row (its label also lists the folded forms).

@@ -23,7 +23,7 @@ struct WordDetailView: View {
         List {
             Section {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(entry.headword).font(.title2.bold())
+                    WordHeadline(entry: entry)
                     Text(entry.category.displayName).font(.subheadline).foregroundStyle(.secondary)
                     if let gloss = word?.gloss {
                         Text(gloss).font(.subheadline).foregroundStyle(.secondary).textSelection(.enabled)
